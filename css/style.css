@@ -64,7 +64,7 @@
     src: local('Mark Pro Black'), url('fonts/MARKPROBLACK.woff') format('woff');
     }
 body {
-    background-image: url('../image/bg.png');
+    background-image: url('../image/bg.jpeg');
     background-size: cover;
 }
 .header {

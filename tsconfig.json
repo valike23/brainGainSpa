@@ -1,0 +1,11 @@
+{
+		"extends": "@tsconfig/svelte/tsconfig.json",
+		"compilerOptions": {
+			"lib": ["DOM", "ES2017", "WebWorker"]
+		},
+		"include": ["src/**/*", "src/node_modules/**/*"],
+		"exclude": ["node_modules/*", "__sapper__/*", "static/*"],
+		"typeRoots": [
+			"node_modules/@develephant/types-phaser"
+		  ] 
+	}

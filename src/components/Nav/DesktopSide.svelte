@@ -117,7 +117,28 @@
                 <li>
                     <a href="app/academics/skill_pratice" class="side-menu">
                         <div class="side-menu__icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></g></svg>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink"
+                                aria-hidden="true"
+                                role="img"
+                                width="1em"
+                                height="1em"
+                                preserveAspectRatio="xMidYMid meet"
+                                viewBox="0 0 24 24"
+                                ><g
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    ><path
+                                        d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"
+                                    /><path
+                                        d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+                                    /></g
+                                ></svg
+                            >
                         </div>
                         <div class="side-menu__title">Skill Pratice</div>
                     </a>

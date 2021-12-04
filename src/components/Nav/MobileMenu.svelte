@@ -1,7 +1,7 @@
 <div class="mobile-menu d-md-none">
     <div class="mobile-menu-bar">
         <a href="" class="d-flex me-auto">
-            <img alt="Rubick Bootstrap HTML Admin Template" class="w-6" src="dist/images/logo.svg">
+            <img alt="Braingainspa Template" class="w-6" src="dist/images/logo.svg">
         </a>
         <a href="javascript:;" id="mobile-menu-toggler" class="mobile-menu-bar__toggler"> <i data-feather="bar-chart-2" class="w-8 h-8 text-white"></i> </a>
     </div>

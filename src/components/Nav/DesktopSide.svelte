@@ -15,7 +15,7 @@
             src="dist/images/logo.svg"
         />
         <span class="d-none d-xl-block text-white fs-lg ms-3">
-            Ru<span class="fw-medium">bick</span>
+           BrainGain<span class="fw-medium">spa</span>
         </span>
     </a>
     <div class="side-nav__devider my-6" />

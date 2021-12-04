@@ -1,8 +1,9 @@
 <div class="top-bar">
     <!-- BEGIN: Breadcrumb -->
     <div class="-intro-x breadcrumb me-auto d-none d-sm-flex">
-        <a href="">Application</a>
-        <i data-feather="chevron-right" class="breadcrumb__icon" />
+        <a href="app/dashboard">Application</a>
+        <svg class="breadcrumb__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6l-6-6"/></g></svg>
+        
         <a href="app/dashboard" class="breadcrumb--active"
             >Dashboard</a
         >
@@ -215,10 +216,8 @@
             aria-expanded="false"
             data-bs-toggle="dropdown"
         >
-            <i
-                data-feather="bell"
-                class="notification__icon dark-text-gray-300"
-            />
+        <svg   class="notification__icon dark-text-gray-300" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></g></svg>
+            
         </div>
         <div class="notification-content pt-2 dropdown-menu">
             <div class="notification-content__box dropdown-content">

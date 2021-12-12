@@ -11,7 +11,7 @@
       
   
         <li>
-            <a href="app/dashboard" class="menu">
+            <a href="dashboard" class="menu">
                 <div class="menu__icon">   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"

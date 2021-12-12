@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import DashSideBar from "../../../components/DashSideBar.svelte";
-    import Title from "../../../components/PageComponents/Title.svelte";
+import DashSideBar from "../../components/DashSideBar.svelte";
+import Title from "../../components/PageComponents/Title.svelte";
     let win: any = {};
     onMount(() => {
         win = window;
@@ -34,7 +34,7 @@
 <div id="main">
     <div class="container">
         <div class="row">
-            <DashSideBar />
+            <DashSideBar/>
             <div class="col-9 content">
                 <Title title={"Home"} />
                 <div style="margin-bottom: 46px;">

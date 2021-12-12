@@ -18,7 +18,7 @@
         <li>
             <a
                 class:side-menu--active={dash == "dashboard"}
-                href="app/dashboard"
+                href="/dashboard"
                 class="side-menu  "
             >
                 <div class="side-menu__icon">
@@ -115,7 +115,7 @@
             </a>
             <ul class="">
                 <li>
-                    <a href="app/academics/skill_pratice" class="side-menu">
+                    <a href="academics/skill_pratice" class="side-menu">
                         <div class="side-menu__icon">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +144,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="app/academics/past_questions" class="side-menu">
+                    <a href="academics/past_questions" class="side-menu">
                         <div class="side-menu__icon">
                             <i data-feather="activity" />
                         </div>

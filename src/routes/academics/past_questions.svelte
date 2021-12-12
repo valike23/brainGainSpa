@@ -1,6 +1,8 @@
 <script>
-    import DesktopSide from "../../../components/Nav/DesktopSide.svelte";
-    import MobileMenu from "../../../components/Nav/MobileMenu.svelte";
+import DesktopSide from "../../components/Nav/DesktopSide.svelte";
+import MobileMenu from "../../components/Nav/MobileMenu.svelte";
+
+    
 </script>
 
 <svelte:head>
@@ -8,9 +10,9 @@
     <script defer src="dist/js/app.js"></script>
 </svelte:head>
 <div class="main">
-    <MobileMenu />
+    <MobileMenu/>
     <div class="d-flex">
-        <DesktopSide dash="academics"/>
+       <DesktopSide dash="academics" />
         <div class="content">
             <!-- BEGIN: Top Bar -->
             <div class="top-bar">

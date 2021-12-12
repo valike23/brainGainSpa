@@ -1,9 +1,9 @@
 <script lang="ts">
     import { onMount } from "svelte";
+import DesktopSide from "../../components/Nav/DesktopSide.svelte";
+import MobileMenu from "../../components/Nav/MobileMenu.svelte";
+import TopBar from "../../components/Nav/TopBar.svelte";
 
-    import DesktopSide from "../../../components/Nav/DesktopSide.svelte";
-    import MobileMenu from "../../../components/Nav/MobileMenu.svelte";
-    import TopBar from "../../../components/Nav/TopBar.svelte";
     let win: any = {};
     onMount(() => {
         win = window;
@@ -49,7 +49,7 @@
         <DesktopSide dash="dashboard" />
         <div class="content">
             <!-- BEGIN: Top Bar -->
-            <TopBar />
+            <TopBar/>
             <!-- END: Top Bar -->
             <div class="grid columns-12 gap-6 mt-8">
                 <div class="g-col-12 g-col-lg-3 g-col-xxl-2">

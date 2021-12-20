@@ -3,7 +3,7 @@
 </script>
 
 <nav class="side-nav">
-    <a href="" class="intro-x d-flex align-items-center ps-5 pt-4">
+    <a href="/dashboard" rel="external" class="intro-x d-flex align-items-center ps-5 pt-4">
         <img
             alt="Rubick Tailwind HTML Admin Template"
             class="w-6"
@@ -115,7 +115,7 @@
             </a>
             <ul class="">
                 <li>
-                    <a href="academics/skill_pratice" class="side-menu">
+                    <a rel="external" href="./academics/skill_pratice" class="side-menu">
                         <div class="side-menu__icon">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -144,7 +144,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="academics/past_questions" class="side-menu">
+                    <a rel="external" href="./academics/past_questions" class="side-menu">
                         <div class="side-menu__icon">
                             <i data-feather="activity" />
                         </div>
@@ -153,7 +153,8 @@
                 </li>
                 <li>
                     <a
-                        href="simple-menu-light-dashboard-overview-1.html"
+                    rel="external"
+                        href="./academics/quiz"
                         class="side-menu"
                     >
                         <div class="side-menu__icon">

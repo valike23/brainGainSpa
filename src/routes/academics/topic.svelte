@@ -1,14 +1,12 @@
-<script lang="ts">
+<script>
     import DesktopSide from "../../components/Nav/DesktopSide.svelte";
     import MobileMenu from "../../components/Nav/MobileMenu.svelte";
     import TopBar from "../../components/Nav/TopBar.svelte";
 
-    const gotoTopic = () => {
-        location.href = "academics/topic";
-    };
+    const gotoTopic = ()=>{
+        location.href="academics/instruction"
+    }
 </script>
-
-<svelte:head />
 
 <div class="main">
     <MobileMenu />
@@ -18,10 +16,9 @@
         <div class="content">
             <TopBar />
             <div class="row" style="margin-bottom: 50px;">
-                <h2 class="intro-y fs-lg fw-medium me-auto mt-2">
-                    Skill Pratice
-                </h2>
+                <h2 class="intro-y fs-lg fw-medium me-auto mt-2">Topics</h2>
             </div>
+
             <div class="uk-margin">
                 <form class="uk-search uk-search-default rnd">
                     <span class="uk-search-icon-flip" uk-search-icon />
@@ -39,90 +36,90 @@
                         class="uk-card uk-card-default uk-card-body "
                     >
                         <div class="svgbody">
-                            <img src="svg/chemistry.svg" alt="" srcset="" />
+                            <img src="svg/surds.svg" alt="" srcset="" />
 
-                            <p>Chemistry</p>
+                            <p>Square Roots</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-sm-3 m2">
                     <div class="uk-card uk-card-default uk-card-body ">
                         <div class="svgbody">
-                            <img src="svg/physics.svg" alt="" srcset="" />
+                            <img src="svg/numbers.svg" alt="" srcset="" />
 
-                            <p>Physics</p>
+                            <p>Numbers System</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-sm-3 m2">
                     <div class="uk-card uk-card-default uk-card-body ">
                         <div class="svgbody">
-                            <img src="svg/biology.svg" alt="" srcset="" />
+                            <img src="svg/numbers.svg" alt="" srcset="" />
 
-                            <p>Biology</p>
+                            <p>Indices</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-sm-3 m2">
                     <div class="uk-card uk-card-default uk-card-body ">
                         <div class="svgbody">
-                            <img src="svg/maths.svg" alt="" srcset="" />
+                            <img src="svg/numbers.svg" alt="" srcset="" />
 
-                            <p>Mathematics</p>
+                            <p>Stndard Form</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-sm-3 m2">
                     <div class="uk-card uk-card-default uk-card-body ">
                         <div class="svgbody">
-                            <img src="svg/english.svg" alt="" srcset="" />
+                            <img src="svg/equation.svg" alt="" srcset="" />
 
-                            <p>English</p>
+                            <p>Simple Equations</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-sm-3 m2">
                     <div class="uk-card uk-card-default uk-card-body ">
                         <div class="svgbody">
-                            <img src="svg/history.svg" alt="" srcset="" />
+                            <img src="svg/equation.svg" alt="" srcset="" />
 
-                            <p>History</p>
+                            <p>Qudratic Equations</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-sm-3 m2">
                     <div class="uk-card uk-card-default uk-card-body ">
                         <div class="svgbody">
-                            <img src="svg/commerce.svg" alt="" srcset="" />
+                            <img src="svg/geometry.svg" alt="" srcset="" />
 
-                            <p>Commercial</p>
+                            <p>Trigonometry</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-sm-3 m2">
                     <div class="uk-card uk-card-default uk-card-body ">
                         <div class="svgbody">
-                            <img src="svg/computer.svg" alt="" srcset="" />
+                            <img src="svg/geometry.svg" alt="" srcset="" />
 
-                            <p>Computer Sci</p>
+                            <p>Polygon</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-sm-3 m2">
                     <div class="uk-card uk-card-default uk-card-body ">
                         <div class="svgbody">
-                            <img src="svg/accounting.svg" alt="" srcset="" />
+                            <img src="svg/surds.svg" alt="" srcset="" />
 
-                            <p>Accounting</p>
+                            <p>Surds</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-6 col-sm-3 m2">
                     <div class="uk-card uk-card-default uk-card-body ">
                         <div class="svgbody">
-                            <img src="svg/crs.svg" alt="" srcset="" />
+                            <img src="svg/percentage.svg" alt="" srcset="" />
 
-                            <p>CRS</p>
+                            <p>Ratio and Percentage</p>
                         </div>
                     </div>
                 </div>
@@ -156,10 +153,6 @@
         margin: 0 auto;
         width: 50px;
         height: 50px;
-        inline-size: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
     }
     .svgbody > p {
         font-family: "Itim", "roboto";
@@ -167,6 +160,10 @@
         margin-top: 10px;
         padding-top: 10px;
         font-weight: 500;
+        inline-size: 100%;
+        white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
     }
 
     .m2 {

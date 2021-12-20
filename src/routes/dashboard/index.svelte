@@ -8,6 +8,7 @@ import TopBar from "../../components/Nav/TopBar.svelte";
     onMount(() => {
         win = window;
         console.log(Object.keys(win.window.window));
+      try {
         var splide = new win.Splide(".splide", {
             type: "loop",
             perPage: 3,
@@ -31,6 +32,9 @@ import TopBar from "../../components/Nav/TopBar.svelte";
         });
 
         splideTab.mount();
+      } catch (error) {
+          location.reload();
+      }
     });
 </script>
 

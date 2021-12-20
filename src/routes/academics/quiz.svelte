@@ -1,6 +1,5 @@
 <script lang="ts">
     import { onMount } from "svelte";
-    import { dataset_dev } from "svelte/internal";
 
     import DesktopSide from "../../components/Nav/DesktopSide.svelte";
     import MobileMenu from "../../components/Nav/MobileMenu.svelte";
@@ -134,7 +133,7 @@
 </script>
 
 <svelte:head>
-    <link rel="stylesheet" href="css/grid.css" />
+  
 </svelte:head>
 <div class="main">
     <MobileMenu />
@@ -251,6 +250,9 @@
 </div>
 
 <style>
+    h2 {
+	font-family: 'Itim', 'roboto';
+}
     .timer > div {
         display: inline-block;
         margin: 0 auto;

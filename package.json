@@ -2,7 +2,6 @@
   "name": "braingainspa",
   "description": "braingainspa application is a one stop application target at young learners preparing them for the futuree",
   "version": "0.0.1",
-
   "scripts": {
     "dev": "sapper dev",
     "build": "sapper build",

@@ -455,13 +455,14 @@
                 </li>
                 <li>
                     <a
-                        href=""
+                        href="/accounts/referals"
+                        rel="external"
                         class="dropdown-item text-white bg-theme-1-hover dark-bg-dark-3-hover"
                     >
                         <i
                             data-feather="edit"
                             class="w-4 h-4 me-2"
-                        /> Add Account
+                        /> Referals
                     </a>
                 </li>
                 <li>

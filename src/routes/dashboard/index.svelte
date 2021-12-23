@@ -573,10 +573,10 @@
                         >
                             <div class="grid columns-2 gap-3">
                                 <div class="g-col-1">
-                                    <img src="svg/biology.svg" style="width:46px;height:46px" alt="" srcset="">
+                                    <img src="svg/computer.svg" style="width:46px;height:46px" alt="" srcset="">
                                     </div>
                                 <div class="g-col-1">
-                                    <p class="note-text">Bio Chemistry</p>
+                                    <p class="note-text">Data Processing</p>
                                 </div>
                             </div>
                         </div>
@@ -593,6 +593,33 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div
+                        style="background-color:mediumslateblue; "
+                        class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
+                    >
+                        <div class="grid columns-2 gap-3">
+                            <div class="g-col-1">
+                               <img src="svg/commerce.svg" style="width:46px;height:46px" alt="" srcset="">
+                            </div>
+                            <div class="g-col-1">
+                                <p class="note-text">Business Studies</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                    style="background-color:lightpink; "
+                    class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
+                >
+                    <div class="grid columns-2 gap-3">
+                        <div class="g-col-1">
+                           <img src="svg/accounting.svg" style="width:46px;height:46px" alt="" srcset="">
+                        </div>
+                        <div class="g-col-1">
+                            <p class="note-text">Financial Accounting</p>
+                        </div>
+                    </div>
+                </div>
                     </div>
                 </div>
             </div>

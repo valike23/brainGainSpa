@@ -49,7 +49,7 @@
         <li>
             <a
                 class:side-menu--active={dash == "games"}
-                href="/games"
+                href="#"
                 class="side-menu"
             >
                 <div class="side-menu__icon">
@@ -140,7 +140,7 @@
                                 ></svg
                             >
                         </div>
-                        <div class="side-menu__title">Skill Pratice</div>
+                        <div class="side-menu__title">Skill Practice</div>
                     </a>
                 </li>
                 <li>
@@ -154,7 +154,7 @@
                 <li>
                     <a
                     rel="external"
-                        href="./academics/quiz"
+                        href="./academics/past_questions_exam"
                         class="side-menu"
                     >
                         <div class="side-menu__icon">
@@ -162,6 +162,34 @@
                         </div>
                         <div class="side-menu__title">
                             Past Questions [Exams]
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a
+                    rel="external"
+                        href="./academics/topic"
+                        class="side-menu"
+                    >
+                        <div class="side-menu__icon">
+                            <i data-feather="activity" />
+                        </div>
+                        <div class="side-menu__title">
+                            Sample Topic
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a
+                    rel="external"
+                        href="./academics/quiz"
+                        class="side-menu"
+                    >
+                        <div class="side-menu__icon">
+                            <i data-feather="activity" />
+                        </div>
+                        <div class="side-menu__title">
+                            Quiz (Sample)
                         </div>
                     </a>
                 </li>
@@ -209,8 +237,16 @@
                     </a>
                 </li>
                 <li>
+                    <a href="accounts/referals" class="side-menu">
+                        <div class="side-menu__icon">
+                            <i data-feather="activity" />
+                        </div>
+                        <div class="side-menu__title">Referals</div>
+                    </a>
+                </li>
+                <li>
                     <a
-                        href="simple-menu-light-dashboard-overview-1.html"
+                        href="#"
                         class="side-menu"
                     >
                         <div class="side-menu__icon">
@@ -221,18 +257,18 @@
                 </li>
                 <li>
                     <a
-                        href="simple-menu-light-dashboard-overview-1.html"
+                        href="#"
                         class="side-menu"
                     >
                         <div class="side-menu__icon">
                             <i data-feather="activity" />
                         </div>
-                        <div class="side-menu__title">Withdrawl</div>
+                        <div class="side-menu__title">withdrawal</div>
                     </a>
                 </li>
                 <li>
                     <a
-                        href="simple-menu-light-dashboard-overview-1.html"
+                        href="#"
                         class="side-menu"
                     >
                         <div class="side-menu__icon">

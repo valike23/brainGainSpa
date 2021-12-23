@@ -535,7 +535,7 @@
 
                 <div class="g-col-12  g-col-xxl-2">
                     <div class="mflex" style="margin-bottom: 20px;">
-                        <span class="h2 float-left">E-Library</span>
+                        <span class="h2 float-left">Subjects</span>
                         <button class="see float-right btn">SEE ALL</button>
                     </div>
                     <div class="grid columns-12 gap-6 mt-8">

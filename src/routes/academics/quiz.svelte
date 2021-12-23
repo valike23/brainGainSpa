@@ -216,7 +216,7 @@
                         </div>
                         <div class=" mt-4">
                             <div class="col">
-                                <p>{question.subject}</p>
+                                <p style="font-size: 22px;">{question.subject}</p>
                             </div>
                         </div>
                         <div class="row mb-2">

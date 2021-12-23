@@ -154,7 +154,7 @@
         <div class="content">
             <TopBar />
             <div class="row" style="margin-bottom: 50px;">
-                <h2 class="intro-y fs-lg fw-medium me-auto mt-2">Referals</h2>
+                <h2 class="intro-y fs-lg fw-medium me-auto mt-2">referrals</h2>
             </div>
 
             <div id="chart" />

@@ -237,11 +237,11 @@
                     </a>
                 </li>
                 <li>
-                    <a href="accounts/referals" class="side-menu">
+                    <a href="accounts/referrals" class="side-menu">
                         <div class="side-menu__icon">
                             <i data-feather="activity" />
                         </div>
-                        <div class="side-menu__title">Referals</div>
+                        <div class="side-menu__title">referrals</div>
                     </a>
                 </li>
                 <li>

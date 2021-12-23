@@ -182,6 +182,20 @@
                 <li>
                     <a
                     rel="external"
+                        href="./academics/instruction"
+                        class="side-menu"
+                    >
+                        <div class="side-menu__icon">
+                            <i data-feather="activity" />
+                        </div>
+                        <div class="side-menu__title">
+                            Sample Instruction Page
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a
+                    rel="external"
                         href="./academics/quiz"
                         class="side-menu"
                     >

@@ -103,6 +103,12 @@
                         <div class="menu__title"> Topics (Sample) </div>
                     </a>
                 </li>
+                <li>
+                    <a href="/academics/instruction" class="menu">
+                        <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                        <div class="menu__title"> Instruction Page (Sample) </div>
+                    </a>
+                </li>
             </ul>
         </li>
 

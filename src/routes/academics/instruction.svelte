@@ -42,7 +42,7 @@
                 <p class="score row"><img src="svg/tap.svg" class="col-3" alt="" srcset="" /> <span class="col">Tap the correct option to select a Question</span></p>
 
 
-                <div style="margin-top: 25px;">   
+                <div style="margin-top: 45px;">   
                 
                     <button class="uk-button mainBtn uk-button-default uk-button-large">Continue</button>
                 </div>

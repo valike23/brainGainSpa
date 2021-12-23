@@ -229,7 +229,7 @@
             </a>
             <ul class="">
                 <li>
-                    <a href="index.html" class="side-menu">
+                    <a href="javascript:;.html" class="side-menu">
                         <div class="side-menu__icon">
                             <i data-feather="activity" />
                         </div>

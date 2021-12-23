@@ -1,387 +1,130 @@
-<script>
-import DesktopSide from "../../components/Nav/DesktopSide.svelte";
-import MobileMenu from "../../components/Nav/MobileMenu.svelte";
-import TopBar from "../../components/Nav/TopBar.svelte";
+<script lang="ts">
+    import DesktopSide from "../../components/Nav/DesktopSide.svelte";
+    import MobileMenu from "../../components/Nav/MobileMenu.svelte";
+    import TopBar from "../../components/Nav/TopBar.svelte";
 
-    
+    const gotoTopic = () => {
+        location.href = "academics/topic";
+    };
 </script>
 
-<svelte:head>
-    <link rel="stylesheet" href="dist/css/app.css" />
-    <script defer src="dist/js/app.js"></script>
-</svelte:head>
+<svelte:head />
+
 <div class="main">
-    <MobileMenu/>
+    <MobileMenu />
+
     <div class="d-flex">
-       <DesktopSide dash="academics" />
+        <DesktopSide dash="academics" />
         <div class="content">
-            <!-- BEGIN: Top Bar -->
-            <TopBar/>
-            <!-- END: Top Bar -->
-            <div class="grid columns-12 gap-6 mt-8">
-                <div class="g-col-12 g-col-lg-3 g-col-xxl-2">
-                    <h2 class="intro-y fs-lg fw-medium me-auto mt-2">Inbox</h2>
-                    <!-- BEGIN: Inbox Menu -->
-                    <div class="intro-y box bg-theme-1 p-5 mt-6">
-                        <button
-                            type="button"
-                            class="btn text-gray-700 dark-text-gray-300 w-full bg-white dark-bg-theme-1 mt-1"
-                        >
-                            <i class="w-4 h-4 me-2" data-feather="edit-3" /> Compose
-                        </button>
-                        <div
-                            class="border-top border-theme-3 dark-border-dark-5 mt-6 pt-6 text-white"
-                        >
-                            <a
-                                href=""
-                                class="d-flex align-items-center px-3 py-2 rounded-2 bg-theme-20 dark-bg-dark-1 fw-medium"
-                            >
-                                <i class="w-4 h-4 me-2" data-feather="mail" /> Inbox
-                            </a>
-                            <a
-                                href=""
-                                class="d-flex align-items-center px-3 py-2 mt-2 rounded-md"
-                            >
-                                <i class="w-4 h-4 me-2" data-feather="star" /> Marked
-                            </a>
-                            <a
-                                href=""
-                                class="d-flex align-items-center px-3 py-2 mt-2 rounded-md"
-                            >
-                                <i class="w-4 h-4 me-2" data-feather="inbox" /> Draft
-                            </a>
-                            <a
-                                href=""
-                                class="d-flex align-items-center px-3 py-2 mt-2 rounded-md"
-                            >
-                                <i class="w-4 h-4 me-2" data-feather="send" /> Sent
-                            </a>
-                            <a
-                                href=""
-                                class="d-flex align-items-center px-3 py-2 mt-2 rounded-md"
-                            >
-                                <i class="w-4 h-4 me-2" data-feather="trash" /> Trash
-                            </a>
-                        </div>
-                        <div
-                            class="border-top border-theme-3 dark-border-dark-5 mt-4 pt-4 text-white"
-                        >
-                            <a
-                                href=""
-                                class="d-flex align-items-center px-3 py-2 truncate"
-                            >
-                                <div
-                                    class="w-2 h-2 bg-theme-11 rounded-circle me-3"
-                                />
-                                Custom Work
-                            </a>
-                            <a
-                                href=""
-                                class="d-flex align-items-center px-3 py-2 mt-2 rounded-2 truncate"
-                            >
-                                <div
-                                    class="w-2 h-2 bg-theme-9 rounded-circle me-3"
-                                />
-                                Important Meetings
-                            </a>
-                            <a
-                                href=""
-                                class="d-flex align-items-center px-3 py-2 mt-2 rounded-2 truncate"
-                            >
-                                <div
-                                    class="w-2 h-2 bg-theme-12 rounded-circle me-3"
-                                />
-                                Work
-                            </a>
-                            <a
-                                href=""
-                                class="d-flex align-items-center px-3 py-2 mt-2 rounded-2 truncate"
-                            >
-                                <div
-                                    class="w-2 h-2 bg-theme-11 rounded-circle me-3"
-                                />
-                                Design
-                            </a>
-                            <a
-                                href=""
-                                class="d-flex align-items-center px-3 py-2 mt-2 rounded-2 truncate"
-                            >
-                                <div
-                                    class="w-2 h-2 bg-theme-6 rounded-circle me-3"
-                                />
-                                Next Week
-                            </a>
-                            <a
-                                href=""
-                                class="d-flex align-items-center px-3 py-2 mt-2 rounded-2 truncate"
-                            >
-                                <i class="w-4 h-4 me-2" data-feather="plus" /> Add
-                                New Label
-                            </a>
-                        </div>
-                    </div>
-                    <!-- END: Inbox Menu -->
-                </div>
-                <div class="g-col-12 g-col-lg-9 g-col-xxl-10">
-                    <!-- BEGIN: Inbox Filter -->
+            <TopBar />
+            <div class="row" style="margin-bottom: 50px;">
+                <h2 class="intro-y fs-lg fw-medium me-auto mt-2">
+                    Past Questions
+                </h2>
+            </div>
+            <div class="uk-margin">
+                <form class="uk-search uk-search-default rnd">
+                    <span class="uk-search-icon-flip" uk-search-icon />
+                    <input
+                        class="uk-search-input rnd"
+                        type="search"
+                        placeholder="Search"
+                    />
+                </form>
+            </div>
+            <div class="row">
+                <div class="col-6 col-sm-3 m2">
                     <div
-                        class="intro-y d-flex flex-column-reverse flex-sm-row align-items-center"
+                        on:click={gotoTopic}
+                        class="uk-card uk-card-default uk-card-body "
                     >
-                        <div
-                            class="w-full w-sm-auto position-relative me-auto mt-3 mt-sm-0"
-                        >
-                            <i
-                                class="w-4 h-4 position-absolute my-auto top-0 bottom-0 ms-3 start-0 z-10 text-gray-700 dark-text-gray-300"
-                                data-feather="search"
-                            />
-                            <input
-                                type="text"
-                                class="form-control w-full w-sm-64 box px-10 text-gray-700 border-white dark-border-dark-3 dark-text-gray-300 placeholder-theme-13"
-                                placeholder="Search mail"
-                            />
-                            <div
-                                class="inbox-filter dropdown position-absolute top-0 bottom-0 me-3 end-0 d-flex align-items-center"
-                            >
-                                <i
-                                    class="dropdown-toggle w-4 h-4 cursor-pointer text-gray-700 dark-text-gray-300"
-                                    role="button"
-                                    aria-expanded="false"
-                                    data-bs-toggle="dropdown"
-                                    data-feather="chevron-down"
-                                />
-                            </div>
-                        </div>
-                        <div class="w-full w-sm-auto d-flex">
-                            <button class="btn btn-primary shadow-2 me-2"
-                                >Start a Video Call</button
-                            >
-                            <div class="dropdown">
-                                <button
-                                    class="dropdown-toggle btn px-2 box text-gray-700 dark-text-gray-300"
-                                    aria-expanded="false"
-                                    data-bs-toggle="dropdown"
-                                >
-                                    <span
-                                        class="w-5 h-5 d-flex align-items-center justify-content-center"
-                                    >
-                                        <i
-                                            class="w-4 h-4"
-                                            data-feather="plus"
-                                        />
-                                    </span>
-                                </button>
-                                <div class="dropdown-menu w-40">
-                                    <ul class="dropdown-content">
-                                        <li>
-                                            <a href="" class="dropdown-item">
-                                                <i
-                                                    data-feather="user"
-                                                    class="w-4 h-4 me-2"
-                                                /> Contacts
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="dropdown-item">
-                                                <i
-                                                    data-feather="settings"
-                                                    class="w-4 h-4 me-2"
-                                                /> Settings
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div class="svgbody">
+                            <img src="svg/chemistry.svg" alt="" srcset="" />
+
+                            <p>Chemistry</p>
                         </div>
                     </div>
-                    <!-- END: Inbox Filter -->
-                    <!-- BEGIN: Inbox Content -->
-                    <div class="intro-y inbox box mt-5">
-                        <div
-                            class="p-5 d-flex flex-column-reverse flex-sm-row text-gray-600 border-bottom border-gray-200 dark-border-dark-1"
-                        >
-                            <div
-                                class="d-flex align-items-center mt-3 mt-sm-0 border-top border-sm-0 border-gray-200 pt-5 pt-sm-0 mt-5 mt-sm-0 mx-n5 mx-sm-0 px-5 px-sm-0"
-                            >
-                                <input
-                                    class="form-check-input me-0 mt-0"
-                                    type="checkbox"
-                                />
-                                <div class="dropdown ms-1">
-                                    <a
-                                        class="dropdown-toggle w-5 h-5 d-block dark-text-gray-300"
-                                        href="javascript:;"
-                                        aria-expanded="false"
-                                        data-bs-toggle="dropdown"
-                                    >
-                                        <i
-                                            data-feather="chevron-down"
-                                            class="w-5 h-5"
-                                        />
-                                    </a>
-                                    <div class="dropdown-menu w-32">
-                                        <ul class="dropdown-content">
-                                            <li>
-                                                <a href="" class="dropdown-item"
-                                                    >All</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a href="" class="dropdown-item"
-                                                    >None</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a href="" class="dropdown-item"
-                                                    >Read</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a href="" class="dropdown-item"
-                                                    >Unread</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a href="" class="dropdown-item"
-                                                    >Starred</a
-                                                >
-                                            </li>
-                                            <li>
-                                                <a href="" class="dropdown-item"
-                                                    >Unstarred</a
-                                                >
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <a
-                                    href="javascript:;"
-                                    class="w-5 h-5 ms-5 d-flex align-items-center justify-content-center dark-text-gray-300"
-                                >
-                                    <i
-                                        class="w-4 h-4"
-                                        data-feather="refresh-cw"
-                                    />
-                                </a>
-                                <a
-                                    href="javascript:;"
-                                    class="w-5 h-5 ms-5 d-flex align-items-center justify-content-center dark-text-gray-300"
-                                >
-                                    <i
-                                        class="w-4 h-4"
-                                        data-feather="more-horizontal"
-                                    />
-                                </a>
-                            </div>
-                            <div class="d-flex align-items-center ms-sm-auto">
-                                <div class="dark-text-gray-300">
-                                    1 - 50 of 5,238
-                                </div>
-                                <a
-                                    href="javascript:;"
-                                    class="w-5 h-5 ms-5 d-flex align-items-center justify-content-center dark-text-gray-300"
-                                >
-                                    <i
-                                        class="w-4 h-4"
-                                        data-feather="chevron-left"
-                                    />
-                                </a>
-                                <a
-                                    href="javascript:;"
-                                    class="w-5 h-5 ms-5 d-flex align-items-center justify-content-center dark-text-gray-300"
-                                >
-                                    <i
-                                        class="w-4 h-4"
-                                        data-feather="chevron-right"
-                                    />
-                                </a>
-                                <a
-                                    href="javascript:;"
-                                    class="w-5 h-5 ms-5 d-flex align-items-center justify-content-center dark-text-gray-300"
-                                >
-                                    <i
-                                        class="w-4 h-4"
-                                        data-feather="settings"
-                                    />
-                                </a>
-                            </div>
-                        </div>
-                        <div class="overflow-x-auto overflow-x-sm-visible">
-                            <div class="intro-y">
-                                <div
-                                    class="inbox__item inbox__item--active d-inline-block d-sm-block text-gray-700 dark-text-gray-500 bg-gray-100 dark-bg-dark-1 border-bottom border-gray-200 dark-border-dark-1"
-                                >
-                                    <div class="d-flex px-5 py-3">
-                                        <div
-                                            class="w-72 flex-none d-flex align-items-center me-5"
-                                        >
-                                            <input
-                                                class="form-check-input flex-none me-0 mt-0"
-                                                type="checkbox"
-                                            />
-                                            <a
-                                                href="javascript:;"
-                                                class="w-5 h-5 flex-none ms-4 d-flex align-items-center justify-content-center text-gray-500"
-                                            >
-                                                <i
-                                                    class="w-4 h-4"
-                                                    data-feather="star"
-                                                />
-                                            </a>
-                                            <a
-                                                href="javascript:;"
-                                                class="w-5 h-5 flex-none ms-2 d-flex align-items-center justify-content-center text-gray-500"
-                                            >
-                                                <i
-                                                    class="w-4 h-4"
-                                                    data-feather="bookmark"
-                                                />
-                                            </a>
-                                            <div
-                                                class="w-6 h-6 flex-none image-fit position-relative ms-5"
-                                            >
-                                                <img
-                                                    alt="Rubick Bootstrap HTML Admin Template"
-                                                    class="rounded-circle"
-                                                    src="dist/images/profile-7.jpg"
-                                                />
-                                            </div>
-                                            <div
-                                                class="inbox__item--sender truncate ms-3"
-                                            >
-                                                Keanu Reeves
-                                            </div>
-                                        </div>
-                                        <div class="w-64 w-sm-auto truncate">
-                                            <span class="inbox__item--highlight"
-                                                >It is a long established fact
-                                            </span> It is a long established fact
-                                            that a reader will be distracted by the
-                                            readable content of a page when looking
-                                            at its layout. The point of using Lorem
-                                        </div>
-                                        <div
-                                            class="inbox__item--time text-nowrap ms-auto ps-10"
-                                        >
-                                            05:09 AM
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="p-5 d-flex flex-column flex-sm-row align-items-center text-center text-sm-start text-gray-600"
-                        >
-                            <div class="dark-text-gray-300">
-                                4.41 GB (25%) of 17 GB used Manage
-                            </div>
-                            <div
-                                class="ms-sm-auto mt-2 mt-sm-0 dark-text-gray-300"
-                            >
-                                Last account activity: 36 minutes ago
-                            </div>
+                </div>
+                <div class="col-6 col-sm-3 m2">
+                    <div class="uk-card uk-card-default uk-card-body ">
+                        <div class="svgbody">
+                            <img src="svg/physics.svg" alt="" srcset="" />
+
+                            <p>Physics</p>
                         </div>
                     </div>
-                    <!-- END: Inbox Content -->
+                </div>
+                <div class="col-6 col-sm-3 m2">
+                    <div class="uk-card uk-card-default uk-card-body ">
+                        <div class="svgbody">
+                            <img src="svg/biology.svg" alt="" srcset="" />
+
+                            <p>Biology</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 m2">
+                    <div class="uk-card uk-card-default uk-card-body ">
+                        <div class="svgbody">
+                            <img src="svg/maths.svg" alt="" srcset="" />
+
+                            <p>Mathematics</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 m2">
+                    <div class="uk-card uk-card-default uk-card-body ">
+                        <div class="svgbody">
+                            <img src="svg/english.svg" alt="" srcset="" />
+
+                            <p>English</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 m2">
+                    <div class="uk-card uk-card-default uk-card-body ">
+                        <div class="svgbody">
+                            <img src="svg/history.svg" alt="" srcset="" />
+
+                            <p>History</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 m2">
+                    <div class="uk-card uk-card-default uk-card-body ">
+                        <div class="svgbody">
+                            <img src="svg/commerce.svg" alt="" srcset="" />
+
+                            <p>Commercial</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 m2">
+                    <div class="uk-card uk-card-default uk-card-body ">
+                        <div class="svgbody">
+                            <img src="svg/computer.svg" alt="" srcset="" />
+
+                            <p>Computer Sci</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 m2">
+                    <div class="uk-card uk-card-default uk-card-body ">
+                        <div class="svgbody">
+                            <img src="svg/accounting.svg" alt="" srcset="" />
+
+                            <p>Accounting</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-3 m2">
+                    <div class="uk-card uk-card-default uk-card-body ">
+                        <div class="svgbody">
+                            <img src="svg/crs.svg" alt="" srcset="" />
+
+                            <p>CRS</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -389,12 +132,44 @@ import TopBar from "../../components/Nav/TopBar.svelte";
 </div>
 
 <style>
+    .rnd {
+        border-radius: 12px;
+    }
     .content {
-    
-    height: 100%;
-    overflow: auto;
-    background-image: url(images/hand.svg),url(images/right.svg),url(images/bottom.svg);
-    background-repeat: no-repeat,no-repeat,no-repeat;
-    background-position: 0 0,100%,0 100%;
+        height: 100%;
+        overflow: auto;
+        background-image: url(images/hand.svg), url(images/right.svg),
+            url(images/bottom.svg);
+        background-repeat: no-repeat, no-repeat, no-repeat;
+        background-position: 0 0, 100%, 0 100%;
+    }
+    h2 {
+        font-family: "Itim", "roboto";
+    }
+    .svgbody {
+        text-align: center;
+        align-items: center;
+    }
+
+    .svgbody > img {
+        display: inline-block;
+        margin: 0 auto;
+        width: 50px;
+        height: 50px;
+        inline-size: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .svgbody > p {
+        font-family: "Itim", "roboto";
+        font-size: 18px;
+        margin-top: 10px;
+        padding-top: 10px;
+        font-weight: 500;
+    }
+
+    .m2 {
+        margin-bottom: 7px;
     }
 </style>

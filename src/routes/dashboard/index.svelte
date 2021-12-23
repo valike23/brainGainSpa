@@ -1,40 +1,40 @@
 <script lang="ts">
     import { onMount } from "svelte";
-import DesktopSide from "../../components/Nav/DesktopSide.svelte";
-import MobileMenu from "../../components/Nav/MobileMenu.svelte";
-import TopBar from "../../components/Nav/TopBar.svelte";
+    import DesktopSide from "../../components/Nav/DesktopSide.svelte";
+    import MobileMenu from "../../components/Nav/MobileMenu.svelte";
+    import TopBar from "../../components/Nav/TopBar.svelte";
 
     let win: any = {};
     onMount(() => {
         win = window;
         console.log(Object.keys(win.window.window));
-      try {
-        var splide = new win.Splide(".splide", {
-            type: "loop",
-            perPage: 3,
-            perMove: 1,
-            arrow: false,
-        });
+        try {
+            var splide = new win.Splide(".splide", {
+                type: "loop",
+                perPage: 3,
+                perMove: 1,
+                arrow: false,
+            });
 
-        splide.mount();
+            splide.mount();
 
-        var splideMobile = new win.Splide("#mobile", {
-            type: "loop",
-            perPage: 1,
-            perMove: 1,
-        });
+            var splideMobile = new win.Splide("#mobile", {
+                type: "loop",
+                perPage: 1,
+                perMove: 1,
+            });
 
-        splideMobile.mount();
-        var splideTab = new win.Splide("#tab", {
-            type: "loop",
-            perPage: 2,
-            perMove: 1,
-        });
+            splideMobile.mount();
+            var splideTab = new win.Splide("#tab", {
+                type: "loop",
+                perPage: 2,
+                perMove: 1,
+            });
 
-        splideTab.mount();
-      } catch (error) {
-          location.reload();
-      }
+            splideTab.mount();
+        } catch (error) {
+            location.reload();
+        }
     });
 </script>
 
@@ -53,7 +53,7 @@ import TopBar from "../../components/Nav/TopBar.svelte";
         <DesktopSide dash="dashboard" />
         <div class="content">
             <!-- BEGIN: Top Bar -->
-            <TopBar/>
+            <TopBar />
             <!-- END: Top Bar -->
             <div class="grid columns-12 gap-6 mt-8">
                 <div class="g-col-12 g-col-lg-3 g-col-xxl-2">
@@ -545,80 +545,54 @@ import TopBar from "../../components/Nav/TopBar.svelte";
                         >
                             <div class="grid columns-2 gap-3">
                                 <div class="g-col-1">
-                                    <svg
-                                        width="46"
-                                        height="46"
-                                        viewBox="0 0 41 40"
-                                        fill="none"
-                                        ><g opacity="0.8"
-                                            ><path
-                                                d="M18.6546 1.58594H2V18.2405H18.6546V1.58594Z"
-                                                stroke="#FCFBF9"
-                                                stroke-width="2.00412"
-                                                stroke-miterlimit="10"
-                                            /><path
-                                                d="M39.0198 1.58594H22.3652V18.2405H39.0198V1.58594Z"
-                                                stroke="#FCFBF9"
-                                                stroke-width="2.00412"
-                                                stroke-miterlimit="10"
-                                            /><path
-                                                d="M18.6546 21.8086H2V38.4632H18.6546V21.8086Z"
-                                                stroke="#FCFBF9"
-                                                stroke-width="2.00412"
-                                                stroke-miterlimit="10"
-                                            /><path
-                                                d="M39.0198 21.8086H22.3652V38.4632H39.0198V21.8086Z"
-                                                stroke="#FCFBF9"
-                                                stroke-width="2.00412"
-                                                stroke-miterlimit="10"
-                                            /><path
-                                                d="M10.3291 5.40625V14.4162"
-                                                stroke="#FCFBF9"
-                                                stroke-width="2.00412"
-                                                stroke-miterlimit="10"
-                                            /><path
-                                                d="M5.75391 9.91016H14.9008"
-                                                stroke="#FCFBF9"
-                                                stroke-width="2.00412"
-                                                stroke-miterlimit="10"
-                                            /><path
-                                                d="M26.1191 9.91016H35.266"
-                                                stroke="#FCFBF9"
-                                                stroke-width="2.00412"
-                                                stroke-miterlimit="10"
-                                            /><path
-                                                d="M26.1191 30.1328H35.266"
-                                                stroke="#FCFBF9"
-                                                stroke-width="2.00412"
-                                                stroke-miterlimit="10"
-                                            /><path
-                                                d="M13.5135 26.9492L7.14062 33.3221"
-                                                stroke="#FCFBF9"
-                                                stroke-width="2.00412"
-                                                stroke-miterlimit="10"
-                                            /><path
-                                                d="M7.09375 26.9023L13.5603 33.3689"
-                                                stroke="#FCFBF9"
-                                                stroke-width="2.00412"
-                                                stroke-miterlimit="10"
-                                            /><path
-                                                d="M30.6908 28.0807C31.3732 28.0807 31.9264 27.5275 31.9264 26.845C31.9264 26.1626 31.3732 25.6094 30.6908 25.6094C30.0083 25.6094 29.4551 26.1626 29.4551 26.845C29.4551 27.5275 30.0083 28.0807 30.6908 28.0807Z"
-                                                fill="#FCFBF9"
-                                            /><path
-                                                d="M30.6908 34.5807C31.3732 34.5807 31.9264 34.0275 31.9264 33.345C31.9264 32.6626 31.3732 32.1094 30.6908 32.1094C30.0083 32.1094 29.4551 32.6626 29.4551 33.345C29.4551 34.0275 30.0083 34.5807 30.6908 34.5807Z"
-                                                fill="#FCFBF9"
-                                            /></g
-                                        ></svg
-                                    >
+                                    <img src="svg/geometry.svg" style="width:46px;height:46px" alt="" srcset="">
+                                    
                                 </div>
                                 <div class="g-col-1">
                                     <p class="note-text">Futher Mathematics</p>
                                 </div>
                             </div>
                         </div>
-                       
-                       
-                      
+                        <div
+                            style="background-color: #406529; "
+                            class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
+                        >
+                            <div class="grid columns-2 gap-3">
+                                <div class="g-col-1">
+                                    <img src="svg/agric.svg" style="width:46px;height:46px" alt="" srcset="">
+                                     
+                                </div>
+                                <div class="g-col-1">
+                                    <p class="note-text">Agricultural Science</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            style="background-color: #805DE4; "
+                            class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
+                        >
+                            <div class="grid columns-2 gap-3">
+                                <div class="g-col-1">
+                                    <img src="svg/biology.svg" style="width:46px;height:46px" alt="" srcset="">
+                                    </div>
+                                <div class="g-col-1">
+                                    <p class="note-text">Bio Chemistry</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            style="background-color: #1984C0; "
+                            class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
+                        >
+                            <div class="grid columns-2 gap-3">
+                                <div class="g-col-1">
+                                   <img src="svg/english.svg" style="width:46px;height:46px" alt="" srcset="">
+                                </div>
+                                <div class="g-col-1">
+                                    <p class="note-text">English Language</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -49,7 +49,7 @@
         <li>
             <a
                 class:side-menu--active={dash == "games"}
-                href="#"
+                href="javascript:;.html"
                 class="side-menu"
             >
                 <div class="side-menu__icon">
@@ -246,7 +246,7 @@
                 </li>
                 <li>
                     <a
-                        href="#"
+                        href="javascript:;.html"
                         class="side-menu"
                     >
                         <div class="side-menu__icon">
@@ -257,7 +257,7 @@
                 </li>
                 <li>
                     <a
-                        href="#"
+                        href="javascript:;.html"
                         class="side-menu"
                     >
                         <div class="side-menu__icon">
@@ -268,7 +268,7 @@
                 </li>
                 <li>
                     <a
-                        href="#"
+                        href="javascript:;.html"
                         class="side-menu"
                     >
                         <div class="side-menu__icon">

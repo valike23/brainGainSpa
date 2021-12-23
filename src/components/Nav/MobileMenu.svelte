@@ -36,7 +36,7 @@
             </a>
         </li>
         <li>
-            <a href="/games" class="menu">
+            <a href="javascript:;" class="menu">
                 <div class="menu__icon">    <svg
                     xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -86,9 +86,21 @@
                     </a>
                 </li>
                 <li>
-                    <a href="top-menu-light-dashboard-overview-1.html" class="menu">
+                    <a href="/academics/past_questions_exam" class="menu">
                         <div class="menu__icon"> <i data-feather="activity"></i> </div>
                         <div class="menu__title"> Past Questions [Exams] </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/academics/quiz" class="menu">
+                        <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                        <div class="menu__title"> Quiz (Sample) </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="/academics/topic" class="menu">
+                        <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                        <div class="menu__title"> Topics (Sample) </div>
                     </a>
                 </li>
             </ul>
@@ -102,25 +114,31 @@
             </a>
             <ul class="">
                 <li>
-                    <a href="index.html" class="menu">
+                    <a href="accounts/referals" class="menu">
+                        <div class="menu__icon"> <i data-feather="activity"></i> </div>
+                        <div class="menu__title"> Referals</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:;" class="menu">
                         <div class="menu__icon"> <i data-feather="activity"></i> </div>
                         <div class="menu__title"> Subscriptions</div>
                     </a>
                 </li>
                 <li>
-                    <a href="simple-menu-light-dashboard-overview-1.html" class="menu">
+                    <a href="javascript:;" class="menu">
                         <div class="menu__icon"> <i data-feather="activity"></i> </div>
                         <div class="menu__title"> Income</div>
                     </a>
                 </li>
                 <li>
-                    <a href="top-menu-light-dashboard-overview-1.html" class="menu">
+                    <a href="javascript:;" class="menu">
                         <div class="menu__icon"> <i data-feather="activity"></i> </div>
                         <div class="menu__title"> Withdrawls </div>
                     </a>
                 </li>
                 <li>
-                    <a href="top-menu-light-dashboard-overview-1.html" class="menu">
+                    <a href="javascript:;" class="menu">
                         <div class="menu__icon"> <i data-feather="activity"></i> </div>
                         <div class="menu__title"> Payments </div>
                     </a>

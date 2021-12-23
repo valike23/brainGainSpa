@@ -114,7 +114,7 @@
             </a>
             <ul class="">
                 <li>
-                    <a href="accounts/referrals" class="menu">
+                    <a rel="external" href="accounts/referrals" class="menu">
                         <div class="menu__icon"> <i data-feather="activity"></i> </div>
                         <div class="menu__title"> referrals</div>
                     </a>

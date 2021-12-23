@@ -227,7 +227,8 @@
                     </div>
                 </div>
             </a>
-            <ul class="">
+            <ul class="test">
+
                 <li>
                     <a href="javascript:;.html" class="side-menu">
                         <div class="side-menu__icon">
@@ -237,7 +238,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="accounts/referrals" class="side-menu">
+                    <a rel="external" href="accounts/referrals" class="side-menu">
                         <div class="side-menu__icon">
                             <i data-feather="activity" />
                         </div>

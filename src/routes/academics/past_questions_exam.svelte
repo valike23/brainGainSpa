@@ -19,7 +19,7 @@
             <TopBar />
             <div class="row" style="margin-bottom: 50px;">
                 <h2 class="intro-y fs-lg fw-medium me-auto mt-2">
-                    Skill Pratice
+                    Past Questions (Exams)
                 </h2>
             </div>
             <div class="uk-margin">

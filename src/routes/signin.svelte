@@ -1,5 +1,6 @@
 <script>
-    import NavBar from "../components/Nav/NavBar.svelte";
+    import Footer from "../components/Nav/Footer.svelte";
+import NavBar from "../components/Nav/NavBar.svelte";
 </script>
 
 <svelte:head>
@@ -14,7 +15,7 @@
             class="col-12 col-sm-6 col-md-6 d-none d-sm-block"
             style="padding-right:unset; padding-left:unset;background-color: none;"
         >
-            <div style="padding: 80px 0 0 60px;">
+            <div class="top" style="padding: 80px 0 0 60px;">
                 <h1>
                     Welcome to <span style="font-weight: bolder"
                         >BrainGainSpa</span
@@ -142,31 +143,25 @@
         </div>
     </div>
 </div>
+<Footer/>
 
 <style>
-    .main {
-        background-color: white;
-        width: 100vw;
-        margin-left: -33px;
-        font-family: "Itim", "roboto";
-        background-image: url(images/hand.svg), url(images/right.svg),
-            url(images/bottom.svg);
-        background-repeat: no-repeat, no-repeat, no-repeat;
-        background-position: 0 0, 100%, 0 100%;
+    .top {
+        color: white
     }
-    .con {
-        height: 80vh;
-    }
+  
     h1 {
         font-size: 2rem;
         margin-bottom: 0.5rem;
         font-weight: 500;
         line-height: 1.2;
+        color: white;
     }
     h5 {
         font-size: 1.25rem;
         margin-bottom: 0.5 rem;
         font-weight: 500;
         line-height: 1.2;
+        color: white;
     }
 </style>

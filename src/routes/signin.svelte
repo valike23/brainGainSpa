@@ -1,167 +1,74 @@
-<script>
-    import Footer from "../components/Nav/Footer.svelte";
-import NavBar from "../components/Nav/NavBar.svelte";
-</script>
 
-<svelte:head>
-    <link rel="stylesheet" href="css/nav.css" />
-    <script defer src="dist/js/nav.js"></script>
-</svelte:head>
-<NavBar />
+	<svelte:head>
+        <title>Login to BrainGainSpa</title>
+    </svelte:head>
+    <div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form">
+					<span class="login100-form-title p-b-43">
+						Login to continue
+					</span>
+					
+					
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<input class="input100" type="text" name="email">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Email</span>
+					</div>
+					
+					
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<input class="input100" type="password" name="pass">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Password</span>
+					</div>
 
-<div class="container-fluid">
-    <div class="row" style="margin-top:0px;">
-        <div
-            class="col-12 col-sm-6 col-md-6 d-none d-sm-block"
-            style="padding-right:unset; padding-left:unset;background-color: none;"
-        >
-            <div class="top" style="padding: 80px 0 0 60px;">
-                <h1>
-                    Welcome to <span style="font-weight: bolder"
-                        >BrainGainSpa</span
-                    >
-                </h1>
-                <h5>Your Interactive Learning Assistance</h5>
-            </div>
-            <img
-                style="height:50vh;margin: auto;margin-top: 50px;"
-                src="images/bg/sign.svg"
-                alt="Signup Landing"
-                srcset=""
-                class="img-fluid img-responsive"
-            />
-        </div>
-        <div
-            class="col-12 col-sm-6 col-md-6"
-            style="padding-right:unset; padding-left:unset;  "
-        >
-            <div
-                class="card panel-default"
-                style="margin-bottom:0; height:90vh;padding-top: 120px;"
-            >
-                <div class="card-body">
-                    <div
-                        class=""
-                        style="padding-left:20px; padding-right:20px; height:auto; flex:1"
-                    >
-                        <div
-                            class="text-center text-info"
-                            style="font-weight:bolder;font-size: 50px;color: #37bfe9;margin-bottom: 30px;"
-                        >
-                            Sign In
-                        </div>
+					<div class="flex-sb-m w-full p-t-3 p-b-32">
+						<div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<label class="label-checkbox100" for="ckb1">
+								Remember me
+							</label>
+						</div>
 
-                        <div class="">
-                            <form
-                                action="https://learn.simbibot.com/login"
-                                method="POST"
-                            >
-                                <div class="form-group">
-                                    <div class="uk-margin">
-                                        <input
-                                            class="uk-input"
-                                            type="email"
-                                            placeholder="Email Address"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="uk-margin">
-                                        <input
-                                            class="uk-input"
-                                            type="password"
-                                            placeholder="Password"
-                                        />
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row mt-3">
-                                        <div class="col-md-6" style="">
-                                            <div
-                                                class="checkbox"
-                                                style="margin-bottom: 10px;"
-                                            >
-                                                <label for="NewsletterConsent">
-                                                    <label
-                                                        class="container-check"
-                                                    >
-                                                        <span
-                                                            style="font-size: 13px;"
-                                                            class="ml-5"
-                                                            >Remember me</span
-                                                        >
+						<div>
+							<a href="#" class="txt1">
+								Forgot Password?
+							</a>
+						</div>
+					</div>
+			
 
-                                                        <input
-                                                            type="checkbox"
-                                                            checked="checked"
-                                                            name="remember"
-                                                        />
-                                                        <span
-                                                            class="checkmark"
-                                                        />
-                                                    </label>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="col-md-6"
-                                            style="text-align: right;padding: 5px 0 0 0;"
-                                        >
-                                            <a
-                                                href="https://learn.simbibot.com/password/reset"
-                                                style="font-weight: bolder;color: #37bfe9;"
-                                                class="float-right"
-                                            >
-                                                Forgot Your Password?
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Login
+						</button>
+					</div>
+                    <div class="text-center p-t-46 p-b-20">
+						<span class="txt2">
+							<a href="/register">Dont have an account?</a>
+						</span>
+					</div>
+					<div class="text-center p-t-46 p-b-20">
+						<span class="txt2">
+							or sign up using
+						</span>
+					</div>
 
-                                <div class="">
-                                    <div class="text-center">
-                                        <button
-                                            class="btn btn-info signin-button btn-block"
-                                            style="width: 80%;padding: 10px;margin: auto;font-size: 18px;font-weight: bolder;margin-top: 30px;"
-                                            >Sign in</button
-                                        >
-                                    </div>
-                                </div>
-                            </form>
-                            <div style="margin-top: 20px;text-align: center;">
-                                <p style="color: #555;font-weight: bold;">
-                                    Don't have an account? <a
-                                        href="https://learn.simbibot.com/register"
-                                        style="color: #37bfe9;">SIGNUP</a
-                                    >
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<Footer/>
+					<div class="login100-form-social flex-c-m">
+						<a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
+							<i class="fa fa-facebook" aria-hidden="true"></i>
+						</a>
 
-<style>
-    .top {
-        color: white
-    }
-  
-    h1 {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
-        font-weight: 500;
-        line-height: 1.2;
-        color: white;
-    }
-    h5 {
-        font-size: 1.25rem;
-        margin-bottom: 0.5 rem;
-        font-weight: 500;
-        line-height: 1.2;
-        color: white;
-    }
-</style>
+						<a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
+							<i class="fa fa-twitter" aria-hidden="true"></i>
+						</a>
+					</div>
+				</form>
+
+				<div class="login100-more" style="background-image: url('images/bg/black.jpeg');">
+				</div>
+			</div>
+		</div>
+	</div>

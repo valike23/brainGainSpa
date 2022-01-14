@@ -11,8 +11,12 @@
   },
   "dependencies": {
     "@develephant/types-phaser": "^1.0.1",
+    "axios": "^0.24.0",
     "compression": "^1.7.1",
     "express": "^4.17.1",
+    "express-formidable": "^1.2.0",
+    "express-session": "^1.17.2",
+    "mysql": "^2.18.1",
     "phaser": "^3.55.2",
     "sirv": "^1.0.0"
   },

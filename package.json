@@ -12,13 +12,16 @@
   "dependencies": {
     "@develephant/types-phaser": "^1.0.1",
     "axios": "^0.24.0",
+    "bcrypt": "^5.0.1",
     "compression": "^1.7.1",
+    "cryptr": "^6.0.2",
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
     "express-session": "^1.17.2",
     "mysql": "^2.18.1",
     "phaser": "^3.55.2",
-    "sirv": "^1.0.0"
+    "sirv": "^1.0.0",
+    "sweetalert2": "^11.3.5"
   },
   "devDependencies": {
     "sapper": "^0.28.0",

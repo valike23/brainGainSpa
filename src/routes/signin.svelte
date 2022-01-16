@@ -126,6 +126,11 @@
 
 <meta property="og:url" content="/signin" />
 <meta property="og:image" content="https://www.braingainspa.com/Content/imagesb/BrainGainSpa.png" />
+<meta name="twitter:card" content="summary_large_image">
+
+<!--  Non-Essential, But Recommended -->
+<meta property="og:description" content="BrainGainspa Login page to have access to the applications">
+<meta property="og:title" content="BrainGainspa login page">
   <title>Login to BrainGainSpa</title>
 </svelte:head>
 <div class="limiter">

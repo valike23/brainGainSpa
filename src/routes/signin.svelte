@@ -1,45 +1,45 @@
 <script lang="ts">
-import axios from "axios";
+  import axios from "axios";
 
   import { onMount } from "svelte";
-import Swal from "sweetalert2";
+  import Swal from "sweetalert2";
   import type { Iuser } from "../Model/accounts";
-import { handleNotification } from "../Model/browserFunctions";
+  import { handleNotification } from "../Model/browserFunctions";
 
-let password = '';
-let user: Iuser = {};
-let text = "Login";
-let win: any = {};
-const submit = async () =>{
-   text = "Logging In...";
-   handleNotification('Logging in...', window, 'info', 'login');
-   try {
-     let form = new FormData();
-     form.append('body', JSON.stringify(user));
-     let data = await axios.put('api/accounts', form);
-     let res = data.data;
-     if(res){
-       text = 'Login';
-       console.log(res);
-      if(res.message == 'success'){
-        Swal.fire({
-       icon: 'success',
-       title: "SUCCESS!!!",
-       text:"Login was successful"
-     }).then(()=>{
-       location.href = '/dashboard'
-     })
+  let password = "";
+  let user: Iuser = {};
+  let text = "Login";
+  let win: any = {};
+  const submit = async () => {
+    text = "Logging In...";
+    handleNotification("Logging in...", window, "info", "login");
+    try {
+      let form = new FormData();
+      form.append("body", JSON.stringify(user));
+      let data = await axios.put("api/accounts", form);
+      let res = data.data;
+      if (res) {
+        text = "Login";
+        console.log(res);
+        if (res.message == "success") {
+          Swal.fire({
+            icon: "success",
+            title: "SUCCESS!!!",
+            text: "Login was successful",
+          }).then(() => {
+            location.href = "/dashboard";
+          });
+        }
       }
-     }
-   } catch (error) {
-     text = "Login";
-     Swal.fire({
-       icon: 'error',
-       title: "Error!!!",
-       text:"Something Went wrong... We are working on it"
-     })
-   }
-}
+    } catch (error) {
+      text = "Login";
+      Swal.fire({
+        icon: "error",
+        title: "Error!!!",
+        text: "Something Went wrong... We are working on it",
+      });
+    }
+  };
   onMount(() => {
     win = window;
     (function ($) {
@@ -119,21 +119,35 @@ const submit = async () =>{
 </script>
 
 <svelte:head>
-
   <script defer src="jquery-3.2.1.min.js"></script>
+
+<meta property="og:site_name" content="BrainGainSpa" />
+<meta property="og:type" content="website" />
+
+<meta property="og:url" content="/signin" />
+<meta property="og:image" content="https://www.braingainspa.com/Content/imagesb/BrainGainSpa.png" />
   <title>Login to BrainGainSpa</title>
 </svelte:head>
 <div class="limiter">
   <div class="container-login100">
     <div class="wrap-login100">
-      <form on:submit|preventDefault="{submit}" class="login100-form validate-form">
+      <form
+        on:submit|preventDefault={submit}
+        class="login100-form validate-form"
+      >
         <span class="login100-form-title p-b-43"> Login to continue </span>
 
         <div
           class="wrap-input100 validate-input"
           data-validate="Valid email is required: ex@abc.xyz"
         >
-          <input bind:value="{user.email}" required class="input100" type="text" name="email" />
+          <input
+            bind:value={user.email}
+            required
+            class="input100"
+            type="text"
+            name="email"
+          />
           <span class="focus-input100" />
           <span class="label-input100">Email</span>
         </div>
@@ -142,7 +156,13 @@ const submit = async () =>{
           class="wrap-input100 validate-input"
           data-validate="Password is required"
         >
-          <input bind:value="{user.password}" required class="input100" type="password" name="pass" />
+          <input
+            bind:value={user.password}
+            required
+            class="input100"
+            type="password"
+            name="pass"
+          />
           <span class="focus-input100" />
           <span class="label-input100">Password</span>
         </div>
@@ -164,7 +184,12 @@ const submit = async () =>{
         </div>
 
         <div class="container-login100-form-btn">
-          <input disabled="{text != 'Login'}" value="{text}" type="submit" class="login100-form-btn"/> 
+          <input
+            disabled={text != "Login"}
+            value={text}
+            type="submit"
+            class="login100-form-btn"
+          />
         </div>
         <div class="text-center p-t-46 p-b-20">
           <span class="txt2">

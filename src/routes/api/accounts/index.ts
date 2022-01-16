@@ -45,3 +45,44 @@ export async function post (req, res) {
         }
     }
 }
+
+
+export async function put(req, res) {
+    try {
+        console.log(req.fields.body);
+        let data: any = JSON.parse(req.fields.body);
+        let adminResult: any = await sqlHelper.get('users', ['password', 'first_name', 'last_name', 'id', 'user_name', 'gender', 'is_active', 'confirm_email', 'profile_pics','type'], `where email='${data.email}'`);
+       
+      
+        if(adminResult.length > 0) {
+            let test = await handle_respond(adminResult, data.password);
+            console.log(test, 'type of test is: ', typeof(test));
+            if (test) {
+                
+                //set session
+                let user = adminResult[0];
+                delete (user.password);
+                req.session.user = adminResult[0];
+
+                //return response
+                res.json({message: 'success', data: req.session});
+            }
+            else  {
+                res.json({message: 'username or password incorrect', data: {}})
+            }
+        }
+        else {
+            res.json({message: 'username or password incorrect', data: {}})
+        }
+        
+
+    } catch (error) {
+        console.log(error);
+        if (error.statusCode) {
+            res.json(error);
+        }
+        else {
+            res.status(503).json(error);
+        }
+    }
+}

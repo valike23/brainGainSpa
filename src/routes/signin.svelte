@@ -1,14 +1,44 @@
 <script lang="ts">
+import axios from "axios";
+
   import { onMount } from "svelte";
+import Swal from "sweetalert2";
   import type { Iuser } from "../Model/accounts";
 import { handleNotification } from "../Model/browserFunctions";
 
 let password = '';
 let user: Iuser = {};
-
+let text = "Login";
 let win: any = {};
-const submit = () =>{
-    if(user.password !== password && user.password != '') return handleNotification('password doesnt match', window, 'error','error');
+const submit = async () =>{
+   text = "Logging In...";
+   handleNotification('Logging in...', window, 'info', 'login');
+   try {
+     let form = new FormData();
+     form.append('body', JSON.stringify(user));
+     let data = await axios.put('api/accounts', form);
+     let res = data.data;
+     if(res){
+       text = 'Login';
+       console.log(res);
+      if(res.message == 'success'){
+        Swal.fire({
+       icon: 'success',
+       title: "SUCCESS!!!",
+       text:"Login was successful"
+     }).then(()=>{
+       location.href = '/dashboard'
+     })
+      }
+     }
+   } catch (error) {
+     text = "Login";
+     Swal.fire({
+       icon: 'error',
+       title: "Error!!!",
+       text:"Something Went wrong... We are working on it"
+     })
+   }
 }
   onMount(() => {
     win = window;
@@ -89,6 +119,8 @@ const submit = () =>{
 </script>
 
 <svelte:head>
+
+  <script defer src="jquery-3.2.1.min.js"></script>
   <title>Login to BrainGainSpa</title>
 </svelte:head>
 <div class="limiter">
@@ -132,7 +164,7 @@ const submit = () =>{
         </div>
 
         <div class="container-login100-form-btn">
-          <input value="Login" type="submit" class="login100-form-btn"/> 
+          <input disabled="{text != 'Login'}" value="{text}" type="submit" class="login100-form-btn"/> 
         </div>
         <div class="text-center p-t-46 p-b-20">
           <span class="txt2">

@@ -58,8 +58,13 @@
             <div class="grid columns-12 gap-6 mt-8">
                 <div class="g-col-12 g-col-lg-3 g-col-xxl-2">
                     <h1>Home</h1>
+                   
                 </div>
                 <div class="g-col-12 ">
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>Hold On!!</strong> Email address is not yet confirmed. Click on the link below to  <a href="/accounts">Confirm your Email</a>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+                      </div>
                     <div class="mflex" style="margin-bottom: 20px;">
                         <span class="h2 float-left">Skill Pratice</span>
                         <button class="see float-right btn">SEE ALL</button>
@@ -628,6 +633,9 @@
 </div>
 
 <style>
+    a{
+        text-decoration: underline green;
+    }
     @media only screen and (max-width: 600px) {
         #desktop {
             display: none;

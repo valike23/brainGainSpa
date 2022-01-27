@@ -6,6 +6,8 @@
     const gotoTopic = () => {
         location.href = "academics/topic";
     };
+
+let links =[{name: 'accoounts'},{name: 'subscription', url: 'accooounts/subscription'}];
 </script>
 
 <svelte:head />
@@ -16,7 +18,7 @@
     <div class="d-flex">
         <DesktopSide dash="academics" />
         <div class="content">
-            <TopBar />
+            <TopBar {links}/>
             <div class="row" style="margin-bottom: 50px;">
                 <h2 class="intro-y fs-lg fw-medium me-auto mt-2">
                     Skill Pratice

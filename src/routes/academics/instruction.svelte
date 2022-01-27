@@ -2,6 +2,9 @@
     import DesktopSide from "../../components/Nav/DesktopSide.svelte";
     import MobileMenu from "../../components/Nav/MobileMenu.svelte";
     import TopBar from "../../components/Nav/TopBar.svelte";
+    const next = () =>{
+        location.href = 'academics/quiz';
+    }
 </script>
 
 <div class="main">
@@ -44,7 +47,7 @@
 
                 <div style="margin-top: 45px;">   
                 
-                    <button class="uk-button mainBtn uk-button-default uk-button-large">Continue</button>
+                    <button on:click="{next}" class="uk-button mainBtn uk-button-default uk-button-large">Continue</button>
                 </div>
             </div>
         </div>

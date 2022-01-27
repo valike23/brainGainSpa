@@ -244,7 +244,8 @@
             <ul class="test">
 
                 <li>
-                    <a href="javascript:;.html" class="side-menu">
+                    <a  rel="external"
+                    href="accounts/subscription" class="side-menu">
                         <div class="side-menu__icon">
                             <i data-feather="activity" />
                         </div>

@@ -5,6 +5,10 @@
     import TopBar from "../../components/Nav/TopBar.svelte";
     import type { IchartConfig, IchartData } from "../../Model/zingchart";
     let win: any = {};
+    let links = [
+    { name: "accoounts" },
+    { name: "referrals and income", url: "accooounts/referrals" },
+  ];
     let chartConfig: IchartConfig = {
         type: "tree",
         backgroundColor: "transparent",
@@ -128,7 +132,7 @@
     ];
     onMount(() => {
         win = window;
-        setTimeout(() => {
+       
             chartConfig.series = chartData;
 
             win.zingchart.render({
@@ -138,12 +142,12 @@
                 width: "100%",
                 output: "canvas",
             });
-        }, 100);
+        
     });
 </script>
 
 <svelte:head>
-    <script defer src="https://cdn.zingchart.com/zingchart.min.js"></script>
+  
 </svelte:head>
 
 <div class="main">
@@ -152,12 +156,27 @@
     <div class="d-flex">
         <DesktopSide dash="accounts" />
         <div class="content">
-            <TopBar />
+            <TopBar {links}/>
             <div class="row" style="margin-bottom: 50px;">
                 <h2 class="intro-y fs-lg fw-medium me-auto mt-2">referrals</h2>
             </div>
-
-            <div id="chart" />
+            <div class="container">
+            <div class="row intro-y box mt-5 income">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-sm-6 col-12">
+                            <img src="sv" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row intro-y box mt-5 pt-4">
+                <div class="col-12 pt-3 mb-3"><h2>referrals tree</h2></div>
+                <div class="col-12">
+                    <div id="chart"></div>
+                </div>
+            </div>
+            </div>
         </div>
     </div>
 </div>
@@ -174,4 +193,15 @@
     h2 {
         font-family: "Itim", "roboto";
     }
+    #svg {
+        width: 60px;
+    }
+    .cash-big {
+        font-size: 30px;
+        font-weight: 700;
+    }
+    .income {
+        background-image: url('svg/money.svg');
+    }
+
 </style>

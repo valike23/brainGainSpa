@@ -1,12 +1,28 @@
+<script>
+    export let links;
+    console.log(links);
+    let data = links;
+</script>
 <div class="top-bar">
     <!-- BEGIN: Breadcrumb -->
     <div class="-intro-x breadcrumb me-auto d-none d-sm-flex">
-        <a href="app/dashboard">Application</a>
-        <svg class="breadcrumb__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6l-6-6"/></g></svg>
+       {#each data as item,i}
+       {#if item.url}
+       
+       <a href={item.url}>{item.name}</a>
+       {:else}
+          <a class:breadcrumb--active={links.length >= i} href="javascript:;.html">{item.name}</a>
+       {/if}
+      {#if links.length >= (i -1)}
+      <svg class="breadcrumb__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6l-6-6"/></g></svg>
+      
+      {:else}
+     
+      {/if}
+      
+       
+       {/each}
         
-        <a href="app/dashboard" class="breadcrumb--active"
-            >Dashboard</a
-        >
     </div>
     <!-- END: Breadcrumb -->
     <!-- BEGIN: Search -->

@@ -8,6 +8,10 @@ export interface Iquestion {
     instructions?: string;
     year?: string;
     resourceTypes?: number;
+    type?: string,
+    choosen?: string;
+    question?: string;
+    subject?: string;
 }
 
 export interface IexcelQuestion {
@@ -29,4 +33,10 @@ export interface IexcelQuestion {
     year?: string;
     mock?: number;
     verified?: number;
+}
+export interface IquestionParameter {
+    type?: number;
+    subject?: string;
+    amount?: number;
+    year?: string;
 }

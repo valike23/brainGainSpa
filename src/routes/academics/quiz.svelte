@@ -1,26 +1,49 @@
+
+
+<script lang="ts" context="module">
+	// the (optional) preload function takes a
+	// `{ path, params, query }` object and turns it into
+	// the data we need to render the page
+	export async function preload(page, session) {
+		// the `slug` parameter is available because this file
+		// is called [slug].svelte
+		const { slug } = page.params;
+        let questions: Iquestion[] = [];
+		// `this.fetch` is a wrapper around `fetch` that allows
+		// you to make credentialled requests on both
+		// server and client
+        let type = 'skill pratice';
+		try {
+            const res = await this.fetch(`api/questions?subject=Chemistry`);
+		 questions = await res.json();
+
+        } catch (error) {
+            questions = [];
+        }
+		return { questions, type };
+	}
+</script>
 <script lang="ts">
     import { onMount } from "svelte";
 
     import DesktopSide from "../../components/Nav/DesktopSide.svelte";
     import MobileMenu from "../../components/Nav/MobileMenu.svelte";
     import TopBar from "../../components/Nav/TopBar.svelte";
-    let question = {
-        subject: "chemistry",
-        status: 200,
-        data: {
-            id: 126,
-            question:
-                "What volume of gas is evolved at s.t.p. if 2g of calcium trioxocarbonate(IV) is added to a solution of hydrochloric acid    [Ca = 40, C = 12, O = 16, CI = 35.5, H = 1, Molar volume of a gas at s.t.p = 22.4dm3]",
-            option: ["112cm3", "224cm3", "448cm3", "223cm3"],
-            section: "",
-            image: "",
-            answer: "c",
-            solution: "",
-            examtype: "utme",
-            examyear: "2004",
-            choosen: "",
-        },
-    };
+import { handleNotification } from "../../Model/browserFunctions";
+    export let questions: Iquestion[];
+import type { Iquestion } from "../../Model/question";
+
+let links =[{name: 'Academics'},{name: 'quiz', url: 'academics/quiz'}];
+let question: Iquestion;
+if(questions.length > 0) {
+
+    question = questions[0];
+}
+else{
+    question = {};
+}
+let isOnline = 'offline';
+    console.log(question);
     const FULL_DASH_ARRAY = 283;
     const WARNING_THRESHOLD = 10;
     const ALERT_THRESHOLD = 5;
@@ -46,7 +69,7 @@
     let timerInterval = null;
     let remainingPathColor = COLOR_CODES.info.color;
     const assignAnswer = (answer: string )=>{
-        question.data.choosen = answer  ;
+        question.choosen = answer  ;
         question = question;
     }
     const restartTimer = () => {
@@ -124,11 +147,23 @@
             }
         }, 1000);
     }
+    const toggleStatus = ()=>{
+        isOnline = navigator.onLine ? "online" : "offline";
+        console.log(isOnline);
+        if(isOnline == 'offline') {
+            handleNotification('go are now offline', window, 'error','OFFLINE');
+        }else{
+            handleNotification('go are now online', window, 'success','ONLINE');
+        }
 
+    }
     onMount(() => {
         // Credit: Mateusz Rybczonec
-
+        toggleStatus();
+        window.addEventListener('online', toggleStatus);
+        window.addEventListener('offline', toggleStatus);
         startTimer();
+
     });
 </script>
 
@@ -140,9 +175,9 @@
     <div class="d-flex">
         <DesktopSide dash="academics" />
         <div class="content">
-            <TopBar />
+            <TopBar {links}/>
             <div class="row">
-                <h2 class="intro-y fs-lg fw-medium me-auto mt-2">Quiz</h2>
+                <h2 class="intro-y fs-lg fw-medium me-auto mt-2">{question.subject}</h2>
             </div>
             <div class="container">
                 <div class=" row pt-4 mt-4 ">
@@ -222,19 +257,19 @@
                         <div class="row mb-2">
                             <div class="col-12 question">
                                 <p>
-                                    {question.data.question}
+                                    {question.question}
                                 </p>
                             </div>
                         </div>
                         <div class="row mt-5 mb-4">
-                            {#each question.data.option as opt}
+                            {#each question.options as opt}
                                 <div
                                     class="col-12  opts-container col-sm-6 mb-4"
                                 >
                                     <div
                                     on:click="{()=>{assignAnswer(opt)}}"
-                                        class:opts={opt != question.data.choosen}
-                                        class:opts-choosen={opt == question.data.choosen}
+                                        class:opts={opt != question.choosen}
+                                        class:opts-choosen={opt == question.choosen}
                                         class=" ml-n4 ml-sm-0 pt-3 pb-2"
                                     >
                                         <span>{opt}</span>

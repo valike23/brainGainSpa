@@ -5,7 +5,7 @@ export class MongoUser {
     client: MongoClient;
     database: string;
     constructor(properties: ImongoProperties) {
-       this.client = new MongoClient(properties.url, { useNewUrlParser: true, useUnifiedTopology: true });
+       this.client = new MongoClient(properties.url);
        this.database = properties.database;
     }
 

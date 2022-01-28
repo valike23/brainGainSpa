@@ -112,8 +112,8 @@
             </div>
           </div>
           <div class="row mt-5">
-            <div class="col-12">
-              <h3 class="row">
+            <div class="col-12 box mt-5 intro-y pt-4 pb-3">
+              <h2 class="row">
                   <div class="col-10">Enable auto renewal</div>
                   <div class="col-2 pr-0 pl-0">
                     <div class="form-check form-switch float-end">
@@ -121,7 +121,7 @@
                        
                     </div>
                   </div>
-     </h3>
+                </h2>
               <p class="mt-3">
                 this option, if checked will renew your productive subscription,
                 if the current plan expires. however, this might prevent you
@@ -138,7 +138,7 @@
             <div class="col-12">
                 <h2>Billing history</h2>
             </div>
-            <div class="col-12 mt-5">
+            <div class="col-12 mt-5 box intro-y pt-4 ">
                 <table class="table">
                     <thead class="table-dark">
                         <tr>
@@ -187,4 +187,9 @@
   .active {
     border: 1px solid green;
   }
+  h2 {
+	font-family: 'Itim', 'roboto';
+	font-weight: 500;
+	font-size: 1.5rem;
+}
 </style>

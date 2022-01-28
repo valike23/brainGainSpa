@@ -1,3 +1,22 @@
+
+<script lang="ts" context="module">
+	// the (optional) preload function takes a
+	// `{ path, params, query }` object and turns it into
+	// the data we need to render the page
+	export async function preload(page, session) {
+		// the `slug` parameter is available because this file
+		// is called [slug].svelte
+    let query = page.query;
+
+		// `this.fetch` is a wrapper around `fetch` that allows
+		// you to make credentialled requests on both
+		// server and client
+    let referral = query.referral;
+
+		return { referral };
+	}
+  </script>
+
 <script lang="ts">
   import { onMount } from "svelte";
   import axios from "axios";
@@ -6,6 +25,9 @@
   import Swal from "sweetalert2";
   let password = "";
   let user: Iuser = {};
+  export let referral ;
+  console.log(referral);
+  
 let text = 'Register';
   let win: any = {};
   const submit = async () => {
@@ -46,6 +68,9 @@ let text = 'Register';
        })
    }
   };
+  const assignType = (resp) => {
+    user.type = resp;
+  }
   onMount(() => {
     win = window;
     console.log(win);
@@ -140,6 +165,17 @@ let text = 'Register';
         <span class="login100-form-title p-b-43">
           REGISTER INTO BRAINGAINSPA
         </span>
+        <div class="row mb-2">
+          <div class="col">
+            <div class="float-end">
+              <img class:active={user.type == 'student'} on:click="{()=>{assignType('student')}}" src="svg/student.svg" class="svg " alt="">
+          <p class="">students</p>
+            </div> 
+        </div>
+          <div class="col"><img class:active={user.type == 'parent'} on:click="{()=>{assignType('parent')}}"  src="svg/parents.svg" class="svg" alt="">
+          <p>parents</p>
+          </div>
+        </div>
 
         <div
           class="wrap-input100 validate-input"
@@ -177,31 +213,18 @@ let text = 'Register';
           <span class="label-input100">Username</span>
         </div>
 
-        <div class="wrap-input100 validate-input" data-validate="Password">
-          <input
-            bind:value={user.password}
-            required
-            class="input100"
-            type="password"
-            name="pass"
-          />
-          <span class="focus-input100" />
-          <span class="label-input100"> Password</span>
-        </div>
-
         <div
           class="wrap-input100 validate-input"
-          data-validate="Confirm Password"
+          data-validate="Valid unique name is required"
         >
           <input
-            bind:value={password}
-            required
+            bind:value={referral}
             class="input100"
-            type="password"
-            name="cpass"
+            autofocus
+            type="text"
           />
           <span class="focus-input100" />
-          <span class="label-input100">Confirm Password</span>
+          <span class="label-input100">referral code</span>
         </div>
 
         <div class="container-login100-form-btn">
@@ -226,5 +249,14 @@ let text = 'Register';
    [type = 'submit'] {
     background-image: url('images/bg/button.jpeg');
     background-size: cover;
+  }
+  .svg {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: gray;
+  }
+  .active  {
+    border: 4px solid green
   }
 </style>

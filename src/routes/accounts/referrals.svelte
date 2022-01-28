@@ -157,25 +157,57 @@
         <DesktopSide dash="accounts" />
         <div class="content">
             <TopBar {links}/>
-            <div class="row" style="margin-bottom: 50px;">
-                <h2 class="intro-y fs-lg fw-medium me-auto mt-2">referrals</h2>
-            </div>
+          
             <div class="container">
             <div class="row intro-y box mt-5 income">
-                <div class="col-12">
-                    <div class="row">
-                        <div class="col-sm-6 col-12">
-                            <img src="sv" alt="">
-                        </div>
-                    </div>
+                <div class="col-12 p-sm-l-3 p-sm-r-3">
+                   <p><small>TOTAL EARNINGS</small></p>
+                   <p class="money">$5,000</p>
                 </div>
             </div>
-            <div class="row intro-y box mt-5 pt-4">
-                <div class="col-12 pt-3 mb-3"><h2>referrals tree</h2></div>
-                <div class="col-12">
-                    <div id="chart"></div>
+            <div class="row box intro-y banner mt-5">
+
+            </div>
+            <h2>referrals users</h2>
+            <div class="row box mt-5">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="whitespace-nowrap">#</th>
+                            <th class="whitespace-nowrap">First Name</th>
+                            <th class="whitespace-nowrap">Last Name</th>
+                            <th class="whitespace-nowrap">Earning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Angelina</td>
+                            <td>Jolie</td>
+                            <td>$50</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Brad</td>
+                            <td>Pitt</td>
+                            <td>$80</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Charlie</td>
+                            <td>Hunnam</td>
+                            <td>$100</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+<h2>referrals Tree</h2>
+            <div class="row box mt-5">
+                <div id="chart">
+
                 </div>
             </div>
+           
             </div>
         </div>
     </div>
@@ -190,18 +222,30 @@
         background-repeat: no-repeat, no-repeat, no-repeat;
         background-position: 0 0, 100%, 0 100%;
     }
-    h2 {
-        font-family: "Itim", "roboto";
-    }
-    #svg {
-        width: 60px;
-    }
-    .cash-big {
-        font-size: 30px;
-        font-weight: 700;
-    }
+   
     .income {
-        background-image: url('svg/money.svg');
+        background-image: url('images/ill/earn.png');
+        height: 100px;
+        background-repeat: no-repeat;
+        background-position: right;
+        background-size: 150px;
     }
+    .banner {
+        background-color: green;
+        height: 150px;
+    }
+    .money {
+        font-weight: 800;
+        font-size: 3rem;
+    }
+    #chart{
+        height: 50vh;
+    }
+    h2 {
+	font-family: 'Itim', 'roboto';
+	font-weight: 500;
+	font-size: 1.5rem;
+}
+  
 
 </style>

@@ -16,6 +16,7 @@ export interface Iuser {
     is_active?: boolean;
     confirm_number?: boolean;
     confirm_email?: boolean;
+    type?: string;
 }
 export interface Istudent {
 

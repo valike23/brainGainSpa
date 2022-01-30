@@ -3,7 +3,7 @@ import { onMount } from "svelte";
 
 
     onMount(()=>{
-        location.href = '/sgnin';
+        location.href = '/signin';
     })
 </script>
 

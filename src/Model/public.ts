@@ -17,6 +17,9 @@ let local: ConnectionConfig = {
     user: 'root',
     database: 'bgspanDB'
 }
+export const TIMER = {
+    registration: 3 //days
+} 
 
  export let dbconfig: ConnectionConfig = db4free;
 

@@ -24,7 +24,7 @@ export async function post (req, res) {
        // data.password = await hash(data.password, saltRounds);
        // console.log('password', data);
 
-        data.token = crypto.encrypt(JSON.stringify({ email: data.email, time: Date.now() }))
+        data.token = crypto.encrypt(JSON.stringify({ email: data.email, time: Date.now(), type: "register" }))
 
         let result: any = await sqlHelper.insertQuery(data, 'users');
         console.log(result);

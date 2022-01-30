@@ -1,6 +1,6 @@
 export interface Iuser {
     id?: number;
-    first_nname?: string;
+    first_name?: string;
     last_name?: string;
     middle_name?: string;
     user_name?: string;

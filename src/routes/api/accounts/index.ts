@@ -20,7 +20,7 @@ export async function post (req, res) {
         let data: Iuser = JSON.parse(req.fields.body);
         console.log(data);
 
-        data.user_name = data.email;
+       // data.user_name = data.email;
        // data.password = await hash(data.password, saltRounds);
        // console.log('password', data);
 

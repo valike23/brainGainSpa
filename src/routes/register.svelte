@@ -31,12 +31,7 @@
 let text = 'Register';
   let win: any = {};
   const submit = async () => {
-    if (user.password !== password && user.password != "") {return handleNotification(
-        "password doesnt match",
-        window,
-        "error",
-        "error"
-      );}
+   
 
     let form = new FormData();
     form.append("body", JSON.stringify(user));

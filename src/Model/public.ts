@@ -6,9 +6,9 @@ let localMongo = `mongodb://localhost:27017`;
 export let connectionString: string = localMongo;
 let db4free: ConnectionConfig = {
     host: 'db4free.net',
-    password: 'bumblebee2021',
-    user: 'saleodb',
-    database: 'saleodb'
+    password: 'bgspandb',
+    user: 'bgspandb',
+    database: 'bgspandb'
 
 }
 let local: ConnectionConfig = {
@@ -18,6 +18,6 @@ let local: ConnectionConfig = {
     database: 'bgspanDB'
 }
 
- export let dbconfig: ConnectionConfig = local;
+ export let dbconfig: ConnectionConfig = db4free;
 
  export let cryptoSecret = 'bgspa';

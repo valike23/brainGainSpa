@@ -26,13 +26,35 @@
   let password = "";
   let user: Iuser = {};
   export let referral ;
+  $: user.referral_code = referral;
+  if(referral) user.type = 'parent';
   console.log(referral);
-  
+  let referralCofirm = false;
+  let parentCodeConfirm = false;
+  user.type = 'student';
 let text = 'Register';
   let win: any = {};
+  const confirmCode = async () => {
+    if(user.type == 'student') parentCodeConfirm = false;
+    if(user.type == 'parent') referralCofirm = false;
+    let code = user.type == 'student' ? user.parent_code : user.referral_code;
+    if(!code) return handleNotification('you have to provide a code', window,'error','oops!!!');
+    handleNotification('confirming code...', window, 'info','loading...');
+    let data = await axios.get(`accounts/referrals?type=${user.type}&code=${code}`);
+    let result = data.data;
+    if(user.type == 'student') parentCodeConfirm = result;
+    if(user.type == 'parent') referralCofirm = result;
+    if(result) handleNotification(`the code is ${result? 'correct': 'incorrect'}`, window,'success','success');
+  }
   const submit = async () => {
    
-
+    if(user.type == 'student'){
+      if(!parentCodeConfirm)  Swal.fire({
+           icon: 'error',
+           title: 'Error!!!',
+           text: 'You must provide a valid parent\'s code to register your account'
+       })
+    }
     let form = new FormData();
     form.append("body", JSON.stringify(user));
     console.log(form);
@@ -41,7 +63,7 @@ let text = 'Register';
     let data = await axios.post("api/accounts", form);
     if (data) {
       let res = data.data;
-      if (res) {
+      if (res.message == 'success') {
           text = 'Register';
         Swal.fire({
           icon: "success",
@@ -52,6 +74,14 @@ let text = 'Register';
           location.href = '/signin';
         });
         console.log(res);
+      }
+      else{
+        Swal.fire({
+          icon: "error",
+          title: "duplicate details",
+          text: `username or email already exist in the system`,
+          
+        })
       }
     }
    } catch (error) {
@@ -65,6 +95,7 @@ let text = 'Register';
   };
   const assignType = (resp) => {
     user.type = resp;
+    console.log(user);
   }
   onMount(() => {
     win = window;
@@ -208,19 +239,37 @@ let text = 'Register';
           <span class="label-input100">Username</span>
         </div>
 
-        <div
+       {#if user.type == 'student'}
+          <div
           class="wrap-input100 validate-input"
           data-validate="Valid unique name is required"
         >
           <input
-            bind:value={referral}
+            bind:value={user.parent_code}
             class="input100"
             autofocus
+            on:blur="{confirmCode}"
             type="text"
           />
           <span class="focus-input100" />
-          <span class="label-input100">referral code</span>
+          <span class="label-input100">parent code</span>
         </div>
+       {:else}
+       <div
+       class="wrap-input100 validate-input"
+       data-validate="Valid unique name is required"
+     >
+       <input
+         bind:value={referral}
+         class="input100"
+         autofocus
+         on:blur="{confirmCode}"
+         type="text"
+       />
+       <span class="focus-input100" />
+       <span class="label-input100">referral code</span>
+     </div>
+       {/if}
 
         <div class="container-login100-form-btn">
           <input disabled={text != 'Register'} type="submit" value="{text}" class="login100-form-btn" />

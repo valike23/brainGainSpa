@@ -10,6 +10,7 @@
     "validate": "svelte-check --ignore src/node_modules/@sapper"
   },
   "dependencies": {
+    "@types/mysql": "^2.15.20",
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "compression": "^1.7.1",
@@ -20,6 +21,7 @@
     "mongodb": "^4.3.1",
     "mysql": "^2.18.1",
     "phaser": "^3.55.2",
+    "short-crypt": "^1.0.23",
     "sirv": "^1.0.0",
     "sweetalert2": "^11.3.5"
   },

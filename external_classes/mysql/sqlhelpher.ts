@@ -1,5 +1,5 @@
 
-import { ConnectionConfig, createConnection } from 'mysql';
+import { ConnectionConfig, createConnection,  } from 'mysql';
 
 
 export class SqlHelper {
@@ -7,7 +7,7 @@ export class SqlHelper {
     constructor(config: ConnectionConfig) {
         this.dbConfig = config;
     }
-    insertQuery(data: any, table: string) {
+    insertQuery(data: any, table: string): Promise<any> {
 
         return new Promise((resolve, reject) => {
             try {

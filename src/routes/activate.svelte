@@ -69,7 +69,7 @@ import type { Iuser } from "../Model/accounts";
             title: "Success",
           });
           if (swal) {
-            goto("login");
+            goto("signin");
           }
         }
         else{
@@ -89,7 +89,7 @@ import type { Iuser } from "../Model/accounts";
       win = window;
       console.log(win);
       try {
-        if (changeOfTime < 1) {
+        if (changeOfTime > 1) {
           let data = await win.Sweetalert2.fire({
             text: "token has expired you will be navigated to the appropiate page",
             title: "Token Expired",

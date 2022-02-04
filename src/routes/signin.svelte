@@ -30,6 +30,13 @@
             location.href = "/dashboard";
           });
         }
+        else {
+          Swal.fire({
+            icon: "error",
+            title: "ooosps!!",
+            text: res.message,
+          })
+        }
       }
     } catch (error) {
       text = "Login";

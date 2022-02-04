@@ -1,4 +1,4 @@
-import type { Iuser } from "../../../Model/accounts";
+import { confirm_codes, Iuser } from "../../../Model/accounts";
 import {hash, compare} from 'bcrypt';
 import { cryptoSecret, dbconfig } from "../../../Model/public";
 import {SqlHelper} from '../../../../external_classes/mysql/sqlhelpher';
@@ -27,8 +27,49 @@ export async function post (req, res) {
         data.token = crypto.encrypt(JSON.stringify({ email: data.email, time: Date.now(), type: "register" }))
 
         let result: any = await sqlHelper.insertQuery(data, 'users');
-        console.log(result);
-        res.json(result);
+        console.log(result, typeof(result), result.insertId, data.referral_code);
+        if(result.insertId){
+          
+           try {
+               if(data.type == 'student'){
+               let resultCode = await confirm_codes(data.type, data.parent_code);
+               if(resultCode){
+                   let myData = {user_id: result.insertId, parent_id: resultCode}
+                    let data = await sqlHelper.insertQuery(myData, 'students');
+                    res.json({message: 'success', data});
+               }
+               else{
+                res.json(result);
+               }
+               }
+               else {
+                   if(!data.referral_code) {
+                    let myData = {user_id: result.insertId};
+                    let data = await sqlHelper.insertQuery(myData, 'parents');
+                    return res.json({message: 'success', data});
+                   }
+                let resultCode = await confirm_codes(data.type, data.referral_code);
+                if(resultCode){
+                    let myData = {user_id: result.insertId, top_level: resultCode}
+                     let data = await sqlHelper.insertQuery(myData, 'parents');
+                     res.json({message: 'success', data});
+                }
+                else{
+                    let myData = {user_id: result.insertId};
+                    let data = await sqlHelper.insertQuery(myData, 'parents');
+                    res.json({message: 'success', data});
+                
+                }
+                }
+           } catch (error) {
+               console.log(error);
+               res.json({message:'error', data: error})
+           }
+        }
+        else{
+            res.json({message: 'success'});
+        }
+        
 
 
     } catch (error) {
@@ -86,3 +127,4 @@ export async function put(req, res) {
         }
     }
 }
+

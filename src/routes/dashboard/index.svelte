@@ -4,6 +4,7 @@
     import MobileMenu from "../../components/Nav/MobileMenu.svelte";
     import TopBar from "../../components/Nav/TopBar.svelte";
 
+    let links =[{name: 'dashboard'}];
     let win: any = {};
     onMount(() => {
         win = window;
@@ -53,7 +54,7 @@
         <DesktopSide dash="dashboard" />
         <div class="content">
             <!-- BEGIN: Top Bar -->
-            <TopBar />
+            <TopBar {links}/>
             <!-- END: Top Bar -->
             <div class="grid columns-12 gap-6 mt-8">
                 <div class="g-col-12 g-col-lg-3 g-col-xxl-2">

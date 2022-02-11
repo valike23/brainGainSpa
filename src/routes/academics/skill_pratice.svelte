@@ -7,7 +7,7 @@
         location.href = "academics/topic";
     };
 
-let links =[{name: 'accoounts'},{name: 'subscription', url: 'accooounts/subscription'}];
+let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pratice'}];
 </script>
 
 <svelte:head />

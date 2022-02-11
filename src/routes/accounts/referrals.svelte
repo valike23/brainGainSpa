@@ -159,6 +159,12 @@
             <TopBar {links}/>
           
             <div class="container">
+                <div class="row intro-y box mt-5 income">
+                    <div class="col-12 p-sm-l-3 p-sm-r-3">
+                       <p><small>TOTAL EARNINGS</small></p>
+                       <p class="money">$5,000</p>
+                    </div>
+                </div>
             <div class="row intro-y box mt-5 income">
                 <div class="col-12 p-sm-l-3 p-sm-r-3">
                    <p><small>TOTAL EARNINGS</small></p>

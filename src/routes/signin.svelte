@@ -27,6 +27,7 @@
             title: "SUCCESS!!!",
             text: "Login was successful",
           }).then(() => {
+            sessionStorage.setItem('user',JSON.stringify(res.data.user));
             location.href = "/dashboard";
           });
         }

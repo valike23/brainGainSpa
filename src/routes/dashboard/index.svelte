@@ -63,7 +63,7 @@
                 </div>
                 <div class="g-col-12 ">
                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                        <strong>Hold On!!</strong> Email address is not yet confirmed. Click on the link below to  <a href="/accounts">Confirm your Email</a>
+                        <strong>Hold On!!!</strong> You have to make payment here to complete your account
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
                       </div>
                     <div class="mflex" style="margin-bottom: 20px;">

@@ -218,6 +218,7 @@ let isOnline = 'offline';
                                     >
                                 </div>
                             </div>
+                            
                             <div class="col-4 pause">
                                 <span>
                                     <svg

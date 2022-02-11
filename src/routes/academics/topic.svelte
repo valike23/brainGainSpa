@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
     import DesktopSide from "../../components/Nav/DesktopSide.svelte";
     import MobileMenu from "../../components/Nav/MobileMenu.svelte";
     import TopBar from "../../components/Nav/TopBar.svelte";
 
+    let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pratice'},{name: 'topic', url: 'academics/topic'}];
     const gotoTopic = ()=>{
         location.href="academics/instruction"
     }
@@ -14,7 +15,7 @@
     <div class="d-flex">
         <DesktopSide dash="academics" />
         <div class="content">
-            <TopBar />
+            <TopBar {links}/>
             <div class="row" style="margin-bottom: 50px;">
                 <h2 class="intro-y fs-lg fw-medium me-auto mt-2">Topics</h2>
             </div>

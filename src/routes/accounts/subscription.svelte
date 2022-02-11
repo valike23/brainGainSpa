@@ -4,7 +4,7 @@
   import TopBar from "../../components/Nav/TopBar.svelte";
   let links = [
     { name: "accoounts" },
-    { name: "subscription", url: "accooounts/subscription" },
+    { name: "subscription", url: "accounts/subscription" },
   ];
 </script>
 

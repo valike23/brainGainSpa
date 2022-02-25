@@ -1,18 +1,31 @@
 <script lang="ts">
+
+import { onMount } from "svelte";
+
+
     export let dash;
+    let user ={};
+    onMount(()=>{
+        console.log(sessionStorage.getItem('user'));
+         user = JSON.parse(sessionStorage.getItem('user'));
+
+    })
 </script>
 
 <nav class="side-nav">
     <a href="/dashboard" rel="external" class="intro-x d-flex align-items-center ps-5 pt-4">
         <img
-            alt="Rubick Tailwind HTML Admin Template"
+            alt="braingainspa "
             class="w-6"
             src="dist/images/logo.svg"
         />
         <span class="d-none d-xl-block text-white fs-lg ms-3">
             BrainGain<span class="fw-medium">spa</span>
+            
         </span>
+       
     </a>
+    <p style="color: white; font-size: 14px; text-align: center">{user.type}</p>
     <div class="side-nav__devider my-6" />
     <ul>
         <li>
@@ -284,13 +297,13 @@
                 </li>
                 <li>
                     <a
-                        href="javascript:;.html"
+                        href="accounts/settings"
                         class="side-menu"
                     >
                         <div class="side-menu__icon">
-                            <i data-feather="activity" />
+                            <i class="fa fa-cogs" />
                         </div>
-                        <div class="side-menu__title">Payments</div>
+                        <div class="side-menu__title">Settings</div>
                     </a>
                 </li>
             </ul>

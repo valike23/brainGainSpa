@@ -1,4 +1,4 @@
-import { confirm_codes, Iuser } from "../../../Model/accounts";
+import { confirm_codes, create_code, Iuser } from "../../../Model/accounts";
 import {hash, compare} from 'bcrypt';
 import { cryptoSecret, dbconfig } from "../../../Model/public";
 import {SqlHelper} from '../../../../external_classes/mysql/sqlhelpher';
@@ -9,6 +9,7 @@ const saltRounds = 10;
 const crypto = new Cryptr(cryptoSecret);
 let handle_respond = async (result, password) => {
     let myresult = result[0];
+    console.log(password, myresult);
     let data: any = await compare(password, myresult.password);
     console.log('my data: ', data);
     return data;
@@ -19,12 +20,17 @@ export async function post (req, res) {
         console.log(req.fields.body);
         let data: Iuser = JSON.parse(req.fields.body);
         console.log(data);
-
+        let parent_code;
        // data.user_name = data.email;
        // data.password = await hash(data.password, saltRounds);
        // console.log('password', data);
 
         data.token = crypto.encrypt(JSON.stringify({ email: data.email, time: Date.now(), type: "register" }))
+if(data.type == 'student'){
+    parent_code = data.parent_code;
+    delete(data.parent_code);
+};
+console.log('all my data: ',data);
 
         let result: any = await sqlHelper.insertQuery(data, 'users');
         console.log(result, typeof(result), result.insertId, data.referral_code);
@@ -32,9 +38,10 @@ export async function post (req, res) {
           
            try {
                if(data.type == 'student'){
+                   data.parent_code = parent_code;
                let resultCode = await confirm_codes(data.type, data.parent_code);
                if(resultCode){
-                   let myData = {user_id: result.insertId, parent_id: resultCode}
+                   let myData = {user_id: result.insertId, parent_id: resultCode};
                     let data = await sqlHelper.insertQuery(myData, 'students');
                     res.json({message: 'success', data});
                }
@@ -44,13 +51,23 @@ export async function post (req, res) {
                }
                else {
                    if(!data.referral_code) {
-                    let myData = {user_id: result.insertId};
+                       let id: number = result.insertId;
+
+                    let myData = {
+                        user_id: result.insertId, 
+                        parent_code: create_code('student', id.toString()), 
+                        referral_code: create_code('parent', id.toString())
+                    };
+                     
                     let data = await sqlHelper.insertQuery(myData, 'parents');
                     return res.json({message: 'success', data});
                    }
                 let resultCode = await confirm_codes(data.type, data.referral_code);
                 if(resultCode){
-                    let myData = {user_id: result.insertId, top_level: resultCode}
+                    let id: number = result.insertId;
+                    let myData = {user_id: result.insertId, top_level: resultCode,
+                        parent_code: create_code('student', id.toString()), 
+                        referral_code: create_code('parent', id.toString())}
                      let data = await sqlHelper.insertQuery(myData, 'parents');
                      res.json({message: 'success', data});
                 }
@@ -106,6 +123,10 @@ export async function put(req, res) {
                 req.session.user = adminResult[0];
 
                 //return response
+                let students = await sqlHelper.get(`students`,[],`where user_id =${adminResult[0].id}`);
+                if(students){
+                    req.session.faculty = students[0];
+                }
                 res.json({message: 'success', data: req.session});
             }
             else  {
@@ -125,6 +146,15 @@ export async function put(req, res) {
         else {
             res.status(503).json(error);
         }
+    }
+}
+
+export function get(req, res){
+    if(req.session.user){
+        res.json(req.session.user);
+    }
+    else{
+        res.json({})
     }
 }
 

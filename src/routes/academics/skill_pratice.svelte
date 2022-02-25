@@ -1,8 +1,27 @@
+<script context="module">
+	// the (optional) preload function takes a
+	// `{ path, params, query }` object and turns it into
+	// the data we need to render the page
+	export async function preload(page, session) {
+		// the `slug` parameter is available because this file
+		// is called [slug].svelte
+		const { slug } = page.params;
+
+		// `this.fetch` is a wrapper around `fetch` that allows
+		// you to make credentialled requests on both
+		// server and client
+		const res = await this.fetch(`api/skill_pratice/faculties`);
+		const faculties = await res.json();
+        console.log(faculties);
+		return { faculties };
+	}
+</script>
+
 <script lang="ts">
     import DesktopSide from "../../components/Nav/DesktopSide.svelte";
     import MobileMenu from "../../components/Nav/MobileMenu.svelte";
     import TopBar from "../../components/Nav/TopBar.svelte";
-
+    export let faculties;
     const gotoTopic = () => {
         location.href = "academics/topic";
     };

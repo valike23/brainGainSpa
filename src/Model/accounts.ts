@@ -25,11 +25,24 @@ export interface Iuser {
     confirm_email?: boolean;
     type?: string;
 }
+export interface Igrade {
+  id?: number;
+  grade_name?: string;
+  description?: string;
+}
 export interface Istudent {
-
+  user_id?: number;
+  parent_id?: number;
+  academic_class_id?: number;
+  session_id?: number;
+  grade_id?: number;
+  student_info?:Iuser;
+  parent_info?: Iuser;
+  grade?:Igrade;
 }
 
-export let confirm_codes = async (type, code) => {
+export let confirm_codes = async (type: string, code: string) => {
+  console.log(typeof(code), code);
     try {
     if(type == 'student'){
        
@@ -38,9 +51,9 @@ export let confirm_codes = async (type, code) => {
            let idString = String.fromCharCode(...dataArray);
            try {
              let id =  Number.parseInt(idString);
-           let data = await  sqlhelpher.get('parent',['id'],`where user_id = ${id}`) as any;
+           let data = await  sqlhelpher.get('parents',['user_id'],`where user_id = ${id}`) as any;
              if(data != undefined && data.length > 0){
-                return data[0].id;
+                return data[0].user_id;
              }
              else{
                  throw(false);
@@ -60,9 +73,9 @@ export let confirm_codes = async (type, code) => {
              let idString = String.fromCharCode(...dataArray);
              try {
                let id =  Number.parseInt(idString);
-             let data = await  sqlhelpher.get('parent',['id'],`where user_id = ${id}`) as any;
+             let data = await  sqlhelpher.get('parents',['user_id'],`where user_id = ${id}`) as any;
                if(data.length){
-                  return data[0].id;
+                  return data[0].user_id;
                }
                else{
                    throw(false);
@@ -80,4 +93,14 @@ export let confirm_codes = async (type, code) => {
     catch (error) {
             return error;
     }
+}
+
+export let create_code =  (type: string, code: string): string=>{
+  if(type == 'student'){
+    return sc.encryptToQRCodeAlphanumeric(code);
+  }
+  else{
+    return sc.encryptToURLComponent(code);
+  }
+  
 }

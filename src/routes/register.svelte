@@ -81,6 +81,9 @@ let text = 'Register';
           title: "duplicate details",
           text: `username or email already exist in the system`,
           
+        }).then(()=>{
+
+         text = 'Register';
         })
       }
     }

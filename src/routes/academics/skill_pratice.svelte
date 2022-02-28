@@ -11,9 +11,9 @@
 		// you to make credentialled requests on both
 		// server and client
 		const res = await this.fetch(`api/skill_pratice/faculties`);
-		const faculties = await res.json();
-        console.log(faculties);
-		return { faculties };
+		const resource = await res.json();
+        console.log(resource);
+		return { resource };
 	}
 </script>
 
@@ -21,8 +21,12 @@
     import DesktopSide from "../../components/Nav/DesktopSide.svelte";
     import MobileMenu from "../../components/Nav/MobileMenu.svelte";
     import TopBar from "../../components/Nav/TopBar.svelte";
-    export let faculties;
-    const gotoTopic = () => {
+import type { Ifaculty } from "../../Model/question";
+    export let resource:Ifaculty[];
+    let faculty: Ifaculty ={};
+    faculty = resource[0];
+    const gotoTopic = (course) => {
+        sessionStorage.setItem('activeCourse',JSON.stringify(course));
         location.href = "academics/topic";
     };
 
@@ -54,99 +58,21 @@ let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pr
                 </form>
             </div>
             <div class="row">
-                <div class="col-6 col-sm-3 m2">
-                    <div
-                        on:click={gotoTopic}
-                        class="uk-card uk-card-default uk-card-body "
-                    >
-                        <div class="svgbody">
-                            <img src="svg/chemistry.svg" alt="" srcset="" />
+              {#each faculty.courses as course}
+              <div class="col-6 col-sm-3 m2">
+                <div
+                    on:click={()=>{gotoTopic(course)}}
+                    class="uk-card uk-card-default uk-card-body "
+                >
+                    <div class="svgbody">
+                        <img src="{course.courseImage}" alt="" srcset="" />
 
-                            <p>Chemistry</p>
-                        </div>
+                        <p>{course.courseName}</p>
                     </div>
                 </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/physics.svg" alt="" srcset="" />
-
-                            <p>Physics</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/biology.svg" alt="" srcset="" />
-
-                            <p>Biology</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/maths.svg" alt="" srcset="" />
-
-                            <p>Mathematics</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/english.svg" alt="" srcset="" />
-
-                            <p>English</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/history.svg" alt="" srcset="" />
-
-                            <p>History</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/commerce.svg" alt="" srcset="" />
-
-                            <p>Commercial</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/computer.svg" alt="" srcset="" />
-
-                            <p>Computer Sci</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/accounting.svg" alt="" srcset="" />
-
-                            <p>Accounting</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/crs.svg" alt="" srcset="" />
-
-                            <p>CRS</p>
-                        </div>
-                    </div>
-                </div>
+            </div>
+              {/each}
+              
             </div>
         </div>
     </div>

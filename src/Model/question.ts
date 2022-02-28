@@ -41,3 +41,33 @@ export interface IquestionParameter {
     amount?: number;
     year?: string;
 }
+export interface Itopic {
+    topicId?: number;
+    courseId?: number;
+    topicName?:string;
+    description?: string;
+    topicImage?: string;
+    
+}
+export interface Icourse {
+    courseId?: number;
+    courseCode?: string;
+    courseName?: string;
+    courseImage?: string;
+    topics?: Itopic[]
+
+}
+
+
+export interface Ifaculty {
+    facultyName?: string;
+    facultyId?: number;
+    description?: string;
+    courses?:Icourse[]
+}
+export interface Iresource {
+    _id?: any;
+    resourceTypeName?: string;
+    description?: string;
+    faculties?: Ifaculty[]
+}

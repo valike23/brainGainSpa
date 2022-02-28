@@ -41,12 +41,6 @@
 
 <svelte:head>
     <title>Home:: Dashboard</title>
-    <link rel="stylesheet" href="dist/css/app.css" />
-
-    <script defer src="dist/js/app.js"></script>
-    <link rel="stylesheet" href="css/splide-core.min.css" />
-    <link rel="stylesheet" href="css/splide-skyblue.min.css" />
-    <script defer src="js/splide.js"></script>
 </svelte:head>
 <div class="main">
     <MobileMenu />

@@ -1,10 +1,23 @@
-<script>
+<script lang="ts">
+import { onMount } from "svelte";
+
     import DesktopSide from "../../components/Nav/DesktopSide.svelte";
     import MobileMenu from "../../components/Nav/MobileMenu.svelte";
     import TopBar from "../../components/Nav/TopBar.svelte";
+import type { Itopic } from "../../Model/question";
     const next = () =>{
         location.href = 'academics/quiz';
     }
+    let topic : Itopic ={};
+    let playInstruction =()=>{
+        alert();
+    }
+    onMount(()=>{
+        if(!sessionStorage.getItem('activeTopic')) location.href="academics/skill_pratice";
+        topic = JSON.parse(sessionStorage.getItem('activeTopic'));
+        console.log(topic);
+    })
+let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pratice'},{name: 'instruction', url: 'academics/instruction'}];
 </script>
 
 <div class="main">
@@ -13,16 +26,17 @@
     <div class="d-flex">
         <DesktopSide dash="academics" />
         <div class="content">
-            <TopBar />
+            <TopBar {links}/>
             <div class="row" style="margin-bottom: 50px;">
                 <h2 class="intro-y fs-lg fw-medium me-auto mt-2">
-                    Square Root - Instructions
+                    {topic.topicName} - Instructions
+                    <span on:click="{playInstruction}" class="float-end"><img src="svg/play/low_speaker.svg" alt=""></span>
                 </h2>
             </div>
 
             <div>
-                <p id="type">Skill Pratice</p>
-                <p id="topic">Square root</p>
+                <p id="type">Skill Pratice <audio src=""></audio></p>
+                <p id="topic">{topic.topicName}</p>
                 <div class="row ">
                     <div class="col-6 col-sm-3 mbox">
                         <span>Questions</span>
@@ -43,6 +57,7 @@
 
                 <p class="score row"><img src="svg/medal.svg" class="col-3" alt="" srcset="" /> <span class="col">Each Correct Question gives you 1 pt</span></p>
                 <p class="score row"><img src="svg/tap.svg" class="col-3" alt="" srcset="" /> <span class="col">Tap the correct option to select a Question</span></p>
+                <p class="score row"><img src="svg/cancel.svg" class="col-3" alt="" srcset="" /> <span class="col">Negative markings are applied on all failed Questions.</span></p>
 
 
                 <div style="margin-top: 45px;">   

@@ -1,7 +1,12 @@
-<script>
+<script lang="ts">
+    import {goto} from "@sapper/app";
     export let links;
     console.log(links);
     let data = links;
+
+    const logout =()=>{
+        goto('/signin')
+    }
 </script>
 <div class="top-bar">
     <!-- BEGIN: Breadcrumb -->
@@ -509,8 +514,10 @@
                     />
                 </li>
                 <li>
+                    <!-- svelte-ignore a11y-invalid-attribute -->
                     <a
-                        href=""
+                        href="javascript:;"
+                        on:click="{logout}"
                         class="dropdown-item text-white bg-theme-1-hover dark-bg-dark-3-hover"
                     >
                         <i

@@ -1,3 +1,22 @@
+<script context="module">
+	// the (optional) preload function takes a
+	// `{ path, params, query }` object and turns it into
+	// the data we need to render the page
+	export async function preload(page, session) {
+		// the `slug` parameter is available because this file
+		// is called [slug].svelte
+		const { slug } = page.params;
+
+		// `this.fetch` is a wrapper around `fetch` that allows
+		// you to make credentialled requests on both
+		// server and client
+		const res = await this.fetch(`api/referral`);
+		const referral = await res.json();
+        console.log(referral);
+		return { referral };
+	}
+</script>
+
 <script lang="ts">
     import { onMount } from "svelte";
     import DesktopSide from "../../components/Nav/DesktopSide.svelte";

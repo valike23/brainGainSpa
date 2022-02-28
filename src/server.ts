@@ -14,7 +14,7 @@ express() // You can also use Express
 			secret: 'braingainspa sc key',
 			resave: false,
 			saveUninitialized: true,
-			cookie: { secure: true }
+			cookie: { secure: false }
 		}),
 		formidable(),
 		compression({ threshold: 0 }),

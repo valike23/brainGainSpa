@@ -1,12 +1,23 @@
 <script lang="ts">
+import { onMount } from "svelte";
+
     import DesktopSide from "../../components/Nav/DesktopSide.svelte";
     import MobileMenu from "../../components/Nav/MobileMenu.svelte";
     import TopBar from "../../components/Nav/TopBar.svelte";
+import type { Icourse } from "../../Model/question";
 
     let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pratice'},{name: 'topic', url: 'academics/topic'}];
-    const gotoTopic = ()=>{
+    const gotoTopic = (topic)=>{
+        sessionStorage.setItem('activeTopic', JSON.stringify(topic));
         location.href="academics/instruction"
     }
+    let course : Icourse ={};
+    course.topics = [];
+    onMount(()=>{
+        if(!sessionStorage.getItem('activeCourse')) location.href="academics/skill_pratice";
+        course = JSON.parse(sessionStorage.getItem('activeCourse'));
+        console.log(course);
+    })
 </script>
 
 <div class="main">
@@ -31,99 +42,21 @@
                 </form>
             </div>
             <div class="row">
-                <div class="col-6 col-sm-3 m2">
-                    <div
-                        on:click={gotoTopic}
-                        class="uk-card uk-card-default uk-card-body "
-                    >
-                        <div class="svgbody">
-                            <img src="svg/surds.svg" alt="" srcset="" />
+              {#each course.topics as topic}
+              <div class="col-6 col-sm-3 m2">
+                <div
+                    on:click={()=>{gotoTopic(topic)}}
+                    class="uk-card uk-card-default uk-card-body "
+                >
+                    <div class="svgbody">
+                        <img src="{topic.topicImage}" alt="" srcset="" />
 
-                            <p>Square Roots</p>
-                        </div>
+                        <p>{topic.topicName}</p>
                     </div>
                 </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/numbers.svg" alt="" srcset="" />
-
-                            <p>Numbers System</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/numbers.svg" alt="" srcset="" />
-
-                            <p>Indices</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/numbers.svg" alt="" srcset="" />
-
-                            <p>Stndard Form</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/equation.svg" alt="" srcset="" />
-
-                            <p>Simple Equations</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/equation.svg" alt="" srcset="" />
-
-                            <p>Qudratic Equations</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/geometry.svg" alt="" srcset="" />
-
-                            <p>Trigonometry</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/geometry.svg" alt="" srcset="" />
-
-                            <p>Polygon</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/surds.svg" alt="" srcset="" />
-
-                            <p>Surds</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-sm-3 m2">
-                    <div class="uk-card uk-card-default uk-card-body ">
-                        <div class="svgbody">
-                            <img src="svg/percentage.svg" alt="" srcset="" />
-
-                            <p>Ratio and Percentage</p>
-                        </div>
-                    </div>
-                </div>
+            </div>
+              {/each}
+               
             </div>
         </div>
     </div>

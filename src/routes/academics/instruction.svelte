@@ -8,9 +8,17 @@ import type { Itopic } from "../../Model/question";
     const next = () =>{
         location.href = 'academics/quiz';
     }
+    let instruction = true;
     let topic : Itopic ={};
     let playInstruction =()=>{
-        alert();
+      instruction = !instruction;
+        let audio = document.querySelector('audio');
+        audio.play();
+    }
+    let stopInstruction =()=>{
+        instruction = !instruction;
+        let audio = document.querySelector('audio');
+        audio.pause();
     }
     onMount(()=>{
         if(!sessionStorage.getItem('activeTopic')) location.href="academics/skill_pratice";
@@ -19,7 +27,9 @@ import type { Itopic } from "../../Model/question";
     })
 let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pratice'},{name: 'instruction', url: 'academics/instruction'}];
 </script>
-
+<svelte:head>
+    <title>Braingainspa:: Instruction page</title>
+</svelte:head>
 <div class="main">
     <MobileMenu />
 
@@ -30,12 +40,16 @@ let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pr
             <div class="row" style="margin-bottom: 50px;">
                 <h2 class="intro-y fs-lg fw-medium me-auto mt-2">
                     {topic.topicName} - Instructions
-                    <span on:click="{playInstruction}" class="float-end"><img src="svg/play/low_speaker.svg" alt=""></span>
+                  {#if instruction}
+                  <span style="width: 20px; height: 20px" on:click="{playInstruction}" class="float-end"><img src="svg/play/low_speaker.svg" alt=""></span>
+                  {:else}
+                  <span style="width: 20px; height: 20px" on:click="{stopInstruction}" class="float-end"><img src="svg/play/high_speaker.svg" alt=""></span>
+                  {/if}
                 </h2>
             </div>
 
             <div>
-                <p id="type">Skill Pratice <audio src=""></audio></p>
+                <p id="type">Skill Pratice <audio style="visibility: hidden;" src="sounds/sub.ogg"></audio></p>
                 <p id="topic">{topic.topicName}</p>
                 <div class="row ">
                     <div class="col-6 col-sm-3 mbox">

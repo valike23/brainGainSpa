@@ -9,14 +9,17 @@ let mongoUser = new MongoUser({
 })
 export async function get(req, res) {
     let studentQuiz : IstudentQuiz ={};
-    studentQuiz.studentId = req.query.studenntid;
-    studentQuiz.topicId = req.query.topicId;
+    studentQuiz.studentId = req.session.user.id;
+    studentQuiz.topicId = req.query.topicid;
+    console.log('student quiz: ', studentQuiz);
+
     try {
         //might have to adjust this query to an $and query 
       let data = await  mongoUser.getAllRecordFromCollection('studentQuiz',studentQuiz);
+      console.log('initial result', data);
       if(data){
-        let myData = await mongoUser.getAllRecordFromCollection('questions',{topicId: studentQuiz.topicId},{},data.length + 1, 20);
-
+        let myData = await mongoUser.getAllRecordFromCollection('questions',{topicId: Number(studentQuiz.topicId)},{},data.length + 1, 20);
+        console.log('final result: ',myData)
       res.json(myData);
       }
     } catch (error) {

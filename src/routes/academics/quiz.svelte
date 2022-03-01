@@ -14,6 +14,7 @@
 		// server and client
         let type = 'skill pratice';
 		try {
+            console.log(page);
             
             const res = await this.fetch(`api/questions/studentQuiz?topicid=${page.query.topicid}`);
 		 questions = await res.json();
@@ -179,7 +180,7 @@ let isOnline = 'offline';
         <div class="content">
             <TopBar {links}/>
             <div class="row">
-                <h2 class="intro-y fs-lg fw-medium me-auto mt-2">{question.subject}</h2>
+                <h2 class="intro-y fs-lg fw-medium me-auto mt-2">{'chemistry'}</h2>
             </div>
             <div class="container">
                 <div class=" row pt-4 mt-4 ">

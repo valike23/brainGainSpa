@@ -6,7 +6,7 @@ import { onMount } from "svelte";
     import TopBar from "../../components/Nav/TopBar.svelte";
 import type { Itopic } from "../../Model/question";
     const next = () =>{
-        location.href = 'academics/quiz';
+        location.href = 'academics/quiz?topicid=' + topic.topicId;
     }
     let instruction = true;
     let topic : Itopic ={};

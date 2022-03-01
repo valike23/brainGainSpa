@@ -14,12 +14,14 @@
 		// server and client
         let type = 'skill pratice';
 		try {
-            const res = await this.fetch(`api/questions?subject=Chemistry`);
+            
+            const res = await this.fetch(`api/questions/studentQuiz?topicid=${page.query.topicid}`);
 		 questions = await res.json();
 
         } catch (error) {
             questions = [];
         }
+        console.log(questions);
 		return { questions, type };
 	}
 </script>

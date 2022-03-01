@@ -71,3 +71,10 @@ export interface Iresource {
     description?: string;
     faculties?: Ifaculty[]
 }
+export interface IstudentQuiz {
+    studentId?: number;
+    topicId?: number;
+    createdDate?: Date | string;
+    score?: number;
+    
+}

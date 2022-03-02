@@ -40,11 +40,13 @@
   let question: Iquestion;
   let questionNumber = 0;
   let topic: Itopic = {};
+  console.log('total questions:',questions.length);
   if (questions.length > 0) {
     question = questions[questionNumber];
   } else {
     question = {};
   }
+  let resultObject ={};
   let questionResult = "";
   let course: Icourse = {};
   let isOnline = "offline";
@@ -73,6 +75,7 @@
   let timeLeft = TIME_LIMIT;
   let timerInterval = null;
   let remainingPathColor = COLOR_CODES.info.color;
+  let lastQuestion = false;
   const assignAnswer = (answer: string) => {
     question.choosen = answer;
     question = question;
@@ -174,9 +177,14 @@
   };
   const nextQuestion =()=>{
      mode = "question";
+     questionResult  ="";
     questionNumber = questionNumber + 1;
     if(questionNumber < 20) {
         question = questions[questionNumber];
+        lastQuestion = false;
+    }
+    else{
+        lastQuestion = true;
     }
     toggleTimer();
     
@@ -275,6 +283,9 @@
               </div>
             </div>
             <div class="row mb-2">
+                <div class="col-12">
+                    <p><small>{@html question.instructions}</small></p>
+                </div>
               <div class="col-12 question">
                 {@html question.question}
               </div>
@@ -309,16 +320,23 @@
                 >
               {:else if mode == "result"}
                 <div class="row">
-                  <div class="col-6" />
+                  <div class="col-6" ></div>
                   <div class="col-6">
-                    <button
-                      on:click={nextQuestion}
-                      class="btn btn-secondary float-end">Next</button
-                    >
+                   {#if lastQuestion}
+                   <button
+                   on:click={nextQuestion}
+                   class="btn btn-primary float-end">Submit</button
+                 >
+                   {:else}
+                   <button
+                   on:click={nextQuestion}
+                   class="btn btn-secondary float-end">Next</button
+                 >
+                   {/if}
                   </div>
                   <div class="col-12">
                     <h3 style="font-size: 1.5rem;" class="text-center">Explanation</h3>
-                    <p>
+                    <p class="text-center">
                       {@html question.explanation}
                     </p>
                   </div>
@@ -337,9 +355,11 @@
 <style>
   .success {
     border: 2px solid green;
+    padding-top: 1.2 rem;
   }
   .failed {
     border: 2px solid red;
+    padding-top: 1.2 rem;
   }
   h2 {
     font-family: "Itim", "roboto";

@@ -72,6 +72,7 @@ let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pr
                 <p class="score row"><img src="svg/medal.svg" class="col-3" alt="" srcset="" /> <span class="col">Each Correct Question gives you 1 pt</span></p>
                 <p class="score row"><img src="svg/tap.svg" class="col-3" alt="" srcset="" /> <span class="col">Tap the correct option to select a Question</span></p>
                 <p class="score row"><img src="svg/cancel.svg" class="col-3" alt="" srcset="" /> <span class="col">Negative markings are applied on all failed Questions.</span></p>
+                <p class="score row"><img src="svg/clock.svg" class="col-3" alt="" srcset="" /> <span class="col">Each question must be answered in the given duration.</span></p>
 
 
                 <div style="margin-top: 45px;">   

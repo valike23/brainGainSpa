@@ -8,6 +8,7 @@ export interface Iquestion {
     instructions?: string;
     year?: string;
     resourceTypes?: number;
+    duration?: number;
     type?: number,
     choosen?: string;
     question?: string;
@@ -76,5 +77,5 @@ export interface IstudentQuiz {
     topicId?: number;
     createdDate?: Date | string;
     score?: number;
-    
+
 }

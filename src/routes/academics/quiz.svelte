@@ -32,21 +32,23 @@
   import DesktopSide from "../../components/Nav/DesktopSide.svelte";
   import MobileMenu from "../../components/Nav/MobileMenu.svelte";
   import TopBar from "../../components/Nav/TopBar.svelte";
+import type { Iuser } from "../../Model/accounts";
   import { handleNotification } from "../../Model/browserFunctions";
   export let questions: Iquestion[];
-  import type { Icourse, Iquestion, Itopic } from "../../Model/question";
+  import type { Icourse, Iquestion, IquestionReport, IresultObject, Itopic } from "../../Model/question";
   let mode = "question";
   let links = [{ name: "Academics" }, { name: "quiz", url: "academics/quiz" }];
   let question: Iquestion;
   let questionNumber = 0;
   let topic: Itopic = {};
+  let user:Iuser ={};
   console.log('total questions:',questions.length);
   if (questions.length > 0) {
     question = questions[questionNumber];
   } else {
     question = {};
   }
-  let resultObject ={};
+  let resultObject: IresultObject ={};
   let questionResult = "";
   let course: Icourse = {};
   let isOnline = "offline";
@@ -189,6 +191,21 @@
     toggleTimer();
     
   }
+  const submit =()=>{
+    resultObject ={
+         student_id: user.id,
+         topic_id: topic.topicId,
+         topic_name: topic.topicName,
+         results: []
+    };
+    questions.forEach((question)=>{
+        let result: IquestionReport = {};
+        result.choosen = question.choosen;
+        result.correct = question.choosen == question.answer;
+        result.question_id = question._id;
+        //result.quizCount
+    })
+  }
   onMount(() => {
     // Credit: Mateusz Rybczonec
     toggleStatus();
@@ -197,6 +214,8 @@
     startTimer();
     course = JSON.parse(sessionStorage.getItem("activeCourse"));
     topic = JSON.parse(sessionStorage.getItem("activeTopic"));
+
+    user = JSON.parse(sessionStorage.getItem("user"));
   });
 </script>
 
@@ -309,7 +328,7 @@
             <div
               class:success={questionResult == "success"}
               class:failed={questionResult == "failed"}
-              class="row mt-2 col-12"
+              class="row mt-2 pt-4  col-12"
             >
               {#if mode == "question"}
                 <button
@@ -324,8 +343,8 @@
                   <div class="col-6">
                    {#if lastQuestion}
                    <button
-                   on:click={nextQuestion}
-                   class="btn btn-primary float-end">Submit</button
+                   on:click={submit}
+                   class="btn btn-primary float-end">Upload</button
                  >
                    {:else}
                    <button
@@ -355,11 +374,9 @@
 <style>
   .success {
     border: 2px solid green;
-    padding-top: 1.2 rem;
   }
   .failed {
     border: 2px solid red;
-    padding-top: 1.2 rem;
   }
   h2 {
     font-family: "Itim", "roboto";

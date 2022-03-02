@@ -59,7 +59,6 @@ export interface Icourse {
 
 }
 
-
 export interface Ifaculty {
     facultyName?: string;
     facultyId?: number;
@@ -78,4 +77,17 @@ export interface IstudentQuiz {
     createdDate?: Date | string;
     score?: number;
 
+}
+export interface IquestionReport {
+    question_id?: number;
+    quizCount?: number;
+    choosen?: string;
+    correct?: boolean;
+}
+export interface IresultObject {
+    _id?: any;
+    student_id?: number;
+    topic_id?: number;
+    topic_name?: string;
+    results?: IquestionReport[]
 }

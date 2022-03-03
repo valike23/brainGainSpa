@@ -1,4 +1,5 @@
 import { MongoClient, ObjectId } from "mongodb";
+import { handle_server_error } from "../../src/Model/serverFunctions";
 import type { ImongoProperties } from "../properties";
 
 export class MongoUser {
@@ -170,6 +171,22 @@ export class MongoUser {
       };
     } finally {
       this.client.close();
+    }
+  }
+
+  async uniqueKeys(collectionName: string, fields: string[]) {
+    try {
+      let myField: any ={};
+    fields.forEach((e)=>{
+      myField["e"] = 1;
+    });
+    console.log(myField);
+    let connection = await this.client.connect();
+   let res = await connection.db(this.database).collection(collectionName).createIndex(myField,{unique: true});
+   return res;
+    } catch (error) {
+      handle_server_error(error);
+      
     }
   }
 }

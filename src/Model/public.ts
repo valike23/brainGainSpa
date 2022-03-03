@@ -11,6 +11,15 @@ let db4free: ConnectionConfig = {
     database: 'bgspandb'
 
 }
+export interface IrequestQuery {
+    name: string;
+    value: string;
+}
+export interface Irequest {
+    url: string;
+    query: IrequestQuery[],
+    body: string;
+}
 let local: ConnectionConfig = {
     host: 'localhost',
     password: '',

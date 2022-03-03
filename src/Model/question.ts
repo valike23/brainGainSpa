@@ -71,23 +71,25 @@ export interface Iresource {
     description?: string;
     faculties?: Ifaculty[]
 }
-export interface IstudentQuiz {
-    studentId?: number;
-    topicId?: number;
-    createdDate?: Date | string;
-    score?: number;
 
-}
 export interface IquestionReport {
     question_id?: number;
-    quizCount?: number;
     choosen?: string;
     correct?: boolean;
+    
+    
 }
-export interface IresultObject {
+export interface IquizReport {
+    createdDate?: Date | string;
+    score?: number;
+    questions?: IquestionReport[]
+}
+export interface IstudentQuiz {
     _id?: any;
     student_id?: number;
     topic_id?: number;
     topic_name?: string;
-    results?: IquestionReport[]
+    results?: IquizReport[];
+    
+    
 }

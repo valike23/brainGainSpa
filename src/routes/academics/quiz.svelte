@@ -15,9 +15,11 @@
       console.log(page);
 
       const res = await this.fetch(
-        `api/questions/studentQuiz?topicid=${page.query.topicid}`
+        `api/questions/studentQuiz?topicid=${page.query.topicid}&topicname=${page.query.topicname}`
       );
-      questions = await res.json();
+      let data = await res.json();
+      let quiz = data.quiz;
+      questions = data.questions;
     } catch (error) {
       questions = [];
     }
@@ -32,23 +34,30 @@
   import DesktopSide from "../../components/Nav/DesktopSide.svelte";
   import MobileMenu from "../../components/Nav/MobileMenu.svelte";
   import TopBar from "../../components/Nav/TopBar.svelte";
-import type { Iuser } from "../../Model/accounts";
+  import type { Iuser } from "../../Model/accounts";
   import { handleNotification } from "../../Model/browserFunctions";
   export let questions: Iquestion[];
-  import type { Icourse, Iquestion, IquestionReport, IresultObject, Itopic } from "../../Model/question";
+  import type {
+    Icourse,
+    Iquestion,
+    IquestionReport,
+    IquizReport,
+    IstudentQuiz,
+    Itopic,
+  } from "../../Model/question";
   let mode = "question";
   let links = [{ name: "Academics" }, { name: "quiz", url: "academics/quiz" }];
   let question: Iquestion;
   let questionNumber = 0;
   let topic: Itopic = {};
-  let user:Iuser ={};
-  console.log('total questions:',questions.length);
+  let user: Iuser = {};
+  console.log("total questions:", questions.length);
   if (questions.length > 0) {
     question = questions[questionNumber];
   } else {
     question = {};
   }
-  let resultObject: IresultObject ={};
+  let resultObject: IquizReport = {};
   let questionResult = "";
   let course: Icourse = {};
   let isOnline = "offline";
@@ -177,35 +186,39 @@ import type { Iuser } from "../../Model/accounts";
       questionResult = "failed";
     }
   };
-  const nextQuestion =()=>{
-     mode = "question";
-     questionResult  ="";
+  const nextQuestion = () => {
+    mode = "question";
+    questionResult = "";
     questionNumber = questionNumber + 1;
-    if(questionNumber < 20) {
-        question = questions[questionNumber];
-        lastQuestion = false;
-    }
-    else{
-        lastQuestion = true;
+    if (questionNumber < 20) {
+      question = questions[questionNumber];
+      lastQuestion = false;
+    } else {
+      lastQuestion = true;
     }
     toggleTimer();
-    
-  }
-  const submit =()=>{
-    resultObject ={
-         student_id: user.id,
-         topic_id: topic.topicId,
-         topic_name: topic.topicName,
-         results: []
-    };
-    questions.forEach((question)=>{
-        let result: IquestionReport = {};
-        result.choosen = question.choosen;
-        result.correct = question.choosen == question.answer;
-        result.question_id = question._id;
-        //result.quizCount
-    })
-  }
+  };
+  const submit = () => {
+    resultObject = {};
+    let score = 0;
+    questions.forEach((question) => {
+      let result: IquestionReport = {};
+      result.choosen = question.choosen;
+      result.correct = question.choosen == question.answer;
+      if (result.correct) {
+        score = score + 5;
+      } else {
+        score = score - 2;
+      }
+      result.question_id = question._id;
+      //result.quizCount
+      resultObject.questions.push(result);
+    });
+    resultObject.score = score;
+    //uploading result based on online status
+    //if online push to server... unless score request
+    //should be stored in an array of server objects
+  };
   onMount(() => {
     // Credit: Mateusz Rybczonec
     toggleStatus();
@@ -219,7 +232,9 @@ import type { Iuser } from "../../Model/accounts";
   });
 </script>
 
-<svelte:head />
+<svelte:head >
+  <title>Braingainspa:: Skill Practice Quiz</title>
+</svelte:head>
 <div class="main">
   <MobileMenu />
   <div class="d-flex">
@@ -302,9 +317,9 @@ import type { Iuser } from "../../Model/accounts";
               </div>
             </div>
             <div class="row mb-2">
-                <div class="col-12">
-                    <p><small>{@html question.instructions}</small></p>
-                </div>
+              <div class="col-12">
+                <p><small>{@html question.instructions}</small></p>
+              </div>
               <div class="col-12 question">
                 {@html question.question}
               </div>
@@ -339,22 +354,24 @@ import type { Iuser } from "../../Model/accounts";
                 >
               {:else if mode == "result"}
                 <div class="row">
-                  <div class="col-6" ></div>
+                  <div class="col-6" />
                   <div class="col-6">
-                   {#if lastQuestion}
-                   <button
-                   on:click={submit}
-                   class="btn btn-primary float-end">Upload</button
-                 >
-                   {:else}
-                   <button
-                   on:click={nextQuestion}
-                   class="btn btn-secondary float-end">Next</button
-                 >
-                   {/if}
+                    {#if lastQuestion}
+                      <button
+                        on:click={submit}
+                        class="btn btn-primary float-end">Upload</button
+                      >
+                    {:else}
+                      <button
+                        on:click={nextQuestion}
+                        class="btn btn-secondary float-end">Next</button
+                      >
+                    {/if}
                   </div>
                   <div class="col-12">
-                    <h3 style="font-size: 1.5rem;" class="text-center">Explanation</h3>
+                    <h3 style="font-size: 1.5rem;" class="text-center">
+                      Explanation
+                    </h3>
                     <p class="text-center">
                       {@html question.explanation}
                     </p>

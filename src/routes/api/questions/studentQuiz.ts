@@ -9,18 +9,32 @@ let mongoUser = new MongoUser({
 })
 export async function get(req, res) {
     let studentQuiz : IstudentQuiz ={};
-    studentQuiz.studentId = req.session.user.id;
-    studentQuiz.topicId = req.query.topicid;
+    studentQuiz.student_id = req.session.user.id;
+    studentQuiz.topic_id = req.query.topicid;
+    
     console.log('student quiz: ', studentQuiz);
 
     try {
         //might have to adjust this query to an $and query 
-      let data = await  mongoUser.getAllRecordFromCollection('studentQuiz',studentQuiz);
+      let keys = await  mongoUser.uniqueKeys('studentQuiz',['student_id', 'topic_id']);
+      console.log('the keys are locked', keys);
+      let data = await  mongoUser.getFirstMatch('studentQuiz',studentQuiz);
       console.log('initial result', data);
-      if(data){
-        let myData = await mongoUser.getAllRecordFromCollection('questions',{topicId: Number(studentQuiz.topicId)},{},data.length + 1, 20);
-        console.log('final result: ',myData)
-      res.json(myData);
+      if(data != null){
+        let myData = await mongoUser.getAllRecordFromCollection('questions',{topicId: Number(studentQuiz.topic_id)},{},data.results.length + 1, 20);
+
+        console.log('final result: ',{questions:myData, quiz: data.results.length + 1});
+      res.json({questions:myData, quiz: data.results.length + 1});
+      }
+      else{
+        studentQuiz.results = [];
+        studentQuiz.topic_name =req.query.topicname;
+        let added = await mongoUser.addRecordToCollection('studentQuiz', studentQuiz);
+        console.log(added);
+        let myData = await mongoUser.getAllRecordFromCollection('questions',{topicId: Number(studentQuiz.topic_id)},{},1, 20);
+
+        console.log('final result: ',{questions:myData, quiz: 1});
+      res.json({questions:myData, quiz: 1});
       }
     } catch (error) {
         handle_server_error(error);

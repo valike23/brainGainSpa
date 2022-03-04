@@ -7,7 +7,8 @@ import { onMount } from "svelte";
 import type { Itopic } from "../../Model/question";
     const next = () =>{
         location.href = `academics/quiz?topicid=${topic.topicId}&topicname=${topic.topicName}`;
-    }
+    } ;
+    
     let instruction = true;
     let topic : Itopic ={};
     let playInstruction =()=>{

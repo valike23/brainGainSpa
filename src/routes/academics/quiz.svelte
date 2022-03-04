@@ -216,6 +216,12 @@
     });
     resultObject.score = score;
     //uploading result based on online status
+    if(isOnline == 'online'){
+
+    }
+    else{
+      handleNotification('note you are offline', window,'info','note');
+    }
     //if online push to server... unless score request
     //should be stored in an array of server objects
   };

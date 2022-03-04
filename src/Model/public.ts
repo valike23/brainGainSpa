@@ -17,8 +17,11 @@ export interface IrequestQuery {
 }
 export interface Irequest {
     url: string;
-    query: IrequestQuery[],
     body: string;
+    createdDate: Date | string;
+    sentTime?: Date| string;
+    method?: string;
+    isRead?: boolean ;
 }
 let local: ConnectionConfig = {
     host: 'localhost',

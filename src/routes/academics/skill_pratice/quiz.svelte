@@ -11,6 +11,8 @@
     // you to make credentialled requests on both
     // server and client
     let type = "skill pratice";
+    let quiz: number;
+    let id = '';
     try {
       console.log(page);
 
@@ -18,13 +20,14 @@
         `api/questions/studentQuiz?topicid=${page.query.topicid}&topicname=${page.query.topicname}`
       );
       let data = await res.json();
-      let quiz = data.quiz;
+       quiz = data.quiz;
+      id = data.id;
       questions = data.questions;
     } catch (error) {
       questions = [];
     }
     console.log(questions);
-    return { questions, type };
+    return { questions, type ,quiz,id};
   }
 </script>
 
@@ -34,9 +37,13 @@
   import DesktopSide from "../../components/Nav/DesktopSide.svelte";
   import MobileMenu from "../../components/Nav/MobileMenu.svelte";
   import TopBar from "../../components/Nav/TopBar.svelte";
+  import {Db} from "zangodb";
   import type { Iuser } from "../../Model/accounts";
-  import { handleNotification } from "../../Model/browserFunctions";
-  export let questions: Iquestion[];
+  import { handleBrowserError, handleNotification } from "../../Model/browserFunctions";
+import type { Irequest } from "../../Model/public";
+  export let questions: Iquestion[],id: string;
+  import Swal from "sweetalert2";
+  let db = new Db('bgspa',1,{request: ['createdDate']});
   import type {
     Icourse,
     Iquestion,
@@ -45,6 +52,7 @@
     IstudentQuiz,
     Itopic,
   } from "../../Model/question";
+import axios from "axios";
   let mode = "question";
   let links = [{ name: "Academics" }, { name: "quiz", url: "academics/quiz" }];
   let question: Iquestion;
@@ -198,7 +206,7 @@
     }
     toggleTimer();
   };
-  const submit = () => {
+  const submit = async () => {
     resultObject = {};
     let score = 0;
     questions.forEach((question) => {
@@ -216,11 +224,38 @@
     });
     resultObject.score = score;
     //uploading result based on online status
+    let request:Irequest ={
+        url: `/api/questions/studentQuiz?student_id=${user.id}&topic_id=${topic.topicId}&id={id}`,
+        body: JSON.stringify(resultObject),
+        createdDate: new Date(),
+        isRead: false,
+        method: 'put'
+      };
     if(isOnline == 'online'){
-
+      let form = new FormData();
+      form.append('body',request.body);
+      try {
+        
+     let result = axios["put"](request.url, form);
+     if(result){
+     let swalresponse = await Swal.fire({title:'sucess',text:'quiz have been uploaded successfully',icon: 'success'});
+     if(swalresponse){
+       //navigate to result page
+     }
+     }
+      } catch (error) {
+        handleBrowserError(error);
+      }
+     
     }
     else{
       handleNotification('note you are offline', window,'info','note');
+    
+       db.collection('request').insert(request).then((data)=>{
+        Swal.fire({title:'sucess',text:'quiz have been uploaded successfully',icon: 'success'});
+       });
+      
+
     }
     //if online push to server... unless score request
     //should be stored in an array of server objects
@@ -231,6 +266,7 @@
     window.addEventListener("online", toggleStatus);
     window.addEventListener("offline", toggleStatus);
     startTimer();
+
     course = JSON.parse(sessionStorage.getItem("activeCourse"));
     topic = JSON.parse(sessionStorage.getItem("activeTopic"));
 
@@ -242,11 +278,9 @@
   <title>Braingainspa:: Skill Practice Quiz</title>
 </svelte:head>
 <div class="main">
-  <MobileMenu />
+
   <div class="d-flex">
-    <DesktopSide dash="academics" />
     <div class="content">
-      <TopBar {links} />
       <div class="row">
         <h2 class="intro-y fs-lg fw-medium me-auto mt-2">
           {course.courseName}

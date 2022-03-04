@@ -1,24 +1,39 @@
-<script lang="ts">
-import { onMount } from "svelte";
+<script context="module">
+	// the (optional) preload function takes a
+	// `{ path, params, query }` object and turns it into
+	// the data we need to render the page
+	export async function preload(page, session) {
+		// the `slug` parameter is available because this file
+		// is called [slug].svelte
+		const { slug } = page.params;
 
-    import DesktopSide from "../../components/Nav/DesktopSide.svelte";
-    import MobileMenu from "../../components/Nav/MobileMenu.svelte";
-    import TopBar from "../../components/Nav/TopBar.svelte";
-import type { Icourse } from "../../Model/question";
-
-    let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pratice'},{name: 'topic', url: 'academics/topic'}];
-    const gotoTopic = (topic)=>{
-        sessionStorage.setItem('activeTopic', JSON.stringify(topic));
-        location.href="academics/instruction"
-    }
-    let course : Icourse ={};
-    course.topics = [];
-    onMount(()=>{
-        if(!sessionStorage.getItem('activeCourse')) location.href="academics/skill_pratice";
-        course = JSON.parse(sessionStorage.getItem('activeCourse'));
-        console.log(course);
-    })
+		// `this.fetch` is a wrapper around `fetch` that allows
+		// you to make credentialled requests on both
+		// server and client
+		const res = await this.fetch(`api/skill_pratice/faculties`);
+		const resource = await res.json();
+        console.log(resource);
+		return { resource };
+	}
 </script>
+
+<script lang="ts">
+    import DesktopSide from "../../../components/Nav/DesktopSide.svelte";
+    import MobileMenu from "../../../components/Nav/MobileMenu.svelte";
+    import TopBar from "../../../components/Nav/TopBar.svelte";
+import type { Ifaculty } from "../../../Model/question";
+    export let resource:Ifaculty[];
+    let faculty: Ifaculty ={};
+    faculty = resource[0];
+    const gotoTopic = (course) => {
+        sessionStorage.setItem('activeCourse',JSON.stringify(course));
+        location.href = "academics/skill_pratice/topic";
+    };
+
+let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pratice'}];
+</script>
+
+<svelte:head />
 
 <div class="main">
     <MobileMenu />
@@ -28,9 +43,10 @@ import type { Icourse } from "../../Model/question";
         <div class="content">
             <TopBar {links}/>
             <div class="row" style="margin-bottom: 50px;">
-                <h2 class="intro-y fs-lg fw-medium me-auto mt-2">Topics</h2>
+                <h2 class="intro-y fs-lg fw-medium me-auto mt-2">
+                    Skill Pratice
+                </h2>
             </div>
-
             <div class="uk-margin">
                 <form class="uk-search uk-search-default rnd">
                     <span class="uk-search-icon-flip" uk-search-icon />
@@ -42,21 +58,21 @@ import type { Icourse } from "../../Model/question";
                 </form>
             </div>
             <div class="row">
-              {#each course.topics as topic}
+              {#each faculty.courses as course}
               <div class="col-6 col-sm-3 m2">
                 <div
-                    on:click={()=>{gotoTopic(topic)}}
+                    on:click={()=>{gotoTopic(course)}}
                     class="uk-card uk-card-default uk-card-body "
                 >
                     <div class="svgbody">
-                        <img src="{topic.topicImage}" alt="" srcset="" />
+                        <img src="{course.courseImage}" alt="" srcset="" />
 
-                        <p>{topic.topicName}</p>
+                        <p>{course.courseName}</p>
                     </div>
                 </div>
             </div>
               {/each}
-               
+              
             </div>
         </div>
     </div>
@@ -87,6 +103,10 @@ import type { Icourse } from "../../Model/question";
         margin: 0 auto;
         width: 50px;
         height: 50px;
+        inline-size: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .svgbody > p {
         font-family: "Itim", "roboto";
@@ -94,10 +114,6 @@ import type { Icourse } from "../../Model/question";
         margin-top: 10px;
         padding-top: 10px;
         font-weight: 500;
-        inline-size: 100%;
-        white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
     }
 
     .m2 {

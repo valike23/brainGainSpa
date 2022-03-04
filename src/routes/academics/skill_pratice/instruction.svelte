@@ -1,12 +1,12 @@
 <script lang="ts">
 import { onMount } from "svelte";
 
-    import DesktopSide from "../../components/Nav/DesktopSide.svelte";
-    import MobileMenu from "../../components/Nav/MobileMenu.svelte";
-    import TopBar from "../../components/Nav/TopBar.svelte";
-import type { Itopic } from "../../Model/question";
+    import DesktopSide from "../../../components/Nav/DesktopSide.svelte";
+    import MobileMenu from "../../../components/Nav/MobileMenu.svelte";
+    import TopBar from "../../../components/Nav/TopBar.svelte";
+import type { Itopic } from "../../../Model/question";
     const next = () =>{
-        location.href = `academics/quiz?topicid=${topic.topicId}&topicname=${topic.topicName}`;
+        location.href = `academics/skill_pratice/quiz?topicid=${topic.topicId}&topicname=${topic.topicName}`;
     } ;
     
     let instruction = true;

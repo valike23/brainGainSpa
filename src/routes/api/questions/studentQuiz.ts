@@ -34,10 +34,26 @@ export async function get(req, res) {
         let myData = await mongoUser.getAllRecordFromCollection('questions',{topicId: Number(studentQuiz.topic_id)},{},1, 20);
 
         console.log('final result: ',{questions:myData, quiz: 1});
-      res.json({questions:myData, quiz: 1});
+      res.json({questions:myData, quiz: 1,id: data._id});
       }
     } catch (error) {
         handle_server_error(error);
         res.status(503).json(error);
+    }
+}
+
+export async function put(req,res) {
+    let studentQuiz:IstudentQuiz ={};
+    studentQuiz.student_id = req.query.student_id;
+    studentQuiz.topic_id = req.query.topic_id;
+    let id: string = req.query.id;
+    try {
+      let body = JSON.parse(req.fields.body);
+     let result = mongoUser.addToArray('studentQuiz', body,id,'results');
+     console.log(result);
+     res.json(result);
+    } catch (error) {
+      handle_server_error(error);
+      res.status(503).json(error);
     }
 }

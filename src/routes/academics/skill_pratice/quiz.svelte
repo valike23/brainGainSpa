@@ -33,14 +33,10 @@
 
 <script lang="ts">
   import { onMount } from "svelte";
-
-  import DesktopSide from "../../components/Nav/DesktopSide.svelte";
-  import MobileMenu from "../../components/Nav/MobileMenu.svelte";
-  import TopBar from "../../components/Nav/TopBar.svelte";
   import {Db} from "zangodb";
-  import type { Iuser } from "../../Model/accounts";
-  import { handleBrowserError, handleNotification } from "../../Model/browserFunctions";
-import type { Irequest } from "../../Model/public";
+  import type { Iuser } from "../../../Model/accounts";
+  import { handleBrowserError, handleNotification } from "../../../Model/browserFunctions";
+import type { Irequest } from "../../../Model/public";
   export let questions: Iquestion[],id: string;
   import Swal from "sweetalert2";
   let db = new Db('bgspa',1,{request: ['createdDate']});
@@ -51,8 +47,9 @@ import type { Irequest } from "../../Model/public";
     IquizReport,
     IstudentQuiz,
     Itopic,
-  } from "../../Model/question";
+  } from "../../../Model/question";
 import axios from "axios";
+import {goto} from '@sapper/app';
   let mode = "question";
   let links = [{ name: "Academics" }, { name: "quiz", url: "academics/quiz" }];
   let question: Iquestion;
@@ -241,6 +238,8 @@ import axios from "axios";
      let swalresponse = await Swal.fire({title:'sucess',text:'quiz have been uploaded successfully',icon: 'success'});
      if(swalresponse){
        //navigate to result page
+       sessionStorage.setItem('result', request.body);
+       goto('/academics/skill_pratice/highlight');
      }
      }
       } catch (error) {
@@ -253,6 +252,10 @@ import axios from "axios";
     
        db.collection('request').insert(request).then((data)=>{
         Swal.fire({title:'sucess',text:'quiz have been uploaded successfully',icon: 'success'});
+       }).then(()=>{
+
+       sessionStorage.setItem('result', request.body);
+       goto('/academics/skill_pratice/highlight');
        });
       
 

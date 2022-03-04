@@ -2,11 +2,11 @@
 import { onMount } from "svelte";
 
     import DesktopSide from "../../../components/Nav/DesktopSide.svelte";
-    import MobileMenu from "../../../components/Nav/MobileMenu.svelte";
+import MobileMenu from "../../../components/Nav/MobileMenu.svelte";
     import TopBar from "../../../components/Nav/TopBar.svelte";
 import type { Icourse } from "../../../Model/question";
 
-    let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pratice'},{name: 'topic', url: 'academics/topic'}];
+    let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pratice'},{name: 'topic', url: 'academics/skill_pratice/topic'}];
     const gotoTopic = (topic)=>{
         sessionStorage.setItem('activeTopic', JSON.stringify(topic));
         location.href="academics/skill_pratice/instruction"
@@ -21,7 +21,7 @@ import type { Icourse } from "../../../Model/question";
 </script>
 
 <div class="main">
-    <MobileMenu />
+    <MobileMenu/>
 
     <div class="d-flex">
         <DesktopSide dash="academics" />

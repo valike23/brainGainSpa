@@ -299,19 +299,7 @@ import axios from "axios";
                                   
                                 </select>
                                    </div>
-                            <div class="mt-3 col-12 col-6">
-                                <label for="lastname" class="form-label">Last Name</label>
-                                <input id="lastname" disabled="{lockUserInfo}" type="text" bind:value="{user.last_name}" class="form-control" placeholder="enter last name">
-                            </div>
-                            <div class="mt-3 col-12 col-6">
-                                <label for="middlename" class="form-label">Middle Name</label>
-                                <input id="middlename" disabled="{lockUserInfo}" type="text" bind:value="{user.middle_name}" class="form-control" placeholder="enter middle name">
-                            </div>
-                           
-                            <div class="mt-3 col-12 col-6">
-                                <label for="username" class="form-label">User Name</label>
-                                <input id="username" disabled="{lockUserInfo}" type="text" bind:value="{user.user_name}" class="form-control" placeholder="enter user name">
-                            </div>
+                          
                         </div>
                        
                     </div>
@@ -683,10 +671,10 @@ import axios from "axios";
                         <div
                           class="progress-bar w-1/2 bg-primary"
                           role="progressbar"
-                          aria-valuenow="0"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        >
+                          aria-valuenow=0
+                          aria-valuemin=0
+                          aria-valuemax=100
+                        > 
                       </div>
                     </div>
                     <div class="mt-5">

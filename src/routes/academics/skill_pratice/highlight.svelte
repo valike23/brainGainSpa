@@ -6,10 +6,24 @@ import MobileMenu from "../../../components/Nav/MobileMenu.svelte";
 import TopBar from "../../../components/Nav/TopBar.svelte";
 import type { IquizReport } from "../../../Model/question";
 let result: IquizReport ={};
-let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pratice'},{name: 'topic', url: 'academics/skill_pratice/highlight'}];
+let links =[{name: 'academics'},{name: 'skill pratice', url: 'academics/skill_pratice'},
+{name: 'topic', url: 'academics/skill_pratice/highlight'}];
+let correctScore = 0;
+let incorrectScore = 0;
+let percentCorrect =0;
+
 onMount(()=>{
      result = JSON.parse(sessionStorage.getItem('result'));
     console.log(result);
+    result.questions.forEach((q)=>{
+    if(q.correct){
+        correctScore = correctScore + 1;
+    }
+    else{
+        incorrectScore = incorrectScore + 1;
+    }
+})
+percentCorrect = correctScore/result.questions.length * 100;
 })
 
 </script>
@@ -28,7 +42,7 @@ onMount(()=>{
             <div class="row">
                 <div class="col-12 col-sm-6 grade">
                     <h2>Your Scores</h2>
-                    <p class="score">200 pts</p>
+                    <p class="score">{result.score || ''} pts</p>
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="row heading">
@@ -37,9 +51,9 @@ onMount(()=>{
                         <div class="col-4 text-center"><p>Correct</p></div>
                     </div>
                     <div class="row item">
-                        <div class="col-4 text-center"><p><span style="color: green" class="fa fa-check"></span> 15</p></div>
-                        <div class="col-4 text-center"><p><span class="fa fa-times" style="color: red"></span> 5</p></div>
-                        <div class="col-4 text-center"><p><span></span> 10%</p></div>
+                        <div class="col-4 text-center"><p><span style="color: green" class="fa fa-check"></span> {correctScore}</p></div>
+                        <div class="col-4 text-center"><p><span class="fa fa-times" style="color: red"></span> {incorrectScore}</p></div>
+                        <div class="col-4 text-center"><p><span></span> {percentCorrect}%</p></div>
                     </div>
                 </div>
             </div>

@@ -1,319 +1,319 @@
 <script lang="ts">
+  import { onMount } from "svelte";
 
-import { onMount } from "svelte";
-
-
-    export let dash;
-    let user ={};
-    onMount(()=>{
-        console.log(sessionStorage.getItem('user'));
-         user = JSON.parse(sessionStorage.getItem('user'));
-
-    })
+  export let dash;
+  let user = {};
+  onMount(() => {
+    console.log(window);
+    console.log(sessionStorage.getItem("user"));
+    user = JSON.parse(sessionStorage.getItem("user"));
+  });
 </script>
 
 <nav class="side-nav">
-    <a href="/dashboard" rel="external" class="intro-x d-flex align-items-center ps-5 pt-4">
-        <img
-            alt="braingainspa "
-            class="w-6"
-            src="dist/images/logo.svg"
-        />
-        <span class="d-none d-xl-block text-white fs-lg ms-3">
-            BrainGain<span class="fw-medium">spa</span>
-            
-        </span>
-       
-    </a>
-    <p style="color: white; font-size: 14px; text-align: center">{user.type}</p>
-    <div class="side-nav__devider my-6" />
-    <ul>
-        <li>
-            <a
-                class:side-menu--active={dash == "dashboard"}
-                href="/dashboard"
-                class="side-menu  "
+  <a
+    href="/dashboard"
+    rel="external"
+    class="intro-x d-flex align-items-center ps-5 pt-4"
+  >
+    <img alt="braingainspa " class="w-6" src="dist/images/logo.svg" />
+    <span class="d-none d-xl-block text-white fs-lg ms-3">
+      BrainGain<span class="fw-medium">spa</span>
+    </span>
+  </a>
+  <p style="color: white; font-size: 14px; text-align: center">{user.type}</p>
+  <div class="side-nav__devider my-6" />
+  <ul>
+    <li>
+      <a
+        class:side-menu--active={dash == "dashboard"}
+        href="/dashboard"
+        class="side-menu  "
+      >
+        <div class="side-menu__icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            aria-hidden="true"
+            role="img"
+            width="1em"
+            height="1em"
+            preserveAspectRatio="xMidYMid meet"
+            viewBox="0 0 24 24"
+            ><g
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path d="M3 9l9-7l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path
+                d="M9 22V12h6v10"
+              /></g
+            ></svg
+          >
+        </div>
+        <div class="side-menu__title">Dashboard</div>
+      </a>
+    </li>
+    <li>
+      <a
+        class:side-menu--active={dash == "games"}
+        href="javascript:;.html"
+        class="side-menu"
+      >
+        <div class="side-menu__icon">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+            aria-hidden="true"
+            role="img"
+            width="1em"
+            height="1em"
+            preserveAspectRatio="xMidYMid meet"
+            viewBox="0 0 24 24"
+            ><g
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><rect x="2" y="7" width="20" height="15" rx="2" ry="2" /><path
+                d="M17 2l-5 5l-5-5"
+              /></g
+            ></svg
+          >
+        </div>
+        <div class="side-menu__title">Educational Games</div>
+      </a>
+    </li>
+    <li>
+      <a
+        class:side-menu--active={dash == "academics"}
+        href="javascript:;.html"
+        class="side-menu"
+      >
+        <div class="side-menu__icon"><i data-feather="box" /></div>
+        <div class="side-menu__title">
+          Academics
+          <div class="side-menu__sub-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              aria-hidden="true"
+              role="img"
+              width="1em"
+              height="1em"
+              preserveAspectRatio="xMidYMid meet"
+              viewBox="0 0 24 24"
+              ><g
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"><path d="M6 9l6 6l6-6" /></g
+              ></svg
             >
+          </div>
+        </div>
+      </a>
+      <ul class="">
+        <li>
+          <a rel="external" href="./academics/skill_pratice" class="side-menu">
+            <div class="side-menu__icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                aria-hidden="true"
+                role="img"
+                width="1em"
+                height="1em"
+                preserveAspectRatio="xMidYMid meet"
+                viewBox="0 0 24 24"
+                ><g
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  ><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path
+                    d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+                  /></g
+                ></svg
+              >
+            </div>
+            <div class="side-menu__title">Skill Practice</div>
+          </a>
+        </li>
+        <li>
+          <!-- svelte-ignore a11y-invalid-attribute -->
+          <a href="javascript:;" class="side-menu">
+            <div class="side-menu__icon">
+              <span class="fa fa-question" />
+            </div>
+            <div class="side-menu__title">
+              Past Questions
+              <div class="side-menu__sub-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  icon-name="chevron-down"
+                  data-lucide="chevron-down"
+                  class="lucide lucide-chevron-down"
+                  ><polyline points="6 9 12 15 18 9" /></svg
+                >
+              </div>
+            </div>
+          </a>
+          <ul class="" style="display: none;">
+            <li>
+              <a
+              rel="external"
+                href="academics/past_questions/cbt"
+                class="side-menu"
+              >
                 <div class="side-menu__icon">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                        aria-hidden="true"
-                        role="img"
-                        width="1em"
-                        height="1em"
-                        preserveAspectRatio="xMidYMid meet"
-                        viewBox="0 0 24 24"
-                        ><g
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><path
-                                d="M3 9l9-7l9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-                            /><path d="M9 22V12h6v10" /></g
-                        ></svg
-                    >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    icon-name="zap"
+                    data-lucide="zap"
+                    class="lucide lucide-zap"
+                    ><polygon
+                      points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
+                    /></svg
+                  >
                 </div>
-                <div class="side-menu__title">Dashboard</div>
-            </a>
-        </li>
-        <li>
-            <a
-                class:side-menu--active={dash == "games"}
-                href="javascript:;.html"
+                <div class="side-menu__title">Exams</div>
+              </a>
+            </li>
+            <li>
+              <a
+                href="academics/past_questions/mock"
                 class="side-menu"
-            >
+              >
                 <div class="side-menu__icon">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
-                        aria-hidden="true"
-                        role="img"
-                        width="1em"
-                        height="1em"
-                        preserveAspectRatio="xMidYMid meet"
-                        viewBox="0 0 24 24"
-                        ><g
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            ><rect
-                                x="2"
-                                y="7"
-                                width="20"
-                                height="15"
-                                rx="2"
-                                ry="2"
-                            /><path d="M17 2l-5 5l-5-5" /></g
-                        ></svg
-                    >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    icon-name="zap"
+                    data-lucide="zap"
+                    class="lucide lucide-zap"
+                    ><polygon
+                      points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"
+                    /></svg
+                  >
                 </div>
-                <div class="side-menu__title">Educational Games</div>
-            </a>
+                <div class="side-menu__title">Mock</div>
+              </a>
+            </li>
+          
+          </ul>
+        </li>
+      
+      </ul>
+    </li>
+
+    <li>
+      <a
+        class:side-menu--active={dash == "accounts"}
+        href="javascript:;.html"
+        class="side-menu"
+      >
+        <div class="side-menu__icon"><i data-feather="box" /></div>
+        <div class="side-menu__title">
+          Accounts
+          <div class="side-menu__sub-icon">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              aria-hidden="true"
+              role="img"
+              width="1em"
+              height="1em"
+              preserveAspectRatio="xMidYMid meet"
+              viewBox="0 0 24 24"
+              ><g
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"><path d="M6 9l6 6l6-6" /></g
+              ></svg
+            >
+          </div>
+        </div>
+      </a>
+      <ul class="test">
+        <li>
+          <a rel="external" href="accounts/subscription" class="side-menu">
+            <div class="side-menu__icon">
+              <i data-feather="activity" />
+            </div>
+            <div class="side-menu__title">Subscriptions</div>
+          </a>
         </li>
         <li>
-            <a
-                class:side-menu--active={dash == "academics"}
-                href="javascript:;.html"
-                class="side-menu"
-            >
-                <div class="side-menu__icon"><i data-feather="box" /></div>
-                <div class="side-menu__title">
-                    Academics
-                    <div class="side-menu__sub-icon">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                            aria-hidden="true"
-                            role="img"
-                            width="1em"
-                            height="1em"
-                            preserveAspectRatio="xMidYMid meet"
-                            viewBox="0 0 24 24"
-                            ><g
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                ><path d="M6 9l6 6l6-6" /></g
-                            ></svg
-                        >
-                    </div>
-                </div>
-            </a>
-            <ul class="">
-                <li>
-                    <a rel="external" href="./academics/skill_pratice" class="side-menu">
-                        <div class="side-menu__icon">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink"
-                                aria-hidden="true"
-                                role="img"
-                                width="1em"
-                                height="1em"
-                                preserveAspectRatio="xMidYMid meet"
-                                viewBox="0 0 24 24"
-                                ><g
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    ><path
-                                        d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"
-                                    /><path
-                                        d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
-                                    /></g
-                                ></svg
-                            >
-                        </div>
-                        <div class="side-menu__title">Skill Practice</div>
-                    </a>
-                </li>
-                <li>
-                    <a rel="external" href="./academics/past_questions" class="side-menu">
-                        <div class="side-menu__icon">
-                            <i data-feather="activity" />
-                        </div>
-                        <div class="side-menu__title">Past Questions</div>
-                    </a>
-                </li>
-                <li>
-                    <a
-                    rel="external"
-                        href="./academics/past_questions_exam"
-                        class="side-menu"
-                    >
-                        <div class="side-menu__icon">
-                            <i data-feather="activity" />
-                        </div>
-                        <div class="side-menu__title">
-                            Past Questions [Exams]
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a
-                    rel="external"
-                        href="./academics/topic"
-                        class="side-menu"
-                    >
-                        <div class="side-menu__icon">
-                            <i data-feather="activity" />
-                        </div>
-                        <div class="side-menu__title">
-                            Sample Topic
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a
-                    rel="external"
-                        href="./academics/instruction"
-                        class="side-menu"
-                    >
-                        <div class="side-menu__icon">
-                            <i data-feather="activity" />
-                        </div>
-                        <div class="side-menu__title">
-                            Sample Instruction Page
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a
-                    rel="external"
-                        href="./academics/quiz"
-                        class="side-menu"
-                    >
-                        <div class="side-menu__icon">
-                            <i data-feather="activity" />
-                        </div>
-                        <div class="side-menu__title">
-                            Quiz (Sample)
-                        </div>
-                    </a>
-                </li>
-            </ul>
+          <a rel="external" href="accounts/referrals" class="side-menu">
+            <div class="side-menu__icon">
+              <i data-feather="activity" />
+            </div>
+            <div class="side-menu__title">referrals</div>
+          </a>
         </li>
-
         <li>
-            <a
-                class:side-menu--active={dash == "accounts"}
-                href="javascript:;.html"
-                class="side-menu"
-            >
-                <div class="side-menu__icon"><i data-feather="box" /></div>
-                <div class="side-menu__title">
-                    Accounts
-                    <div class="side-menu__sub-icon">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink"
-                            aria-hidden="true"
-                            role="img"
-                            width="1em"
-                            height="1em"
-                            preserveAspectRatio="xMidYMid meet"
-                            viewBox="0 0 24 24"
-                            ><g
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                ><path d="M6 9l6 6l6-6" /></g
-                            ></svg
-                        >
-                    </div>
-                </div>
-            </a>
-            <ul class="test">
-
-                <li>
-                    <a  rel="external"
-                    href="accounts/subscription" class="side-menu">
-                        <div class="side-menu__icon">
-                            <i data-feather="activity" />
-                        </div>
-                        <div class="side-menu__title">Subscriptions</div>
-                    </a>
-                </li>
-                <li>
-                    <a rel="external" href="accounts/referrals" class="side-menu">
-                        <div class="side-menu__icon">
-                            <i data-feather="activity" />
-                        </div>
-                        <div class="side-menu__title">referrals</div>
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="javascript:;.html"
-                        class="side-menu"
-                    >
-                        <div class="side-menu__icon">
-                            <i data-feather="activity" />
-                        </div>
-                        <div class="side-menu__title">Income</div>
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="javascript:;.html"
-                        class="side-menu"
-                    >
-                        <div class="side-menu__icon">
-                            <i data-feather="activity" />
-                        </div>
-                        <div class="side-menu__title">withdrawal</div>
-                    </a>
-                </li>
-                <li>
-                    <a
-                        href="accounts/settings"
-                        class="side-menu"
-                    >
-                        <div class="side-menu__icon">
-                            <i class="fa fa-cogs" />
-                        </div>
-                        <div class="side-menu__title">Settings</div>
-                    </a>
-                </li>
-            </ul>
+          <a href="javascript:;.html" class="side-menu">
+            <div class="side-menu__icon">
+              <i data-feather="activity" />
+            </div>
+            <div class="side-menu__title">Income</div>
+          </a>
         </li>
-    </ul>
+        <li>
+          <a href="javascript:;.html" class="side-menu">
+            <div class="side-menu__icon">
+              <i data-feather="activity" />
+            </div>
+            <div class="side-menu__title">withdrawal</div>
+          </a>
+        </li>
+        <li>
+          <a href="accounts/settings" class="side-menu">
+            <div class="side-menu__icon">
+              <i class="fa fa-cogs" />
+            </div>
+            <div class="side-menu__title">Settings</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
 </nav>
 
 <style>
-    .side-nav {
-        font-family: "Muli", "Helvetica Neue", "Roboto", sans-serif;
-        font-size: 16px;
-    }
+  .side-nav {
+    font-family: "Muli", "Helvetica Neue", "Roboto", sans-serif;
+    font-size: 16px;
+  }
+ 
 </style>

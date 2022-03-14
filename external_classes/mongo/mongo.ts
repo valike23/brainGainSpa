@@ -9,7 +9,21 @@ export class MongoUser {
     this.client = new MongoClient(properties.url);
     this.database = properties.database;
   }
-
+  async getAllRecordFromCollectionWithoutSort (collectionName: string, query: any, projections:any = {}): Promise<any> {
+    try {
+       let connection = await this.client.connect();
+       console.log('check projection', projections);
+       let result: any = await connection.db(this.database).collection(collectionName).find(query, {projection: projections}).toArray();
+       return result;
+    } catch (error) {
+       console.log(error);
+       return {
+          status: 'error',
+          error: error
+       }
+    }
+   
+  }
   async getAllRecordFromCollection(
     collectionName: string,
     query: any,
@@ -187,6 +201,18 @@ export class MongoUser {
     } catch (error) {
       handle_server_error(error);
       
+    }
+  }
+
+  async unwindArray(collectionName: string, focusArrayName: string, query: any = {}, projection:any ={}){
+    try {
+      let connection = await this.client.connect();
+      let res = await connection.db(this.database).collection(collectionName).aggregate([
+        {'$unwind': '$'+focusArrayName}
+      ]).toArray();
+      return res;
+    } catch (error) {
+      handle_server_error(error);
     }
   }
 }

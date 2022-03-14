@@ -10,24 +10,23 @@
     // `this.fetch` is a wrapper around `fetch` that allows
     // you to make credentialled requests on both
     // server and client
-    let type = "skill pratice";
-    let quiz: number;
-    let id = '';
+    let type = "past questions";
+    let name = page.query.name;
     try {
       console.log(page);
 
       const res = await this.fetch(
-        `api/questions/studentQuiz?topicid=${page.query.topicid}&topicname=${page.query.topicname}`
+        `api/questions/past?courseid=${page.query.courseid}`
       );
       let data = await res.json();
-       quiz = data.quiz;
-      id = data.id;
-      questions = data.questions;
+      
+     
+      questions = data;
     } catch (error) {
       questions = [];
     }
     console.log(questions);
-    return { questions, type ,quiz,id};
+    return { questions, type, name};
   }
 </script>
 
@@ -37,21 +36,18 @@
   import type { Iuser } from "../../../Model/accounts";
   import { handleBrowserError, handleNotification } from "../../../Model/browserFunctions";
 import type { Irequest } from "../../../Model/public";
-  export let questions: Iquestion[],id: string;
+export let questions: Iquestion[], name;
   import Swal from "sweetalert2";
   let db = new Db('bgspa',1,{request: ['createdDate']});
   import type {
-    Icourse,
     Iquestion,
     IquestionReport,
     IquizReport,
-    IstudentQuiz,
     Itopic,
   } from "../../../Model/question";
 import axios from "axios";
 import {goto} from '@sapper/app';
   let mode = "question";
-  let links = [{ name: "Academics" }, { name: "quiz", url: "academics/quiz" }];
   let question: Iquestion;
   let questionNumber = 0;
   let topic: Itopic = {};
@@ -64,7 +60,6 @@ import {goto} from '@sapper/app';
   }
   let resultObject: IquizReport = {};
   let questionResult = "";
-  let course: Icourse = {};
   let isOnline = "offline";
   console.log(question);
   const FULL_DASH_ARRAY = 283;
@@ -271,8 +266,6 @@ import {goto} from '@sapper/app';
     window.addEventListener("offline", toggleStatus);
     startTimer();
 
-    course = JSON.parse(sessionStorage.getItem("activeCourse"));
-    topic = JSON.parse(sessionStorage.getItem("activeTopic"));
 
     user = JSON.parse(sessionStorage.getItem("user"));
   });
@@ -287,7 +280,7 @@ import {goto} from '@sapper/app';
     <div class="content">
       <div class="row">
         <h2 class="intro-y fs-lg fw-medium me-auto mt-2">
-          {course.courseName}
+          {'Past Questions'}
         </h2>
       </div>
       <div class="container">
@@ -357,7 +350,7 @@ import {goto} from '@sapper/app';
             </div>
             <div class=" mt-4">
               <div class="col">
-                <p style="font-size: 22px;">{topic.topicName}</p>
+                <p style="font-size: 22px;">{name}</p>
               </div>
             </div>
             <div class="row mb-2">

@@ -23,6 +23,7 @@
   import type { Iuser } from "../Model/accounts";
   import { handleNotification } from "../Model/browserFunctions";
   import Swal from "sweetalert2";
+import { logo } from "../Model/public";
   let password = "";
   let user: Iuser = {};
   export let referral ;
@@ -191,6 +192,10 @@ let text = 'Register';
         on:submit|preventDefault={submit}
         class="login100-form validate-form"
       >
+      <p class="text-center mt-n4" >
+        <img src="{logo}" style="margin:auto; width: 150px" alt="braingianspa logo">
+      </p>
+   
         <span class="login100-form-title p-b-43">
           REGISTER INTO BRAINGAINSPA
         </span>

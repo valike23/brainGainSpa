@@ -123,6 +123,24 @@ export class MongoUser {
       };
     }
   }
+  async addRecordsToCollection(collectionName: string, data: any[]) {
+    try {
+      let connection = await this.client.connect();
+      // let test = await connection.db(this.database).collection(collectionName).createIndex( { "name": 1 }, { unique: true } );
+      let result: any = await connection
+        .db(this.database)
+        .collection(collectionName)
+        .insertMany(data);
+      console.log("console somethng:", result);
+      return result;
+    } catch (error) {
+      console.log(error);
+      return {
+        status: "error",
+        error,
+      };
+    }
+  }
   async addToArray(
     collectionName: string,
     data: any,
@@ -201,6 +219,18 @@ export class MongoUser {
     } catch (error) {
       handle_server_error(error);
       
+    }
+  }
+  async uniqueFeild(collectionName: string, field: string, query: any={}) {
+    try {
+      
+      let connection = await this.client.connect();
+      let res = await connection.db(this.database).collection(collectionName)
+      .distinct(field,query);
+      return res;
+    } catch (error) {
+      handle_server_error(error);
+      throw error;
     }
   }
 

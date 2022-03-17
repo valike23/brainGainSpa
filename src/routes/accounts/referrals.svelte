@@ -25,8 +25,8 @@
     import type { IchartConfig, IchartData } from "../../Model/zingchart";
     let win: any = {};
     let links = [
-    { name: "accoounts" },
-    { name: "referrals and income", url: "accooounts/referrals" },
+    { name: "accounts" },
+    { name: "referrals and income", url: "accounts/referrals" },
   ];
     let chartConfig: IchartConfig = {
         type: "tree",
@@ -87,6 +87,78 @@
             },
         },
         {
+            id: "america",
+            parent: "theworld",
+            name: "Rita Smith",
+            value: 328000000,
+            style: {
+                "background-fit": "xy",
+                backgroundImage:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyp4gAct8mXsUK_purhunJBH5baCGdd7j8-MKYs98cnMjWZUniSXBdp9DvzzHmqs_5TyY&usqp=CAU",
+                color: "white",
+                
+            },
+        }, {
+            id: "america",
+            parent: "theworld",
+            name: "Rita Smith",
+            value: 328000000,
+            style: {
+                "background-fit": "xy",
+                backgroundImage:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyp4gAct8mXsUK_purhunJBH5baCGdd7j8-MKYs98cnMjWZUniSXBdp9DvzzHmqs_5TyY&usqp=CAU",
+                color: "white",
+                
+            },
+        }, {
+            id: "america",
+            parent: "theworld",
+            name: "Rita Smith",
+            value: 328000000,
+            style: {
+                "background-fit": "xy",
+                backgroundImage:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyp4gAct8mXsUK_purhunJBH5baCGdd7j8-MKYs98cnMjWZUniSXBdp9DvzzHmqs_5TyY&usqp=CAU",
+                color: "white",
+                
+            },
+        }, {
+            id: "america",
+            parent: "theworld",
+            name: "Rita Smith",
+            value: 328000000,
+            style: {
+                "background-fit": "xy",
+                backgroundImage:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyp4gAct8mXsUK_purhunJBH5baCGdd7j8-MKYs98cnMjWZUniSXBdp9DvzzHmqs_5TyY&usqp=CAU",
+                color: "white",
+                
+            },
+        }, {
+            id: "america",
+            parent: "theworld",
+            name: "Rita Smith",
+            value: 328000000,
+            style: {
+                "background-fit": "xy",
+                backgroundImage:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyp4gAct8mXsUK_purhunJBH5baCGdd7j8-MKYs98cnMjWZUniSXBdp9DvzzHmqs_5TyY&usqp=CAU",
+                color: "white",
+                
+            },
+        }, {
+            id: "america",
+            parent: "theworld",
+            name: "Rita Smith",
+            value: 328000000,
+            style: {
+                "background-fit": "xy",
+                backgroundImage:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyp4gAct8mXsUK_purhunJBH5baCGdd7j8-MKYs98cnMjWZUniSXBdp9DvzzHmqs_5TyY&usqp=CAU",
+                color: "white",
+                
+            },
+        }, {
             id: "america",
             parent: "theworld",
             name: "Rita Smith",
@@ -201,6 +273,7 @@
                             <th class="whitespace-nowrap">#</th>
                             <th class="whitespace-nowrap">First Name</th>
                             <th class="whitespace-nowrap">Last Name</th>
+                            <th class="whitespace-nowrap">Level</th>
                             <th class="whitespace-nowrap">Earning</th>
                         </tr>
                     </thead>
@@ -209,20 +282,10 @@
                             <td>1</td>
                             <td>Angelina</td>
                             <td>Jolie</td>
+                            <td>1</td>
                             <td>$50</td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Brad</td>
-                            <td>Pitt</td>
-                            <td>$80</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Charlie</td>
-                            <td>Hunnam</td>
-                            <td>$100</td>
-                        </tr>
+                       
                     </tbody>
                 </table>
             </div>

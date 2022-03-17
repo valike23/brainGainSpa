@@ -1,3 +1,8 @@
+<script>
+    export let type = '';
+</script>
+
+
 <div class="mobile-menu d-md-none">
     <div class="mobile-menu-bar">
         <a rel="external" href="/dashboard" class="d-flex me-auto">
@@ -138,9 +143,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:;" class="menu">
-                        <div class="menu__icon"> <i data-feather="activity"></i> </div>
-                        <div class="menu__title"> Withdrawls </div>
+                    <a href="accounts/payments" class="menu">
+                        <div class="menu__icon"> <i class="fa fa-money-bill"></i> </div>
+                        <div class="menu__title"> Payments </div>
                     </a>
                 </li>
                 <li>

@@ -19,27 +19,49 @@
 </script>
 
 <script lang="ts">
+import axios from "axios";
+
 import { onMount } from "svelte";
 
     import DesktopSide from "../../../components/Nav/DesktopSide.svelte";
     import MobileMenu from "../../../components/Nav/MobileMenu.svelte";
     import TopBar from "../../../components/Nav/TopBar.svelte";
+import { handleNotification } from "../../../Model/browserFunctions";
 import type { Icourse, Ifaculty } from "../../../Model/question";
     export let resource:Ifaculty[];
     let faculty: Ifaculty ={};
     faculty = resource[0];
+    let years = [];
     let win: any;
-    const gotoTopic = (course: Icourse) => {
-        var myModal = new win.bootstrap.Modal(document.getElementById('yearmodal'), {
-  keyboard: false
-        });
-        myModal.show();
-        //location.href = `academics/past_questions/instruction?id=${course.courseId}&type=${faculty.facultyName}`;
+    let activeCourse: Icourse;
+    let activeYear = 0;
+    const gotoTopic = async (course: Icourse) => {
+        activeCourse = course;
+        activeYear = 0;
+        // will do some caching of the below request here
+     try {
+        let data = await axios.put(`api/past_questions/faculties?course=${course.courseId}`);
+        if(data){
+            years = data.data;
+
+        win.UIkit.modal(document.getElementById('year')).show();
+        };
+        
+    
+     } catch (error) {
+         handleNotification('something went wrong while retrieving years', window, 'error', 'error');
+     }
     };
 
 let links =[{name: 'academics'},{name: 'past Questions', url: 'academics/past_questions/cbt'}];
 const swithTo =(index: number) =>{
     faculty = resource[index];
+}
+const setYear =(year: number) =>{
+    activeYear = year;
+}
+const submit = () =>{
+    location.href = `academics/past_questions/instruction?id=${activeCourse.courseId}&type=${faculty.facultyName}&year=${activeYear}`;
 }
 onMount(()=>{
     win = window;
@@ -100,24 +122,30 @@ onMount(()=>{
         </div>
     </div>
 </div>
-<div class="modal fade" tabindex="-1" id="yearmodal">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Pick a Year</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div id="year" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Pick a Year</h2>
+        <div class="row">
+            <div class="col-12">
+                {#each years as year}
+                <button class:active-year={year == activeYear} on:click="{()=>{setYear(year)}}" class="uk-button uk-button-default uk-button-small mr-2 mb-2">{year}</button>
+                {/each}
+            </div>
         </div>
-        <div class="modal-body">
-          <p>Modal body text goes here.</p>
+        <div class="row mt-5">
+            <div class="col text-right">
+
+            <button on:click="{submit}" disabled={activeYear == 0} class="uk-button uk-button-primary ">Submit</button>
+            <button class="uk-button uk-button-danger uk-modal-close ">Close</button>
+                
+            </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Submit</button>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 <style>
+    .active-year {
+        border: 1px solid green;
+    }
     .rnd {
         border-radius: 12px;
     }

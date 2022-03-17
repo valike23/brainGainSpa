@@ -31,3 +31,17 @@ export async function get(req, res){
         res.status(503).json(error);
     }
 }
+
+export async function put (req, res) {
+    try {
+        let courseId = req.query.course;
+        courseId = Number(courseId);
+        console.log(courseId);
+        let data = await mongo.uniqueFeild('questions', 'year',{courseId: courseId});
+        console.log(data);
+        res.json(data);
+    } catch (error) {
+        console.log(error);
+        res.status(503).json(error);
+    }
+}

@@ -109,7 +109,7 @@ export async function put(req, res) {
     try {
         console.log(req.fields.body);
         let data: any = JSON.parse(req.fields.body);
-        let adminResult: any = await sqlHelper.get('users', ['password', 'first_name', 'last_name', 'id', 'user_name', 'gender', 'is_active', 'confirm_email', 'profile_pics','type'], `where email='${data.email}'`);
+        let adminResult: any = await sqlHelper.get('users', ['password','phone', 'first_name', 'last_name', 'id', 'user_name', 'gender', 'is_active', 'confirm_email', 'profile_pics','type','email'], `where email='${data.email}'`);
        
       
         if(adminResult.length > 0) {

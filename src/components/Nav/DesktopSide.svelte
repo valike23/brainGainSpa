@@ -1,8 +1,10 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+import { onMount } from "svelte";
+import type { Iuser } from "../../Model/accounts";
 
   export let dash;
-  let user = {};
+  let user:Iuser = {};
+  export let type ='';
   onMount(() => {
     console.log(window);
     console.log(sessionStorage.getItem("user"));
@@ -21,7 +23,7 @@
       BrainGain<span class="fw-medium">spa</span>
     </span>
   </a>
-  <p style="color: white; font-size: 14px; text-align: center">{user.type}</p>
+  <p style="color: white; font-size: 14px; text-align: center">{type || user.type}</p>
   <div class="side-nav__devider my-6" />
   <ul>
     <li>
@@ -55,10 +57,12 @@
         <div class="side-menu__title">Dashboard</div>
       </a>
     </li>
+    {#if type == 'student'}
     <li>
       <a
         class:side-menu--active={dash == "games"}
         href="javascript:;.html"
+        
         class="side-menu"
       >
         <div class="side-menu__icon">
@@ -233,6 +237,7 @@
       
       </ul>
     </li>
+    {:else}
 
     <li>
       <a
@@ -290,11 +295,11 @@
           </a>
         </li>
         <li>
-          <a href="javascript:;.html" class="side-menu">
+          <a href="accounts/payments" class="side-menu">
             <div class="side-menu__icon">
-              <i data-feather="activity" />
+              <i class="fa fa-money-bill" />
             </div>
-            <div class="side-menu__title">withdrawal</div>
+            <div class="side-menu__title">Payments</div>
           </a>
         </li>
         <li>
@@ -307,6 +312,9 @@
         </li>
       </ul>
     </li>
+    {/if}
+   
+
   </ul>
 </nav>
 

@@ -104,3 +104,37 @@ export let create_code =  (type: string, code: string): string=>{
   }
   
 }
+export interface Isubscription{
+  plan?: any;
+  user_id?: number;
+}
+export interface Iinvoices {
+    _id?: any;
+    payment_type?: string;
+    status?: string;
+    user_id?: number;
+    logo?: string;
+    description?: string;
+    amount?: number;
+    subscription?: Isubscription
+}
+interface IflutterCustomer {
+    name?: string,
+    email?: string,
+    phone_number?: string
+ 
+}
+export interface IflutterResponse{
+  amount?: number;
+  currency?: string;
+  customer?: IflutterCustomer;
+  flw_ref?: string;
+  status?: string;
+  tx_ref?: string;
+  transaction_id?: number;
+}
+
+export interface Ipayment {
+  id?: number;
+
+}

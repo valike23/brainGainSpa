@@ -16,7 +16,7 @@
       console.log(page);
 
       const res = await this.fetch(
-        `api/questions/past?courseid=${page.query.courseid}`
+        `api/questions/past?courseid=${page.query.courseid}&year=${page.query.year}`
       );
       let data = await res.json();
       
@@ -177,25 +177,30 @@ import {goto} from '@sapper/app';
   };
   let endQuestion = () => {
     isTimerPaused = true;
-    mode = "result";
-    if (question.answer == question.choosen) {
-      handleNotification("correct answer", window, "success", "Yess!!!");
-      questionResult = "success";
-    } else {
-      handleNotification("incorrect answer", window, "error", "oops!!!");
-      questionResult = "failed";
-    }
+    //mode = "result";
+    nextQuestion();
   };
+  const jumpTo =(index: number)=>{
+    question = questions[index];
+    questions = questions;
+    if (index < questions.length -1) {
+      lastQuestion = false;
+    } else {
+      lastQuestion = true;
+    }
+    console.log(lastQuestion);
+  }
   const nextQuestion = () => {
     mode = "question";
     questionResult = "";
     questionNumber = questionNumber + 1;
-    if (questionNumber < 20) {
+    if (questionNumber < questions.length) {
       question = questions[questionNumber];
       lastQuestion = false;
     } else {
       lastQuestion = true;
     }
+    questions = questions;
     toggleTimer();
   };
   const submit = async () => {
@@ -207,9 +212,9 @@ import {goto} from '@sapper/app';
       result.choosen = question.choosen;
       result.correct = question.choosen == question.answer;
       if (result.correct) {
-        score = score + 5;
+        score = score + 1;
       } else {
-        score = score - 2;
+       // score = score - 2;
       }
       result.question_id = question._id;
       //result.quizCount
@@ -272,7 +277,7 @@ import {goto} from '@sapper/app';
 </script>
 
 <svelte:head >
-  <title>Braingainspa:: Skill Practice Quiz</title>
+  <title>Braingainspa:: Past Question Quiz</title>
 </svelte:head>
 <div class="main">
 
@@ -354,6 +359,13 @@ import {goto} from '@sapper/app';
               </div>
             </div>
             <div class="row mb-2">
+              <div class="col">
+                {#each questions as qu, i}
+                  <button on:click="{()=>{jumpTo(i)}}" class:answered={qu.choosen} class:active={qu._id == question._id} class="btn btn-sm c-btn mr-2 mb-2">{i + 1}</button>
+                {/each}
+              </div>
+            </div>
+            <div class="row mb-2">
               <div class="col-12">
                 <p><small>{@html question.instructions}</small></p>
               </div>
@@ -378,45 +390,31 @@ import {goto} from '@sapper/app';
               {/each}
             </div>
             <div
-              class:success={questionResult == "success"}
-              class:failed={questionResult == "failed"}
-              class="row mt-2 pt-4  col-12"
+              class="row mt-2 pt-4  "
             >
-              {#if mode == "question"}
+            {#if lastQuestion}
+              <div class="col-12">
                 <button
-                  on:click={endQuestion}
-                  style="width: 200px;"
-                  disabled={!question.choosen}
-                  class="btn btn-primary float-end">submit</button
-                >
-              {:else if mode == "result"}
-                <div class="row">
-                  <div class="col-6" />
-                  <div class="col-6">
-                    {#if lastQuestion}
-                      <button
-                        on:click={submit}
-                        class="btn btn-primary float-end">Upload</button
-                      >
-                    {:else}
-                      <button
-                        on:click={nextQuestion}
-                        class="btn btn-secondary float-end">Next</button
-                      >
-                    {/if}
-                  </div>
-                  <div class="col-12">
-                    <h3 style="font-size: 1.5rem;" class="text-center">
-                      Explanation
-                    </h3>
-                    <p class="text-center">
-                      {@html question.explanation}
-                    </p>
-                  </div>
-                </div>
-              {:else}
-                <!-- else content here -->
-              {/if}
+                on:click={submit}
+                style="width: 200px;"
+                disabled={!question.choosen}
+                class="btn btn-primary float-end">Submit</button
+              >
+       
+       
+              </div>
+             
+            {:else}
+               <div class="col-12">
+                <button
+                on:click={endQuestion}
+                style="width: 200px;"
+                disabled={!question.choosen}
+                class="btn btn-primary float-end">Next</button
+              >
+               </div>
+            {/if}
+           
             </div>
           </div>
         </div>
@@ -426,6 +424,20 @@ import {goto} from '@sapper/app';
 </div>
 
 <style>
+  .answered {
+    background-color: rgba(184, 184, 45, 0.877);
+    border: 1px solid green;
+    color: black
+  }
+  .active{
+    border: 1px solid blue;
+  }
+  .c-btn {
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    background-color: whitesmoke;
+  }
   .success {
     border: 2px solid green;
   }

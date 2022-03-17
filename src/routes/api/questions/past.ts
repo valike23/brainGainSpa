@@ -10,8 +10,9 @@ export async function get(req, res) {
     try {
         
         let id = Number(req.query.courseid);
-        console.log('my data is true: ', typeof(id));
-       let data = await mongoUser.getAllRecordFromCollectionWithoutSort('questions',{courseId: id});
+        let year = Number(req.query.year);
+        console.log('my data is true: ', typeof(id), year);
+       let data = await mongoUser.getAllRecordFromCollectionWithoutSort('questions',{$and: [{courseId: id},{year}]});
        console.log('my data is true: ',data);
        res.json(data);
     } catch (error) {

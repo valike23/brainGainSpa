@@ -5,6 +5,7 @@
   import Swal from "sweetalert2";
   import type { Iuser } from "../Model/accounts";
   import { handleNotification } from "../Model/browserFunctions";
+import { logo } from "../Model/public";
 
   let password = "";
   let user: Iuser = {};
@@ -28,7 +29,7 @@
             text: "Login was successful",
           }).then(() => {
             sessionStorage.setItem('user',JSON.stringify(res.data.user));
-            location.href = "/dashboard";
+            location.href = "/dashboard?type="+ res.data.user.type;
           });
         }
         else {
@@ -148,6 +149,7 @@
         on:submit|preventDefault={submit}
         class="login100-form validate-form"
       >
+      <p class="text-center mt-n4" ><img src="{logo}" style="margin:auto; width: 150px" alt="braingianspa logo"></p>
         <span class="login100-form-title p-b-43"> Login to continue </span>
 
         <div

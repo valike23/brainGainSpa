@@ -5,12 +5,12 @@ export async function preload(page, session) {
 		const { slug } = page.params;
         let query = page.query;
     console.log('query test again: ',query);
-    let  {id, type} = query;
+    let  {id, type, year} = query;
     console.log(id, type);
     const res = await this.fetch(`api/past_questions/faculties?id=${id}`);
 		let course = await res.json();
 		
-		return { id, type, course };
+		return { id, type, course, year };
 	}
 </script>
 
@@ -21,12 +21,12 @@ import { onMount } from "svelte";
     import MobileMenu from "../../../components/Nav/MobileMenu.svelte";
     import TopBar from "../../../components/Nav/TopBar.svelte";
 import type { Icourse, Itopic } from "../../../Model/question";
- export let  id, type, course: Icourse;
+ export let  id, type, course: Icourse,year;
  let win: any;
     const next = () =>{
       
         
-        location.href = `academics/past_questions/quiz?courseid=${course.courseId}&name=${course.courseName}`;
+        location.href = `academics/past_questions/quiz?courseid=${course.courseId}&name=${course.courseName}&year=${year}`;
     } ;
     
     let instruction = true;
@@ -58,7 +58,7 @@ let links =[{name: 'academics'},{name: 'past Questions', url: 'academics/past_qu
             <TopBar {links}/>
             <div class="row" style="margin-bottom: 50px;">
                 <h2 class="intro-y fs-lg fw-medium me-auto mt-2">
-                    {type + ':  '  + course.courseName} - Instructions
+                    {type + ':  '  + course.courseName + ' ' + year} - Instructions
                   {#if instruction}
                   <span style="width: 20px; height: 20px" on:click="{playInstruction}" class="float-end"><img src="svg/play/low_speaker.svg" alt=""></span>
                   {:else}

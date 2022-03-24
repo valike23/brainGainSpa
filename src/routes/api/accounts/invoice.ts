@@ -15,7 +15,8 @@ export async function get(req, res) {
     res.json(red);
         
     } catch (error) {
-        
+        console.log(error);
+        res.status(503).send('failed')
     }
 }
 

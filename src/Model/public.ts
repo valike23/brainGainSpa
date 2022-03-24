@@ -37,4 +37,6 @@ export const TIMER = {
 export let flutterwaveKey = 'FLWPUBK_TEST-e9a847ad0922af67cc27cbba45940117-X';
  export let cryptoSecret = 'bgspa';
  export let serverURL = 'https://braingainspa.herokuapp.com';
- export let logo = '/brain.png'
+ export let logo = '/brain.png';
+ export let paystackSecret = `sk_test_3b81fb39b720a4ca4a8af1ba925a679eb267e8aa`;
+ export let paystackPublicKey = `pk_test_f032faca909db4bb95bdf74fceb248e793ddc231`;

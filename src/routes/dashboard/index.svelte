@@ -81,20 +81,91 @@ import type { Iuser } from "../../Model/accounts";
             <TopBar {links}/>
             <!-- END: Top Bar -->
           {#if type == 'parent'}
-              <div class="row">
-                  <div class="col-12">
-                      <div class="box welcome">
-                        <div class="row p-3">
-                            <div class="col-8">
-
-                            </div>
-                            <div class="col-4">
-
+             <div class="row">
+                <div class="col-span-12 mt-8">
+                    <div class="intro-y flex items-center h-10">
+                        <h2 class="text-lg font-medium truncate mr-5">General Report</h2>
+                        <a href="" class="ml-auto flex items-center text-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="refresh-ccw" data-lucide="refresh-ccw" class="lucide lucide-refresh-ccw w-4 h-4 mr-3"><path d="M3 2v6h6"></path><path d="M21 12A9 9 0 006 5.3L3 8"></path><path d="M21 22v-6h-6"></path><path d="M3 12a9 9 0 0015 6.7l3-2.7"></path></svg> Reload Data
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-12 gap-6 mt-5">
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <div class="report-box zoom-in">
+                                <div class="box p-5">
+                                    <div class="flex">
+                                        <svg class="text-primary report-box" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                                            <circle cx="9" cy="7" r="4"></circle>
+                                            <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
+                                            <path d="M16 3.13a4 4 0 010 7.75"></path>
+                                          </svg>
+                                        <div class="ml-auto">
+                                            <div class="report-box__indicator bg-success tooltip cursor-pointer">
+                                                33% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-up" data-lucide="chevron-up" class="lucide lucide-chevron-up w-4 h-4 ml-0.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">3</div>
+                                    <div class="text-base text-slate-500 mt-1">Children</div>
+                                </div>
                             </div>
                         </div>
-                      </div>
-                  </div>
-              </div>
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <div class="report-box zoom-in">
+                                <div class="box p-5">
+                                    <div class="flex">
+                                        <svg class="report-box__icon text-pending" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 12V8H6a2 2 0 01-2-2c0-1.1.9-2 2-2h12v4"></path>
+                                            <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"></path>
+                                            <path d="M18 12a2 2 0 00-2 2c0 1.1.9 2 2 2h4v-4h-4z"></path>
+                                          </svg>
+                                        <div class="ml-auto">
+                                            <div class="report-box__indicator bg-danger tooltip cursor-pointer">
+                                                2% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-down" data-lucide="chevron-down" class="lucide lucide-chevron-down w-4 h-4 ml-0.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">₦5,400</div>
+                                    <div class="text-base text-slate-500 mt-1">Wallet</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <div class="report-box zoom-in">
+                                <div class="box p-5">
+                                    <div class="flex">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="monitor" data-lucide="monitor" class="lucide lucide-monitor report-box__icon text-warning"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                                        <div class="ml-auto">
+                                            <div class="report-box__indicator bg-success tooltip cursor-pointer">
+                                                12% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-up" data-lucide="chevron-up" class="lucide lucide-chevron-up w-4 h-4 ml-0.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">2.149</div>
+                                    <div class="text-base text-slate-500 mt-1">Total Products</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                            <div class="report-box zoom-in">
+                                <div class="box p-5">
+                                    <div class="flex">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="user" data-lucide="user" class="lucide lucide-user report-box__icon text-success"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                        <div class="ml-auto">
+                                            <div class="report-box__indicator bg-success tooltip cursor-pointer">
+                                                22% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-up" data-lucide="chevron-up" class="lucide lucide-chevron-up w-4 h-4 ml-0.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="text-3xl font-medium leading-8 mt-6">152.040</div>
+                                    <div class="text-base text-slate-500 mt-1">Unique Visitor</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
           {:else}
           <div class="grid columns-12 gap-6 mt-8">
             <div class="g-col-12 g-col-lg-3 g-col-xxl-2">

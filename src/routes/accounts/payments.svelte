@@ -11,17 +11,21 @@
     // you to make credentialled requests on both
     // server and client
     let invoices = [];
+    let payments = [];
     try {
       const res = await this.fetch(`api/accounts/invoice`);
-      invoices = await res.json();
 
+      const res2 = await this.fetch(`api/accounts/payments`);
+      invoices = await res.json();
+      payments = await res2.json();
+      payments = payments || [];
       invoices = invoices || [];
     } catch (error) {
       console.log("error", error);
       invoices = [];
     }
 
-    return { invoices };
+    return { invoices, payments };
   }
 </script>
 
@@ -31,23 +35,34 @@
   import DesktopSide from "../../components/Nav/DesktopSide.svelte";
   import MobileMenu from "../../components/Nav/MobileMenu.svelte";
   import TopBar from "../../components/Nav/TopBar.svelte";
+  import dayjs from "dayjs";
   import type {
     IflutterResponse,
     Iinvoices,
+    Ipayment,
     Iuser,
   } from "../../Model/accounts";
-  import { flutterwaveKey, paystackPublicKey, serverURL } from "../../Model/public";
+  import {
+    flutterwaveKey,
+    paystackPublicKey,
+    serverURL,
+  } from "../../Model/public";
   import { goto } from "@sapper/app";
-  import { check_for_session } from "../../Model/browserFunctions";
+  import {
+    check_for_session,
+    handleNotification,
+  } from "../../Model/browserFunctions";
+  import axios from "axios";
+  import Swal from "sweetalert2";
   let user: Iuser = {};
   let links = [
     { name: "accoounts" },
     { name: "payments", url: "accounts/payments" },
   ];
   let win: any = {};
-  let activePayment = '';
-  let activeInvoice : Iinvoices ={};
-  export let invoices: Iinvoices[];
+  let activePayment = "";
+  let activeInvoice: Iinvoices = {};
+  export let invoices: Iinvoices[], payments: Ipayment[];
   const handlePayment = (pay: IflutterResponse) => {
     console.log(pay);
   };
@@ -59,47 +74,68 @@
     win.UIkit.modal(document.getElementById("md"), {}).show();
   };
 
-  const pay =() =>{
+  const pay = () => {
     //choose payment memthod here
-    if(activePayment == 'flutterwave'){
+    if (activePayment == "flutterwave") {
       payWithFlutter(activeInvoice);
+    } else if (activePayment == "paystack") {
+      payWithPaystack(activeInvoice);
     }
-    else if(activePayment == 'paystack') {
-      payWithPaystack(activeInvoice)
-    }
-    activePayment = '';
-  }
-  const payWithPaystack =(inv: Iinvoices)=>{
-    let paystack =  win.PaystackPop.setup({
-  key: paystackPublicKey,
-  email: user.email,
-  amount: inv.amount * 100,
-   onClose: function(){
-      alert('Window closed.');
-    },
-    callback: function(response){
-      let message = 'Payment complete! Reference: ' + response.reference;
-      alert(message);
-    }
-});
+    activePayment = "";
+  };
+  const payWithPaystack = (inv: Iinvoices) => {
+    let paystack = win.PaystackPop.setup({
+      key: paystackPublicKey,
+      email: user.email,
+      amount: inv.amount * 100,
+      onClose: function () {
+        alert("Window closed.");
+      },
+      callback: async function (response) {
+        console.log(response, inv);
+        let myPay: Ipayment = {};
+        myPay.amount_paid = inv.amount;
+        myPay.payment_ref = response.reference;
+        myPay.user_id = inv.user_id;
+        myPay.invoice_id = inv.id;
+        myPay.source = "paystack";
+        myPay.payment_status = response.status;
+        //)
+        handleNotification("submitting payment info", window, "info", "submit");
+        try {
+          let form = new FormData();
+          form.append("body", JSON.stringify(myPay));
+          let res = await axios.post("api/accounts/payments", form);
+          if (res) {
+            Swal.fire(
+              "Success",
+              "<p>Payment have been created successfully</p>",
+              "success"
+            ).then(() => {
+              location.reload();
+            });
+          }
+        } catch (error) {}
+      },
+    });
 
-paystack.openIframe();
-console.log(paystack);
-  }
+    paystack.openIframe();
+    console.log(paystack);
+  };
 
   const payWithFlutter = (invoice: Iinvoices) => {
     win.FlutterwaveCheckout({
       public_key: flutterwaveKey,
-      tx_ref: invoice._id,
+      tx_ref: invoice.id,
       amount: invoice.amount,
       currency: "NGN",
-      payment_options: "card, banktransfer, ussd",
+      payment_options: "card, banktransfer, ussd,mobilemoneyghana",
       // redirect_url: serverURL + '/acconts/handlePayment',
       callback: handlePayment,
-      meta: {
-        consumer_id: 23,
-        consumer_mac: "92a3-912ba-1192a",
+      onclose: (incomplete)=>{
+        console.log(incomplete);
       },
+     
       customer: {
         email: user.email,
         phone_number: user.phone,
@@ -107,14 +143,14 @@ console.log(paystack);
       },
       customizations: {
         title: "BrainGainSpa",
-        description: "Excercise your mind and brain",
+        description: "Exercise your mind and brain",
         logo: serverURL + "/brain.png",
       },
     });
   };
-  const setPayment =(pay: string)=>{
+  const setPayment = (pay: string) => {
     activePayment = pay;
-  }
+  };
   onMount(() => {
     win = window;
 
@@ -123,6 +159,10 @@ console.log(paystack);
     } else {
       user = JSON.parse(sessionStorage.getItem("user"));
       check_for_session(location, true, user);
+      const dataTable = new win.simpleDatatables.DataTable("#paymentTable", {
+        searchable: true,
+        fixedHeight: true,
+      });
     }
   });
 </script>
@@ -180,8 +220,51 @@ console.log(paystack);
                       </div>
                     {/each}
                   </div>
+
+                  <h3 class="mt-4 mb-1">payments</h3>
                 </div>
                 <div class="col-sm-5 d-sm-block d-none" />
+              </div>
+              <div class="row">
+                <div class="row mt-3 box">
+                  <div class="col-12">
+                    <table
+                      id="paymentTable"
+                      class="table table-responsive table-hover"
+                    >
+                      <thead>
+                        <tr>
+                          <th scope="col">s/n</th>
+                          <th scope="col">payment Ref.</th>
+                          <th scope="col">paid Amount (₦)</th>
+                          <th scope="col">Payment Date</th>
+                          <th scope="col">Source</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">isVerfied</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {#each payments as pay, s}
+                          <tr>
+                            <th>{s + 1}</th>
+                            <td>{pay.payment_ref}</td>
+                            <td>{pay.amount_paid}</td>
+                            <td>{dayjs(pay.payment_date).format()}</td>
+                            <td>{pay.source}</td>
+                            <td>{pay.payment_status}</td>
+                            <td
+                              >{#if pay.is_verified}
+                                true
+                              {:else}
+                                false
+                              {/if}</td
+                            >
+                          </tr>
+                        {/each}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -191,42 +274,47 @@ console.log(paystack);
   </div>
 </div>
 
-
 <div id="md" uk-modal>
   <div class="uk-modal-dialog uk-modal-body">
     <h2 class="uk-modal-title">Pay With...</h2>
     <div class="row ml-n2">
-     <div class="col-6">
-      <div
-      class:active={activePayment == 'paystack'}
-      on:click="{()=>{setPayment('paystack')}}" style="margin-right: 1px;"
-        class="uk-card uk-card-body uk-card-hover ml-n1 mt-4 mb-2 uk-card-primary"
-        id="paystack"
-      />
-     </div>
-     <div class="col-6">
-      <div
-      on:click="{()=>{setPayment('flutterwave')}}"
-      class:active={activePayment == 'flutterwave'}
-      class="uk-card uk-card-body uk-card-hover mt-4 mb-2 uk-card-default"
-      id="flutterwave"
-    />
+      <div class="col-6">
+        <div
+          class:active={activePayment == "paystack"}
+          on:click={() => {
+            setPayment("paystack");
+          }}
+          style="margin-right: 1px;"
+          class="uk-card uk-card-body uk-card-hover ml-n1 mt-4 mb-2 uk-card-primary"
+          id="paystack"
+        />
+      </div>
+      <div class="col-6">
+        <div
+          on:click={() => {
+            setPayment("flutterwave");
+          }}
+          class:active={activePayment == "flutterwave"}
+          class="uk-card uk-card-body uk-card-hover mt-4 mb-2 uk-card-default"
+          id="flutterwave"
+        />
 
-   <div class="row">
-     <div class="col">
-
-    <button on:click="{pay}" class="uk-button uk-button-primary float-end" disabled="{activePayment == ''}">Pay</button>
-     </div>
-   </div>
-     </div>
-
+        <div class="row">
+          <div class="col">
+            <button
+              on:click={pay}
+              class="uk-button uk-button-primary float-end"
+              disabled={activePayment == ""}>Pay</button
+            >
+          </div>
+        </div>
+      </div>
     </div>
-    
   </div>
 </div>
 
 <style>
-  .uk-modal-title{
+  .uk-modal-title {
     color: white;
   }
   #md > .uk-modal-dialog {

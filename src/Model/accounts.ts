@@ -110,6 +110,7 @@ export interface Isubscription{
 }
 export interface Iinvoices {
     _id?: any;
+    id?: number;
     payment_type?: string;
     status?: string;
     user_id?: number;
@@ -136,5 +137,12 @@ export interface IflutterResponse{
 
 export interface Ipayment {
   id?: number;
-
+  payment_ref?: string;
+  source?: string;
+  amount_paid?: number;
+  payment_date?:  Date | string;
+  payment_status?: string;
+  user_id?: number;
+  is_verified?: string;
+  invoice_id?: number
 }

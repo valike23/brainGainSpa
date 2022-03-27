@@ -27,13 +27,13 @@ let local: ConnectionConfig = {
     host: 'localhost',
     password: '',
     user: 'root',
-    database: 'bgspanDB'
+    database: 'bgspandb'
 }
 export const TIMER = {
     registration: 3 //days
 } 
 
- export let dbconfig: ConnectionConfig = db4free;
+ export let dbconfig: ConnectionConfig = local;
 export let flutterwaveKey = 'FLWPUBK_TEST-e9a847ad0922af67cc27cbba45940117-X';
  export let cryptoSecret = 'bgspa';
  export let serverURL = 'https://braingainspa.herokuapp.com';

@@ -10,8 +10,7 @@
     "validate": "svelte-check --ignore src/node_modules/@sapper"
   },
   "dependencies": {
-    "@types/convert-excel-to-json": "^1.7.1",
-    "@types/mysql": "^2.15.20",
+   
     "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "compression": "^1.7.1",
@@ -20,8 +19,10 @@
     "express": "^4.17.1",
     "express-formidable": "^1.2.0",
     "express-session": "^1.17.2",
+    "flutterwave-node-v3": "^1.0.9",
     "mongodb": "^4.3.1",
     "mysql": "^2.18.1",
+    "paystack": "^2.0.1",
     "phaser": "^3.55.2",
     "short-crypt": "^1.0.23",
     "sirv": "^1.0.0",
@@ -29,7 +30,10 @@
     "xlsx": "^0.18.0",
     "zangodb": "^1.0.8"
   },
-  "devDependencies": {
+  "devDependencies": { 
+    "@types/convert-excel-to-json": "^1.7.1",
+    "@types/mysql": "^2.15.20",
+    "@types/paystack": "^2.0.1",
     "@tsconfig/svelte": "^1.0.10",
     "@types/compression": "^1.7.0",
     "@types/node": "^14.11.1",

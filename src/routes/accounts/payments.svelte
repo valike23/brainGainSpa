@@ -36,7 +36,8 @@
   import MobileMenu from "../../components/Nav/MobileMenu.svelte";
   import TopBar from "../../components/Nav/TopBar.svelte";
   import dayjs from "dayjs";
-  import type {
+  import {
+EpaymentSource,
     IflutterResponse,
     Iinvoices,
     Ipayment,
@@ -63,8 +64,40 @@
   let activePayment = "";
   let activeInvoice: Iinvoices = {};
   export let invoices: Iinvoices[], payments: Ipayment[];
-  const handlePayment = (pay: IflutterResponse) => {
-    console.log(pay);
+  const handlePayment = async (pay: IflutterResponse) => {
+   
+    let payment: Ipayment= {};
+    payment.amount_paid = pay.amount;
+    payment.invoice_id = activeInvoice._id;
+    payment.payment_ref = pay.transaction_id.toString();
+    payment.payment_status = pay.status;
+    payment.source = EpaymentSource.FLUTTERWAVE;
+    payment.user_id = activeInvoice.user_id;
+    console.log(payment);
+    handleNotification("submitting payment info", window, "info", "submit");
+        try {
+          let form = new FormData();
+          form.append("body", JSON.stringify(payment));
+          let res = await axios.post("api/accounts/payments", form);
+          if (res) {
+            Swal.fire(
+              "Success",
+              "<p>Payment have been created successfully</p>",
+              "success"
+            ).then(() => {
+              location.reload();
+            });
+          }
+        } catch (error) {
+          Swal.fire(
+              "failed",
+              "<p>Payment has failed to create successfully</p>",
+              "error"
+            ).then(() => {
+              //location.reload();
+              //copy this transcation to memory to be auto send again
+            });
+        }
   };
   const payment = (invoice: Iinvoices) => {
     activeInvoice = invoice;
@@ -98,7 +131,7 @@
         myPay.payment_ref = response.reference;
         myPay.user_id = inv.user_id;
         myPay.invoice_id = inv.id;
-        myPay.source = "paystack";
+        myPay.source = EpaymentSource.PAYSTACK;
         myPay.payment_status = response.status;
         //)
         handleNotification("submitting payment info", window, "info", "submit");
@@ -112,10 +145,19 @@
               "<p>Payment have been created successfully</p>",
               "success"
             ).then(() => {
-              location.reload();
+            location.reload();
             });
           }
-        } catch (error) {}
+        } catch (error) {
+          Swal.fire(
+              "failed",
+              "<p>Payment has failed to create successfully</p>",
+              "error"
+            ).then(() => {
+              //location.reload();
+              //copy this transcation to memory to be auto send again
+            });
+        }
       },
     });
 

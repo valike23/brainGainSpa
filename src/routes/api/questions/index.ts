@@ -1,5 +1,5 @@
 import type { Iquestion, IquestionParameter } from "../../../Model/question";
-import  { MongoUser } from "../../../../external_classes/mongo/mongo";
+import  { MongoUser } from "../../../external_classes/mongo/mongo";
 import { connectionString } from "../../../Model/public";
 let mongoUser = new MongoUser({url: connectionString, database: 'bgspa'});
 

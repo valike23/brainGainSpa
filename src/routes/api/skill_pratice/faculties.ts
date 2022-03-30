@@ -1,4 +1,4 @@
-import { MongoUser } from "../../../../external_classes/mongo/mongo";
+import { MongoUser } from "../../../external_classes/mongo/mongo";
 import { connectionString } from "../../../Model/public";
 import type { Iresource } from "../../../Model/question";
 

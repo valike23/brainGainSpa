@@ -1,7 +1,9 @@
-import { MongoUser } from "../../../../external_classes/mongo/mongo";
-import { SqlHelper } from "../../../../external_classes/mysql/sqlhelpher";
-import type { Iinvoices, Ipayment } from "../../../Model/accounts";
+import { MongoUser } from "../../../external_classes/mongo/mongo";
+import { SqlHelper } from "../../../external_classes/mysql/sqlhelpher";
+import { confirm_flutter_payments, confirm_paystack_payment } from "../../../external_classes/payments";
+import { EpaymentSource, Iinvoices, Ipayment } from "../../../Model/accounts";
 import { connectionString, dbconfig } from "../../../Model/public";
+
 
 let mysql = new SqlHelper(dbconfig);
 let mongo = new MongoUser({url: connectionString, database: 'bgspan'})
@@ -24,10 +26,20 @@ export async function get(req, res) {
 export async function post(req, res){
     console.log('fields:', req.fields);
     try {
-
+    
     let payment: Ipayment = JSON.parse(req.fields.body);
-     let resd= await mysql.insertQuery(payment, 'payments');
-     res.json(resd);
+    if(payment.source == EpaymentSource.PAYSTACK){
+       let resd = await confirm_paystack_payment(payment, req.session.user);
+       let data = await mysql.insertQuery(resd.payment,'payments');
+       res.json(data);
+
+    }
+    else if(payment.source == EpaymentSource.FLUTTERWAVE){
+        let resd = await confirm_flutter_payments(payment, req.session.user);
+        let data = await mysql.insertQuery(resd.payment,'payments');
+        res.json(data);
+    }
+     
         
     } catch (error) {
         console.log(error);

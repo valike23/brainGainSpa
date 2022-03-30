@@ -1,4 +1,4 @@
-import { SqlHelper } from "../../external_classes/mysql/sqlhelpher";
+import { SqlHelper } from "../external_classes/mysql/sqlhelpher";
 import type { Iuser } from "./accounts";
 import { dbconfig } from "./public";
 

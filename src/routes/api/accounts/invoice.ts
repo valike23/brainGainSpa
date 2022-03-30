@@ -1,5 +1,5 @@
-import { MongoUser } from "../../../../external_classes/mongo/mongo";
-import { SqlHelper } from "../../../../external_classes/mysql/sqlhelpher";
+import { MongoUser } from "../../../external_classes/mongo/mongo";
+import { SqlHelper } from "../../../external_classes/mysql/sqlhelpher";
 import type { Iinvoices } from "../../../Model/accounts";
 import { connectionString, dbconfig } from "../../../Model/public";
 
@@ -10,7 +10,7 @@ export async function get(req, res) {
     try {
         let user_id = req.session.user.id;
         console.log(user_id);
-    let red = await  mysql.get('invoices',[], `where user_id = ${user_id}`);
+    let red = await  mysql.get('invoices',[], `where user_id = ${user_id} and status != 'completed'`);
     console.log(red);
     res.json(red);
         
@@ -24,7 +24,7 @@ export async function get(req, res) {
 export async function post(req, res){
     let invoices: Iinvoices = JSON.parse(req.feilds.body);
     try {
-     let resd= await   mongo.addRecordToCollection('invoice', invoices);
+     let resd= await   mysql.insertQuery(invoices, 'invoices');
      res.json(resd);
         
     } catch (error) {

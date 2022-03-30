@@ -1,4 +1,4 @@
-import { SqlHelper } from "../../../../external_classes/mysql/sqlhelpher";
+import { SqlHelper } from "../../../external_classes/mysql/sqlhelpher";
 import { cryptoSecret, dbconfig } from "../../../Model/public";
 import { handle_server_error } from "../../../Model/serverFunctions";
 const Cryptr = require('cryptr');

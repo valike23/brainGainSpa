@@ -1,5 +1,5 @@
 import { MongoClient, ObjectId } from "mongodb";
-import { handle_server_error } from "../../src/Model/serverFunctions";
+import { handle_server_error } from "../../Model/serverFunctions";
 import type { ImongoProperties } from "../properties";
 
 export class MongoUser {

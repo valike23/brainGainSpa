@@ -1,4 +1,4 @@
-import { SqlHelper } from "../../../../external_classes/mysql/sqlhelpher";
+import { SqlHelper } from "../../../external_classes/mysql/sqlhelpher";
 import { dbconfig } from "../../../Model/public";
 
 let sqlHelper = new SqlHelper(dbconfig);

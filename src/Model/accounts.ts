@@ -1,5 +1,5 @@
 import ShortCrypt from 'short-crypt';
-import { SqlHelper } from '../../external_classes/mysql/sqlhelpher';
+import { SqlHelper } from '../external_classes/mysql/sqlhelpher';
 import { cryptoSecret, dbconfig } from './public';
 const sqlhelpher = new SqlHelper(dbconfig);
 let sc = new ShortCrypt(cryptoSecret);
@@ -134,15 +134,38 @@ export interface IflutterResponse{
   tx_ref?: string;
   transaction_id?: number;
 }
+export enum EpaymentSource{
+  FLUTTERWAVE = 'flutterwave',
+  PAYSTACK = 'paystack'
+}
 
 export interface Ipayment {
   id?: number;
   payment_ref?: string;
-  source?: string;
+  source?: EpaymentSource;
   amount_paid?: number;
   payment_date?:  Date | string;
   payment_status?: string;
   user_id?: number;
-  is_verified?: string;
-  invoice_id?: number
+  is_verified?: boolean | number;
+  invoice_id?: number;
+  channel?: string;
+}
+
+export interface IpaystackResponse {
+  message?: string;
+reference?: string;
+status?: string;
+trans?: string;
+transaction?: string;
+trxref?: string;
+}
+
+export interface IinvoiceVerification{
+  id?: number;
+  invoice_id?: number;
+  processed?: boolean;
+  created_date?: Date| string;
+  addressed_date?: Date | string;
+  email?: string;
 }

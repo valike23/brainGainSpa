@@ -1,7 +1,7 @@
 import { confirm_codes, create_code, Iuser } from "../../../Model/accounts";
 import {hash, compare} from 'bcrypt';
 import { cryptoSecret, dbconfig } from "../../../Model/public";
-import {SqlHelper} from '../../../../external_classes/mysql/sqlhelpher';
+import {SqlHelper} from '../../../external_classes/mysql/sqlhelpher';
 
 const sqlHelper = new SqlHelper(dbconfig);
 const Cryptr = require('cryptr');
@@ -155,6 +155,16 @@ export function get(req, res){
     }
     else{
         res.json({})
+    }
+}
+
+export async function patch(req, res){
+    try {
+        let data = await sqlHelper.get('parents',['referral_code','parent_code','active','user_id'],
+         'where user_id=' + req.session.user.id);
+         res.json(data[0]);
+    } catch (error) {
+        res.status(503).json(JSON.stringify(error));
     }
 }
 

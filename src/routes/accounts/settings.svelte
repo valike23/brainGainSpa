@@ -464,10 +464,10 @@ import axios from "axios";
                     <div class="w-32 -ml-2 sm:ml-0 mt-5 mr-auto sm:mr-5">
                       <div class="chartjs-size-monitor">
                         <div class="chartjs-size-monitor-expand">
-                          <div class="" />
+                          <div class="" ></div>
                         </div>
                         <div class="chartjs-size-monitor-shrink">
-                          <div class="" />
+                          <div class="" ></div>
                         </div>
                       </div>
                       <canvas
@@ -476,7 +476,7 @@ import axios from "axios";
                         height="42"
                         width="256"
                         style="display: block; height: 21px; width: 128px;"
-                      />
+                      ></canvas>
                     </div>
                     <div class="text-center">
                       <div class="font-medium">6.5k</div>
@@ -497,10 +497,10 @@ import axios from "axios";
                     <div class="w-32 -ml-2 sm:ml-0 mt-5 mr-auto sm:mr-5">
                       <div class="chartjs-size-monitor">
                         <div class="chartjs-size-monitor-expand">
-                          <div class="" />
+                          <div class="" ></div>
                         </div>
                         <div class="chartjs-size-monitor-shrink">
-                          <div class="" />
+                          <div class="" ></div>
                         </div>
                       </div>
                       <canvas
@@ -509,7 +509,7 @@ import axios from "axios";
                         height="42"
                         width="256"
                         style="display: block; height: 21px; width: 128px;"
-                      />
+                      ></canvas>
                     </div>
                     <div class="text-center">
                       <div class="font-medium">2.5k</div>
@@ -530,10 +530,10 @@ import axios from "axios";
                     <div class="w-32 -ml-2 sm:ml-0 mt-5 mr-auto sm:mr-5">
                       <div class="chartjs-size-monitor">
                         <div class="chartjs-size-monitor-expand">
-                          <div class="" />
+                          <div class="" ></div>
                         </div>
                         <div class="chartjs-size-monitor-shrink">
-                          <div class="" />
+                          <div class="" >
                         </div>
                       </div>
                       <canvas
@@ -542,7 +542,7 @@ import axios from "axios";
                         height="42"
                         width="256"
                         style="display: block; height: 21px; width: 128px;"
-                      />
+                     ></canvas>
                     </div>
                     <div class="text-center">
                       <div class="font-medium">3.4k</div>
@@ -674,7 +674,7 @@ import axios from "axios";
                           aria-valuenow=0
                           aria-valuemin=0
                           aria-valuemax=100
-                        > 
+                        > </div>
                       </div>
                     </div>
                     <div class="mt-5">
@@ -689,7 +689,7 @@ import axios from "axios";
                           aria-valuenow="0"
                           aria-valuemin="0"
                           aria-valuemax="100"
-                        />
+                        ></div>
                       </div>
                     </div>
                     <div class="mt-5">
@@ -704,7 +704,7 @@ import axios from "axios";
                           aria-valuenow="0"
                           aria-valuemin="0"
                           aria-valuemax="100"
-                        />
+                        ></div>
                       </div>
                     </div>
                     <a href="" class="btn btn-secondary block w-40 mx-auto mt-5"
@@ -729,8 +729,4 @@ import axios from "axios";
 </div>
 </div>
 
-<style>
-  .tab {
-    background-color: whitesmoke;
-  }
-</style>
+

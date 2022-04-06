@@ -1,8 +1,7 @@
-import { SqlHelper } from "../external_classes/mysql/sqlhelpher";
+
 import type { Iuser } from "./accounts";
 import { dbconfig } from "./public";
 
-let sqlHelper = new SqlHelper(dbconfig);
 export interface ItoolTip {
     padding?: string;
     borderRadius?: string;
@@ -42,15 +41,4 @@ export interface IchartConfig {
 }
 
 
-export const  retrieveDownline =(userId:  number): Promise<Iuser> =>{
-    return new Promise(async (resolve, reject)=>{
-     try {
-        let level1 = await  sqlHelper.innerjoin('parents',[{name:'users', foriegnKeyColumn: 'user_id', primaryKeyColumn:'id'}],
-        ['users.first_name', 'users.last_name', 'users.profile_pics'],`WHERE parents.top_level =${userId}`);
-        resolve(level1);
-     } catch (error) {
-         reject(error);
-     }
-    })
-}
 

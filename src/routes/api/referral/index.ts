@@ -1,6 +1,4 @@
-import { retrieveDownline } from "../../../Model/zingchart";
-
-
+import { retrieveDownline } from "../../../Model/serverFunctions";
 
 export async function get(req, res){
     try {

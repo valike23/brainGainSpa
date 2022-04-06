@@ -1,865 +1,994 @@
 <script context="module">
-	// the (optional) preload function takes a
-	// `{ path, params, query }` object and turns it into
-	// the data we need to render the page
-	export async function preload(page, session) {
-		// the `slug` parameter is available because this file
-		// is called [slug].svelte
-		const { slug } = page.params;
-        let type = page.query.type;
+  // the (optional) preload function takes a
+  // `{ path, params, query }` object and turns it into
+  // the data we need to render the page
+  export async function preload(page, session) {
+    // the `slug` parameter is available because this file
+    // is called [slug].svelte
+    const { slug } = page.params;
+    let type = page.query.type;
 
-		return { type };
-	}
+    return { type };
+  }
 </script>
 
-
-
 <script lang="ts">
-    import {goto} from "@sapper/app";
+  import { goto } from "@sapper/app";
 
-    import { onMount } from "svelte";
-    import DesktopSide from "../../components/Nav/DesktopSide.svelte";
-    import MobileMenu from "../../components/Nav/MobileMenu.svelte";
-    import TopBar from "../../components/Nav/TopBar.svelte";
-import type { Iuser } from "../../Model/accounts";
+  import { onMount } from "svelte";
+  import DesktopSide from "../../components/Nav/DesktopSide.svelte";
+  import MobileMenu from "../../components/Nav/MobileMenu.svelte";
+  import TopBar from "../../components/Nav/TopBar.svelte";
+  import type { Iuser } from "../../Model/accounts";
+  import { check_for_session } from "../../Model/browserFunctions";
 
-    let links =[{name: 'dashboard'}];
-    let win: any = {};
-    let user:Iuser = {};
-    export let type;
-    onMount(() => {
-        if(!sessionStorage.getItem('user')){
-            goto("/signin");
-        }
-        else{
-            user = JSON.parse(sessionStorage.getItem('user'));
-        }
+  let links = [{ name: "dashboard" }];
+  let win: any = {};
+  let user: Iuser = {};
+  export let type;
+  console.log("my type is:", type);
+  onMount(() => {
+    if (!sessionStorage.getItem("user")) {
+      goto("/signin");
+    } else {
+      user = JSON.parse(sessionStorage.getItem("user"));
+      check_for_session(location, true, user);
+    }
 
-        win = window;
-        console.log(Object.keys(win.window.window));
-       if(type == 'student' || user.type == 'student'){
-        try {
-            var splide = new win.Splide(".splide", {
-                type: "loop",
-                perPage: 3,
-                perMove: 1,
-                arrow: false,
-            });
+    win = window;
+    if (type == "student" || user.type == "student") {
+      try {
+        var splide = new win.Splide(".splide", {
+          type: "loop",
+          perPage: 3,
+          perMove: 1,
+          arrow: false,
+        });
 
-            splide.mount();
+        splide.mount();
 
-            var splideMobile = new win.Splide("#mobile", {
-                type: "loop",
-                perPage: 1,
-                perMove: 1,
-            });
+        var splideMobile = new win.Splide("#mobile", {
+          type: "loop",
+          perPage: 1,
+          perMove: 1,
+        });
 
-            splideMobile.mount();
-            var splideTab = new win.Splide("#tab", {
-                type: "loop",
-                perPage: 2,
-                perMove: 1,
-            });
+        splideMobile.mount();
+        var splideTab = new win.Splide("#tab", {
+          type: "loop",
+          perPage: 2,
+          perMove: 1,
+        });
 
-            splideTab.mount();
-        } catch (error) {
-            location.reload();
-        }
-       }
-    });
+        splideTab.mount();
+      } catch (error) {
+        location.reload();
+      }
+    }
+  });
 </script>
 
 <svelte:head>
-    <title>Home:: Dashboard</title>
+  <title>Home:: Dashboard</title>
 </svelte:head>
 <div class="main">
-    <MobileMenu {type}/>
-    <div class="d-flex">
-        <DesktopSide dash="dashboard" {type} />
-        <div class="content">
-            <!-- BEGIN: Top Bar -->
-            <TopBar {links}/>
-            <!-- END: Top Bar -->
-          {#if type == 'parent'}
-             <div class="row">
-                <div class="col-span-12 mt-8">
-                    <div class="intro-y flex items-center h-10">
-                        <h2 class="text-lg font-medium truncate mr-5">General Report</h2>
-                        <a href="" class="ml-auto flex items-center text-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="refresh-ccw" data-lucide="refresh-ccw" class="lucide lucide-refresh-ccw w-4 h-4 mr-3"><path d="M3 2v6h6"></path><path d="M21 12A9 9 0 006 5.3L3 8"></path><path d="M21 22v-6h-6"></path><path d="M3 12a9 9 0 0015 6.7l3-2.7"></path></svg> Reload Data
-                        </a>
-                    </div>
-                    <div class="grid grid-cols-12 gap-6 mt-5">
-                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                            <div class="report-box zoom-in">
-                                <div class="box p-5">
-                                    <div class="flex">
-                                        <svg class="text-primary report-box" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
-                                            <circle cx="9" cy="7" r="4"></circle>
-                                            <path d="M23 21v-2a4 4 0 00-3-3.87"></path>
-                                            <path d="M16 3.13a4 4 0 010 7.75"></path>
-                                          </svg>
-                                        <div class="ml-auto">
-                                            <div class="report-box__indicator bg-success tooltip cursor-pointer">
-                                                33% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-up" data-lucide="chevron-up" class="lucide lucide-chevron-up w-4 h-4 ml-0.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">3</div>
-                                    <div class="text-base text-slate-500 mt-1">Children</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                            <div class="report-box zoom-in">
-                                <div class="box p-5">
-                                    <div class="flex">
-                                        <svg class="report-box__icon text-pending" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                            <path d="M20 12V8H6a2 2 0 01-2-2c0-1.1.9-2 2-2h12v4"></path>
-                                            <path d="M4 6v12c0 1.1.9 2 2 2h14v-4"></path>
-                                            <path d="M18 12a2 2 0 00-2 2c0 1.1.9 2 2 2h4v-4h-4z"></path>
-                                          </svg>
-                                        <div class="ml-auto">
-                                            <div class="report-box__indicator bg-danger tooltip cursor-pointer">
-                                                2% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-down" data-lucide="chevron-down" class="lucide lucide-chevron-down w-4 h-4 ml-0.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">₦5,400</div>
-                                    <div class="text-base text-slate-500 mt-1">Wallet</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                            <div class="report-box zoom-in">
-                                <div class="box p-5">
-                                    <div class="flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="monitor" data-lucide="monitor" class="lucide lucide-monitor report-box__icon text-warning"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                                        <div class="ml-auto">
-                                            <div class="report-box__indicator bg-success tooltip cursor-pointer">
-                                                12% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-up" data-lucide="chevron-up" class="lucide lucide-chevron-up w-4 h-4 ml-0.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">2.149</div>
-                                    <div class="text-base text-slate-500 mt-1">Total Products</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                            <div class="report-box zoom-in">
-                                <div class="box p-5">
-                                    <div class="flex">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="user" data-lucide="user" class="lucide lucide-user report-box__icon text-success"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                        <div class="ml-auto">
-                                            <div class="report-box__indicator bg-success tooltip cursor-pointer">
-                                                22% <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" icon-name="chevron-up" data-lucide="chevron-up" class="lucide lucide-chevron-up w-4 h-4 ml-0.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="text-3xl font-medium leading-8 mt-6">152.040</div>
-                                    <div class="text-base text-slate-500 mt-1">Unique Visitor</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-             </div>
-          {:else}
-          <div class="grid columns-12 gap-6 mt-8">
-            <div class="g-col-12 g-col-lg-3 g-col-xxl-2">
-                <h1>Home</h1>
-               
+  <MobileMenu {type} />
+  <div class="d-flex">
+    <DesktopSide dash="dashboard" {type} />
+    <div class="content">
+      <!-- BEGIN: Top Bar -->
+      <TopBar {links} />
+      <!-- END: Top Bar -->
+      {#if type == "parent"}
+        <div class="row">
+          <div class="col-span-12 mt-8">
+            <div class="intro-y flex items-center h-10">
+              <h2 class="text-lg font-medium truncate mr-5">General Report</h2>
+              <a href="" class="ml-auto flex items-center text-primary">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  icon-name="refresh-ccw"
+                  data-lucide="refresh-ccw"
+                  class="lucide lucide-refresh-ccw w-4 h-4 mr-3"
+                  ><path d="M3 2v6h6" /><path
+                    d="M21 12A9 9 0 006 5.3L3 8"
+                  /><path d="M21 22v-6h-6" /><path
+                    d="M3 12a9 9 0 0015 6.7l3-2.7"
+                  /></svg
+                > Reload Data
+              </a>
             </div>
-            <div class="g-col-12 ">
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Hold On!!!</strong> You have to make payment here to complete your account
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">x</button>
+            <div class="grid grid-cols-12 gap-6 mt-5">
+              <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                  <div class="box p-5">
+                    <div class="flex">
+                      <svg
+                        class="text-primary report-box"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                        <path d="M16 3.13a4 4 0 010 7.75" />
+                      </svg>
+                      <div class="ml-auto">
+                        <div
+                          class="report-box__indicator bg-success tooltip cursor-pointer"
+                        >
+                          33% <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            icon-name="chevron-up"
+                            data-lucide="chevron-up"
+                            class="lucide lucide-chevron-up w-4 h-4 ml-0.5"
+                            ><polyline points="18 15 12 9 6 15" /></svg
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-3xl font-medium leading-8 mt-6">3</div>
+                    <div class="text-base text-slate-500 mt-1">Children</div>
                   </div>
-                <div class="mflex" style="margin-bottom: 20px;">
-                    <span class="h2 float-left">Skill Pratice</span>
-                    <button class="see float-right btn">SEE ALL</button>
                 </div>
-                <div>
-                    <div
-                        id="desktop"
-                        class="splide hidden-mobile show-mobile"
-                    >
-                        <div class="splide__arrows">
-                            <button
-                                class="splide__arrow splide__arrow--prev"
-                            >
-                                <svg
-                                    width="51"
-                                    height="51"
-                                    viewBox="0 0 51 51"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                >
-                                    <circle
-                                        cx="25.5"
-                                        cy="25.5"
-                                        r="25.5"
-                                        fill="#FFAE00"
-                                    />
-                                    <rect
-                                        x="16"
-                                        y="15"
-                                        width="20"
-                                        height="20"
-                                        fill="url(#pattern0)"
-                                    />
-                                    <defs>
-                                        <pattern
-                                            id="pattern0"
-                                            patternContentUnits="objectBoundingBox"
-                                            width="1"
-                                            height="1"
-                                        >
-                                            <use
-                                                xlink:href="#image0_27_772"
-                                                transform="scale(0.0333333)"
-                                            />
-                                        </pattern>
-                                        <image
-                                            id="image0_27_772"
-                                            width="30"
-                                            height="30"
-                                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA7klEQVRIie3WMUpDQRAG4I+AWNkJgpWFB7DQ0iqVrTZ6B5NLGA9hpVfIARJsAgl4BkHBSuwkIBFj8RT2LSkE2XkJ5Ictl49dZmeHdZYsQ8x/1gRbUfBDAs/RRysC3sNrhvciYDjGRwJ/4SIK76ifeoqjKPwmw1+wGwFv4D7DR9iMwLfxmOF3ETAc4D3DO1H4qaq6f+FPnEThPfVTv2E/Am6pOlmKT/6yaWVzrYGrPlMvrhnapdFFz+myNLqD5wy9LY021jLzT+JJdQNF083QKQ5Lo21V1aaDwHlpdNHoc1UapcFhb5CgY4Hj7Tr/zjfcW2a3eoiKgwAAAABJRU5ErkJggg=="
-                                        />
-                                    </defs>
-                                </svg>
-                            </button>
-                            <button
-                                class="splide__arrow splide__arrow--next"
-                            >
-                                <svg
-                                    width="51"
-                                    height="51"
-                                    viewBox="0 0 51 51"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                >
-                                    <circle
-                                        cx="25.5"
-                                        cy="25.5"
-                                        r="25.5"
-                                        fill="#FFAE00"
-                                    />
-                                    <rect
-                                        x="16"
-                                        y="15"
-                                        width="20"
-                                        height="20"
-                                        fill="url(#pattern0)"
-                                    />
-                                    <defs>
-                                        <pattern
-                                            id="pattern0"
-                                            patternContentUnits="objectBoundingBox"
-                                            width="1"
-                                            height="1"
-                                        >
-                                            <use
-                                                xlink:href="#image0_27_772"
-                                                transform="scale(0.0333333)"
-                                            />
-                                        </pattern>
-                                        <image
-                                            id="image0_27_772"
-                                            width="30"
-                                            height="30"
-                                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA7klEQVRIie3WMUpDQRAG4I+AWNkJgpWFB7DQ0iqVrTZ6B5NLGA9hpVfIARJsAgl4BkHBSuwkIBFj8RT2LSkE2XkJ5Ictl49dZmeHdZYsQ8x/1gRbUfBDAs/RRysC3sNrhvciYDjGRwJ/4SIK76ifeoqjKPwmw1+wGwFv4D7DR9iMwLfxmOF3ETAc4D3DO1H4qaq6f+FPnEThPfVTv2E/Am6pOlmKT/6yaWVzrYGrPlMvrhnapdFFz+myNLqD5wy9LY021jLzT+JJdQNF083QKQ5Lo21V1aaDwHlpdNHoc1UapcFhb5CgY4Hj7Tr/zjfcW2a3eoiKgwAAAABJRU5ErkJggg=="
-                                        />
-                                    </defs>
-                                </svg>
-                            </button>
+              </div>
+              <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                  <div class="box p-5">
+                    <div class="flex">
+                      <svg
+                        class="report-box__icon text-pending"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M20 12V8H6a2 2 0 01-2-2c0-1.1.9-2 2-2h12v4" />
+                        <path d="M4 6v12c0 1.1.9 2 2 2h14v-4" />
+                        <path d="M18 12a2 2 0 00-2 2c0 1.1.9 2 2 2h4v-4h-4z" />
+                      </svg>
+                      <div class="ml-auto">
+                        <div
+                          class="report-box__indicator bg-danger tooltip cursor-pointer"
+                        >
+                          2% <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            icon-name="chevron-down"
+                            data-lucide="chevron-down"
+                            class="lucide lucide-chevron-down w-4 h-4 ml-0.5"
+                            ><polyline points="6 9 12 15 18 9" /></svg
+                          >
                         </div>
-                        <div class="splide__track">
-                            <ul class="splide__list">
-                                <li class="splide__slide">
-                                    <div
-                                        class="card"
-                                        style="
-                                    background-image: url('https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg');"
-                                    >
-                                        <div class="card-title">
-                                            ELECTRICITY & MAGNETISM
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div
-                                        class="card"
-                                        style="
-                                    background-image: url('https://thumbs.dreamstime.com/b/imagination-girl-kiss-lion-love-nature-abstract-concept-young-steals-male-wildlife-children-like-to-imagine-play-129595579.jpg');"
-                                    >
-                                        <div class="card-title">
-                                            ELECTRICITY & MAGNETISM
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div
-                                        style="
-                                    background-image: url('https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg');"
-                                        class="card"
-                                    >
-                                        <div class="card-title">
-                                            CHANGES IN NON-LIVING THINGS
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div
-                                        style="
-                                    background-image: url('https://media.istockphoto.com/photos/concept-of-an-open-magic-book-open-pages-with-water-and-land-and-picture-id1279460648?b=1&k=20&m=1279460648&s=170667a&w=0&h=uZa830sWo8hlFN0Y7FnQ14giNC0Z2EBNuTMuNJeJhQg=');"
-                                        class="card"
-                                    >
-                                        <div class="card-title">
-                                            CHANGES IN NON-LIVING THINGS
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div
-                                        style="
-                                    background-image: url('https://images.ctfassets.net/hrltx12pl8hq/3MbF54EhWUhsXunc5Keueb/60774fbbff86e6bf6776f1e17a8016b4/04-nature_721703848.jpg?fit=fill&w=480&h=270');"
-                                        class="card"
-                                    >
-                                        <div class="card-title">
-                                            CHANGES IN NON-LIVING THINGS
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                      </div>
                     </div>
-                    <div
-                        id="mobile"
-                        class="splide show-mobile hidden-mobile"
-                    >
-                        <div class="splide__arrows">
-                            <button
-                                class="splide__arrow splide__arrow--prev"
-                            >
-                                <svg
-                                    width="51"
-                                    height="51"
-                                    viewBox="0 0 51 51"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                >
-                                    <circle
-                                        cx="25.5"
-                                        cy="25.5"
-                                        r="25.5"
-                                        fill="#FFAE00"
-                                    />
-                                    <rect
-                                        x="16"
-                                        y="15"
-                                        width="20"
-                                        height="20"
-                                        fill="url(#pattern0)"
-                                    />
-                                    <defs>
-                                        <pattern
-                                            id="pattern0"
-                                            patternContentUnits="objectBoundingBox"
-                                            width="1"
-                                            height="1"
-                                        >
-                                            <use
-                                                xlink:href="#image0_27_772"
-                                                transform="scale(0.0333333)"
-                                            />
-                                        </pattern>
-                                        <image
-                                            id="image0_27_772"
-                                            width="30"
-                                            height="30"
-                                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA7klEQVRIie3WMUpDQRAG4I+AWNkJgpWFB7DQ0iqVrTZ6B5NLGA9hpVfIARJsAgl4BkHBSuwkIBFj8RT2LSkE2XkJ5Ictl49dZmeHdZYsQ8x/1gRbUfBDAs/RRysC3sNrhvciYDjGRwJ/4SIK76ifeoqjKPwmw1+wGwFv4D7DR9iMwLfxmOF3ETAc4D3DO1H4qaq6f+FPnEThPfVTv2E/Am6pOlmKT/6yaWVzrYGrPlMvrhnapdFFz+myNLqD5wy9LY021jLzT+JJdQNF083QKQ5Lo21V1aaDwHlpdNHoc1UapcFhb5CgY4Hj7Tr/zjfcW2a3eoiKgwAAAABJRU5ErkJggg=="
-                                        />
-                                    </defs>
-                                </svg>
-                            </button>
-                            <button
-                                class="splide__arrow splide__arrow--next"
-                            >
-                                <svg
-                                    width="51"
-                                    height="51"
-                                    viewBox="0 0 51 51"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                >
-                                    <circle
-                                        cx="25.5"
-                                        cy="25.5"
-                                        r="25.5"
-                                        fill="#FFAE00"
-                                    />
-                                    <rect
-                                        x="16"
-                                        y="15"
-                                        width="20"
-                                        height="20"
-                                        fill="url(#pattern0)"
-                                    />
-                                    <defs>
-                                        <pattern
-                                            id="pattern0"
-                                            patternContentUnits="objectBoundingBox"
-                                            width="1"
-                                            height="1"
-                                        >
-                                            <use
-                                                xlink:href="#image0_27_772"
-                                                transform="scale(0.0333333)"
-                                            />
-                                        </pattern>
-                                        <image
-                                            id="image0_27_772"
-                                            width="30"
-                                            height="30"
-                                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA7klEQVRIie3WMUpDQRAG4I+AWNkJgpWFB7DQ0iqVrTZ6B5NLGA9hpVfIARJsAgl4BkHBSuwkIBFj8RT2LSkE2XkJ5Ictl49dZmeHdZYsQ8x/1gRbUfBDAs/RRysC3sNrhvciYDjGRwJ/4SIK76ifeoqjKPwmw1+wGwFv4D7DR9iMwLfxmOF3ETAc4D3DO1H4qaq6f+FPnEThPfVTv2E/Am6pOlmKT/6yaWVzrYGrPlMvrhnapdFFz+myNLqD5wy9LY021jLzT+JJdQNF083QKQ5Lo21V1aaDwHlpdNHoc1UapcFhb5CgY4Hj7Tr/zjfcW2a3eoiKgwAAAABJRU5ErkJggg=="
-                                        />
-                                    </defs>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="splide__track">
-                            <ul class="splide__list">
-                                <li class="splide__slide">
-                                    <div
-                                        class="card"
-                                        style="
-                                    background-image: url('https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg');"
-                                    >
-                                        <div class="card-title">
-                                            ELECTRICITY & MAGNETISM
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div
-                                        class="card"
-                                        style="
-                                    background-image: url('https://thumbs.dreamstime.com/b/imagination-girl-kiss-lion-love-nature-abstract-concept-young-steals-male-wildlife-children-like-to-imagine-play-129595579.jpg');"
-                                    >
-                                        <div class="card-title">
-                                            ELECTRICITY & MAGNETISM
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div
-                                        style="
-                                    background-image: url('https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg');"
-                                        class="card"
-                                    >
-                                        <div class="card-title">
-                                            CHANGES IN NON-LIVING THINGS
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div
-                                        style="
-                                    background-image: url('https://media.istockphoto.com/photos/concept-of-an-open-magic-book-open-pages-with-water-and-land-and-picture-id1279460648?b=1&k=20&m=1279460648&s=170667a&w=0&h=uZa830sWo8hlFN0Y7FnQ14giNC0Z2EBNuTMuNJeJhQg=');"
-                                        class="card"
-                                    >
-                                        <div class="card-title">
-                                            CHANGES IN NON-LIVING THINGS
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div
-                                        style="
-                                    background-image: url('https://images.ctfassets.net/hrltx12pl8hq/3MbF54EhWUhsXunc5Keueb/60774fbbff86e6bf6776f1e17a8016b4/04-nature_721703848.jpg?fit=fill&w=480&h=270');"
-                                        class="card"
-                                    >
-                                        <div class="card-title">
-                                            CHANGES IN NON-LIVING THINGS
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                    <div class="text-3xl font-medium leading-8 mt-6">
+                      ₦5,400
                     </div>
-                    <div id="tab" class="splide show-mobile hidden-mobile">
-                        <div class="splide__arrows">
-                            <button
-                                class="splide__arrow splide__arrow--prev"
-                            >
-                                <svg
-                                    width="51"
-                                    height="51"
-                                    viewBox="0 0 51 51"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                >
-                                    <circle
-                                        cx="25.5"
-                                        cy="25.5"
-                                        r="25.5"
-                                        fill="#FFAE00"
-                                    />
-                                    <rect
-                                        x="16"
-                                        y="15"
-                                        width="20"
-                                        height="20"
-                                        fill="url(#pattern0)"
-                                    />
-                                    <defs>
-                                        <pattern
-                                            id="pattern0"
-                                            patternContentUnits="objectBoundingBox"
-                                            width="1"
-                                            height="1"
-                                        >
-                                            <use
-                                                xlink:href="#image0_27_772"
-                                                transform="scale(0.0333333)"
-                                            />
-                                        </pattern>
-                                        <image
-                                            id="image0_27_772"
-                                            width="30"
-                                            height="30"
-                                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA7klEQVRIie3WMUpDQRAG4I+AWNkJgpWFB7DQ0iqVrTZ6B5NLGA9hpVfIARJsAgl4BkHBSuwkIBFj8RT2LSkE2XkJ5Ictl49dZmeHdZYsQ8x/1gRbUfBDAs/RRysC3sNrhvciYDjGRwJ/4SIK76ifeoqjKPwmw1+wGwFv4D7DR9iMwLfxmOF3ETAc4D3DO1H4qaq6f+FPnEThPfVTv2E/Am6pOlmKT/6yaWVzrYGrPlMvrhnapdFFz+myNLqD5wy9LY021jLzT+JJdQNF083QKQ5Lo21V1aaDwHlpdNHoc1UapcFhb5CgY4Hj7Tr/zjfcW2a3eoiKgwAAAABJRU5ErkJggg=="
-                                        />
-                                    </defs>
-                                </svg>
-                            </button>
-                            <button
-                                class="splide__arrow splide__arrow--next"
-                            >
-                                <svg
-                                    width="51"
-                                    height="51"
-                                    viewBox="0 0 51 51"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                                >
-                                    <circle
-                                        cx="25.5"
-                                        cy="25.5"
-                                        r="25.5"
-                                        fill="#FFAE00"
-                                    />
-                                    <rect
-                                        x="16"
-                                        y="15"
-                                        width="20"
-                                        height="20"
-                                        fill="url(#pattern0)"
-                                    />
-                                    <defs>
-                                        <pattern
-                                            id="pattern0"
-                                            patternContentUnits="objectBoundingBox"
-                                            width="1"
-                                            height="1"
-                                        >
-                                            <use
-                                                xlink:href="#image0_27_772"
-                                                transform="scale(0.0333333)"
-                                            />
-                                        </pattern>
-                                        <image
-                                            id="image0_27_772"
-                                            width="30"
-                                            height="30"
-                                            xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA7klEQVRIie3WMUpDQRAG4I+AWNkJgpWFB7DQ0iqVrTZ6B5NLGA9hpVfIARJsAgl4BkHBSuwkIBFj8RT2LSkE2XkJ5Ictl49dZmeHdZYsQ8x/1gRbUfBDAs/RRysC3sNrhvciYDjGRwJ/4SIK76ifeoqjKPwmw1+wGwFv4D7DR9iMwLfxmOF3ETAc4D3DO1H4qaq6f+FPnEThPfVTv2E/Am6pOlmKT/6yaWVzrYGrPlMvrhnapdFFz+myNLqD5wy9LY021jLzT+JJdQNF083QKQ5Lo21V1aaDwHlpdNHoc1UapcFhb5CgY4Hj7Tr/zjfcW2a3eoiKgwAAAABJRU5ErkJggg=="
-                                        />
-                                    </defs>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="splide__track">
-                            <ul class="splide__list">
-                                <li class="splide__slide">
-                                    <div
-                                        class="card"
-                                        style="
-                                background-image: url('https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg');"
-                                    >
-                                        <div class="card-title">
-                                            ELECTRICITY & MAGNETISM
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div
-                                        class="card"
-                                        style="
-                                background-image: url('https://thumbs.dreamstime.com/b/imagination-girl-kiss-lion-love-nature-abstract-concept-young-steals-male-wildlife-children-like-to-imagine-play-129595579.jpg');"
-                                    >
-                                        <div class="card-title">
-                                            ELECTRICITY & MAGNETISM
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div
-                                        style="
-                                background-image: url('https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg');"
-                                        class="card"
-                                    >
-                                        <div class="card-title">
-                                            CHANGES IN NON-LIVING THINGS
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div
-                                        style="
-                                background-image: url('https://media.istockphoto.com/photos/concept-of-an-open-magic-book-open-pages-with-water-and-land-and-picture-id1279460648?b=1&k=20&m=1279460648&s=170667a&w=0&h=uZa830sWo8hlFN0Y7FnQ14giNC0Z2EBNuTMuNJeJhQg=');"
-                                        class="card"
-                                    >
-                                        <div class="card-title">
-                                            CHANGES IN NON-LIVING THINGS
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="splide__slide">
-                                    <div
-                                        style="
-                                background-image: url('https://images.ctfassets.net/hrltx12pl8hq/3MbF54EhWUhsXunc5Keueb/60774fbbff86e6bf6776f1e17a8016b4/04-nature_721703848.jpg?fit=fill&w=480&h=270');"
-                                        class="card"
-                                    >
-                                        <div class="card-title">
-                                            CHANGES IN NON-LIVING THINGS
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div class="text-base text-slate-500 mt-1">Wallet</div>
+                  </div>
                 </div>
+              </div>
+              <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                  <div class="box p-5">
+                    <div class="flex">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        icon-name="monitor"
+                        data-lucide="monitor"
+                        class="lucide lucide-monitor report-box__icon text-warning"
+                        ><rect
+                          x="2"
+                          y="3"
+                          width="20"
+                          height="14"
+                          rx="2"
+                          ry="2"
+                        /><line x1="8" y1="21" x2="16" y2="21" /><line
+                          x1="12"
+                          y1="17"
+                          x2="12"
+                          y2="21"
+                        /></svg
+                      >
+                      <div class="ml-auto">
+                        <div
+                          class="report-box__indicator bg-success tooltip cursor-pointer"
+                        >
+                          12% <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            icon-name="chevron-up"
+                            data-lucide="chevron-up"
+                            class="lucide lucide-chevron-up w-4 h-4 ml-0.5"
+                            ><polyline points="18 15 12 9 6 15" /></svg
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-3xl font-medium leading-8 mt-6">2.149</div>
+                    <div class="text-base text-slate-500 mt-1">
+                      Total Products
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
+                <div class="report-box zoom-in">
+                  <div class="box p-5">
+                    <div class="flex">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        icon-name="user"
+                        data-lucide="user"
+                        class="lucide lucide-user report-box__icon text-success"
+                        ><path
+                          d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"
+                        /><circle cx="12" cy="7" r="4" /></svg
+                      >
+                      <div class="ml-auto">
+                        <div
+                          class="report-box__indicator bg-success tooltip cursor-pointer"
+                        >
+                          22% <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            icon-name="chevron-up"
+                            data-lucide="chevron-up"
+                            class="lucide lucide-chevron-up w-4 h-4 ml-0.5"
+                            ><polyline points="18 15 12 9 6 15" /></svg
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="text-3xl font-medium leading-8 mt-6">
+                      152.040
+                    </div>
+                    <div class="text-base text-slate-500 mt-1">
+                      Unique Visitor
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
-            <div class="g-col-12  g-col-xxl-2">
-                <div class="mflex" style="margin-bottom: 20px;">
-                    <span class="h2 float-left">Subjects</span>
-                    <button class="see float-right btn">SEE ALL</button>
+          </div>
+        </div>
+      {:else}
+        <div class="grid columns-12 gap-6 mt-8">
+          <div class="g-col-12 g-col-lg-3 g-col-xxl-2">
+            <h1>Home</h1>
+          </div>
+          <div class="g-col-12 ">
+            <div
+              class="alert alert-warning alert-dismissible fade show"
+              role="alert"
+            >
+              <strong>Hold On!!!</strong> You have to make payment here to
+              complete your account
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert"
+                aria-label="Close">x</button
+              >
+            </div>
+            <div class="mflex" style="margin-bottom: 20px;">
+              <span class="h2 float-left">Skill Pratice</span>
+              <button class="see float-right btn">SEE ALL</button>
+            </div>
+            <div>
+              <div id="desktop" class="splide hidden-mobile show-mobile">
+                <div class="splide__arrows">
+                  <button class="splide__arrow splide__arrow--prev">
+                    <svg
+                      width="51"
+                      height="51"
+                      viewBox="0 0 51 51"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <circle cx="25.5" cy="25.5" r="25.5" fill="#FFAE00" />
+                      <rect
+                        x="16"
+                        y="15"
+                        width="20"
+                        height="20"
+                        fill="url(#pattern0)"
+                      />
+                      <defs>
+                        <pattern
+                          id="pattern0"
+                          patternContentUnits="objectBoundingBox"
+                          width="1"
+                          height="1"
+                        >
+                          <use
+                            xlink:href="#image0_27_772"
+                            transform="scale(0.0333333)"
+                          />
+                        </pattern>
+                        <image
+                          id="image0_27_772"
+                          width="30"
+                          height="30"
+                          xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA7klEQVRIie3WMUpDQRAG4I+AWNkJgpWFB7DQ0iqVrTZ6B5NLGA9hpVfIARJsAgl4BkHBSuwkIBFj8RT2LSkE2XkJ5Ictl49dZmeHdZYsQ8x/1gRbUfBDAs/RRysC3sNrhvciYDjGRwJ/4SIK76ifeoqjKPwmw1+wGwFv4D7DR9iMwLfxmOF3ETAc4D3DO1H4qaq6f+FPnEThPfVTv2E/Am6pOlmKT/6yaWVzrYGrPlMvrhnapdFFz+myNLqD5wy9LY021jLzT+JJdQNF083QKQ5Lo21V1aaDwHlpdNHoc1UapcFhb5CgY4Hj7Tr/zjfcW2a3eoiKgwAAAABJRU5ErkJggg=="
+                        />
+                      </defs>
+                    </svg>
+                  </button>
+                  <button class="splide__arrow splide__arrow--next">
+                    <svg
+                      width="51"
+                      height="51"
+                      viewBox="0 0 51 51"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <circle cx="25.5" cy="25.5" r="25.5" fill="#FFAE00" />
+                      <rect
+                        x="16"
+                        y="15"
+                        width="20"
+                        height="20"
+                        fill="url(#pattern0)"
+                      />
+                      <defs>
+                        <pattern
+                          id="pattern0"
+                          patternContentUnits="objectBoundingBox"
+                          width="1"
+                          height="1"
+                        >
+                          <use
+                            xlink:href="#image0_27_772"
+                            transform="scale(0.0333333)"
+                          />
+                        </pattern>
+                        <image
+                          id="image0_27_772"
+                          width="30"
+                          height="30"
+                          xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA7klEQVRIie3WMUpDQRAG4I+AWNkJgpWFB7DQ0iqVrTZ6B5NLGA9hpVfIARJsAgl4BkHBSuwkIBFj8RT2LSkE2XkJ5Ictl49dZmeHdZYsQ8x/1gRbUfBDAs/RRysC3sNrhvciYDjGRwJ/4SIK76ifeoqjKPwmw1+wGwFv4D7DR9iMwLfxmOF3ETAc4D3DO1H4qaq6f+FPnEThPfVTv2E/Am6pOlmKT/6yaWVzrYGrPlMvrhnapdFFz+myNLqD5wy9LY021jLzT+JJdQNF083QKQ5Lo21V1aaDwHlpdNHoc1UapcFhb5CgY4Hj7Tr/zjfcW2a3eoiKgwAAAABJRU5ErkJggg=="
+                        />
+                      </defs>
+                    </svg>
+                  </button>
                 </div>
-                <div class="grid columns-12 gap-6 mt-8">
-                    <div
-                        style="background-color: #CC924D; "
-                        class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
-                    >
-                        <div class="grid columns-2 gap-3">
-                            <div class="g-col-1">
-                                <img src="svg/geometry.svg" style="width:46px;height:46px" alt="" srcset="">
-                                
-                            </div>
-                            <div class="g-col-1">
-                                <p class="note-text">Futher Mathematics</p>
-                            </div>
+                <div class="splide__track">
+                  <ul class="splide__list">
+                    <li class="splide__slide">
+                      <div
+                        class="card"
+                        style="
+                                    background-image: url('https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg');"
+                      >
+                        <div class="card-title">ELECTRICITY & MAGNETISM</div>
+                      </div>
+                    </li>
+                    <li class="splide__slide">
+                      <div
+                        class="card"
+                        style="
+                                    background-image: url('https://thumbs.dreamstime.com/b/imagination-girl-kiss-lion-love-nature-abstract-concept-young-steals-male-wildlife-children-like-to-imagine-play-129595579.jpg');"
+                      >
+                        <div class="card-title">ELECTRICITY & MAGNETISM</div>
+                      </div>
+                    </li>
+                    <li class="splide__slide">
+                      <div
+                        style="
+                                    background-image: url('https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg');"
+                        class="card"
+                      >
+                        <div class="card-title">
+                          CHANGES IN NON-LIVING THINGS
                         </div>
-                    </div>
-                    <div
-                        style="background-color: #406529; "
-                        class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
-                    >
-                        <div class="grid columns-2 gap-3">
-                            <div class="g-col-1">
-                                <img src="svg/agric.svg" style="width:46px;height:46px" alt="" srcset="">
-                                 
-                            </div>
-                            <div class="g-col-1">
-                                <p class="note-text">Agricultural Science</p>
-                            </div>
+                      </div>
+                    </li>
+                    <li class="splide__slide">
+                      <div
+                        style="
+                                    background-image: url('https://media.istockphoto.com/photos/concept-of-an-open-magic-book-open-pages-with-water-and-land-and-picture-id1279460648?b=1&k=20&m=1279460648&s=170667a&w=0&h=uZa830sWo8hlFN0Y7FnQ14giNC0Z2EBNuTMuNJeJhQg=');"
+                        class="card"
+                      >
+                        <div class="card-title">
+                          CHANGES IN NON-LIVING THINGS
                         </div>
-                    </div>
-                    <div
-                        style="background-color: #805DE4; "
-                        class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
-                    >
-                        <div class="grid columns-2 gap-3">
-                            <div class="g-col-1">
-                                <img src="svg/computer.svg" style="width:46px;height:46px" alt="" srcset="">
-                                </div>
-                            <div class="g-col-1">
-                                <p class="note-text">Data Processing</p>
-                            </div>
+                      </div>
+                    </li>
+                    <li class="splide__slide">
+                      <div
+                        style="
+                                    background-image: url('https://images.ctfassets.net/hrltx12pl8hq/3MbF54EhWUhsXunc5Keueb/60774fbbff86e6bf6776f1e17a8016b4/04-nature_721703848.jpg?fit=fill&w=480&h=270');"
+                        class="card"
+                      >
+                        <div class="card-title">
+                          CHANGES IN NON-LIVING THINGS
                         </div>
-                    </div>
-                    <div
-                        style="background-color: #1984C0; "
-                        class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
-                    >
-                        <div class="grid columns-2 gap-3">
-                            <div class="g-col-1">
-                               <img src="svg/english.svg" style="width:46px;height:46px" alt="" srcset="">
-                            </div>
-                            <div class="g-col-1">
-                                <p class="note-text">English Language</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div
-                    style="background-color:mediumslateblue; "
-                    class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
-                >
-                    <div class="grid columns-2 gap-3">
-                        <div class="g-col-1">
-                           <img src="svg/commerce.svg" style="width:46px;height:46px" alt="" srcset="">
-                        </div>
-                        <div class="g-col-1">
-                            <p class="note-text">Business Studies</p>
-                        </div>
-                    </div>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
-                <div
+              </div>
+              <div id="mobile" class="splide show-mobile hidden-mobile">
+                <div class="splide__arrows">
+                  <button class="splide__arrow splide__arrow--prev">
+                    <svg
+                      width="51"
+                      height="51"
+                      viewBox="0 0 51 51"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <circle cx="25.5" cy="25.5" r="25.5" fill="#FFAE00" />
+                      <rect
+                        x="16"
+                        y="15"
+                        width="20"
+                        height="20"
+                        fill="url(#pattern0)"
+                      />
+                      <defs>
+                        <pattern
+                          id="pattern0"
+                          patternContentUnits="objectBoundingBox"
+                          width="1"
+                          height="1"
+                        >
+                          <use
+                            xlink:href="#image0_27_772"
+                            transform="scale(0.0333333)"
+                          />
+                        </pattern>
+                        <image
+                          id="image0_27_772"
+                          width="30"
+                          height="30"
+                          xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA7klEQVRIie3WMUpDQRAG4I+AWNkJgpWFB7DQ0iqVrTZ6B5NLGA9hpVfIARJsAgl4BkHBSuwkIBFj8RT2LSkE2XkJ5Ictl49dZmeHdZYsQ8x/1gRbUfBDAs/RRysC3sNrhvciYDjGRwJ/4SIK76ifeoqjKPwmw1+wGwFv4D7DR9iMwLfxmOF3ETAc4D3DO1H4qaq6f+FPnEThPfVTv2E/Am6pOlmKT/6yaWVzrYGrPlMvrhnapdFFz+myNLqD5wy9LY021jLzT+JJdQNF083QKQ5Lo21V1aaDwHlpdNHoc1UapcFhb5CgY4Hj7Tr/zjfcW2a3eoiKgwAAAABJRU5ErkJggg=="
+                        />
+                      </defs>
+                    </svg>
+                  </button>
+                  <button class="splide__arrow splide__arrow--next">
+                    <svg
+                      width="51"
+                      height="51"
+                      viewBox="0 0 51 51"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <circle cx="25.5" cy="25.5" r="25.5" fill="#FFAE00" />
+                      <rect
+                        x="16"
+                        y="15"
+                        width="20"
+                        height="20"
+                        fill="url(#pattern0)"
+                      />
+                      <defs>
+                        <pattern
+                          id="pattern0"
+                          patternContentUnits="objectBoundingBox"
+                          width="1"
+                          height="1"
+                        >
+                          <use
+                            xlink:href="#image0_27_772"
+                            transform="scale(0.0333333)"
+                          />
+                        </pattern>
+                        <image
+                          id="image0_27_772"
+                          width="30"
+                          height="30"
+                          xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA7klEQVRIie3WMUpDQRAG4I+AWNkJgpWFB7DQ0iqVrTZ6B5NLGA9hpVfIARJsAgl4BkHBSuwkIBFj8RT2LSkE2XkJ5Ictl49dZmeHdZYsQ8x/1gRbUfBDAs/RRysC3sNrhvciYDjGRwJ/4SIK76ifeoqjKPwmw1+wGwFv4D7DR9iMwLfxmOF3ETAc4D3DO1H4qaq6f+FPnEThPfVTv2E/Am6pOlmKT/6yaWVzrYGrPlMvrhnapdFFz+myNLqD5wy9LY021jLzT+JJdQNF083QKQ5Lo21V1aaDwHlpdNHoc1UapcFhb5CgY4Hj7Tr/zjfcW2a3eoiKgwAAAABJRU5ErkJggg=="
+                        />
+                      </defs>
+                    </svg>
+                  </button>
+                </div>
+                <div class="splide__track">
+                  <ul class="splide__list">
+                    <li class="splide__slide">
+                      <div
+                        class="card"
+                        style="
+                                    background-image: url('https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg');"
+                      >
+                        <div class="card-title">ELECTRICITY & MAGNETISM</div>
+                      </div>
+                    </li>
+                    <li class="splide__slide">
+                      <div
+                        class="card"
+                        style="
+                                    background-image: url('https://thumbs.dreamstime.com/b/imagination-girl-kiss-lion-love-nature-abstract-concept-young-steals-male-wildlife-children-like-to-imagine-play-129595579.jpg');"
+                      >
+                        <div class="card-title">ELECTRICITY & MAGNETISM</div>
+                      </div>
+                    </li>
+                    <li class="splide__slide">
+                      <div
+                        style="
+                                    background-image: url('https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg');"
+                        class="card"
+                      >
+                        <div class="card-title">
+                          CHANGES IN NON-LIVING THINGS
+                        </div>
+                      </div>
+                    </li>
+                    <li class="splide__slide">
+                      <div
+                        style="
+                                    background-image: url('https://media.istockphoto.com/photos/concept-of-an-open-magic-book-open-pages-with-water-and-land-and-picture-id1279460648?b=1&k=20&m=1279460648&s=170667a&w=0&h=uZa830sWo8hlFN0Y7FnQ14giNC0Z2EBNuTMuNJeJhQg=');"
+                        class="card"
+                      >
+                        <div class="card-title">
+                          CHANGES IN NON-LIVING THINGS
+                        </div>
+                      </div>
+                    </li>
+                    <li class="splide__slide">
+                      <div
+                        style="
+                                    background-image: url('https://images.ctfassets.net/hrltx12pl8hq/3MbF54EhWUhsXunc5Keueb/60774fbbff86e6bf6776f1e17a8016b4/04-nature_721703848.jpg?fit=fill&w=480&h=270');"
+                        class="card"
+                      >
+                        <div class="card-title">
+                          CHANGES IN NON-LIVING THINGS
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div id="tab" class="splide show-mobile hidden-mobile">
+                <div class="splide__arrows">
+                  <button class="splide__arrow splide__arrow--prev">
+                    <svg
+                      width="51"
+                      height="51"
+                      viewBox="0 0 51 51"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <circle cx="25.5" cy="25.5" r="25.5" fill="#FFAE00" />
+                      <rect
+                        x="16"
+                        y="15"
+                        width="20"
+                        height="20"
+                        fill="url(#pattern0)"
+                      />
+                      <defs>
+                        <pattern
+                          id="pattern0"
+                          patternContentUnits="objectBoundingBox"
+                          width="1"
+                          height="1"
+                        >
+                          <use
+                            xlink:href="#image0_27_772"
+                            transform="scale(0.0333333)"
+                          />
+                        </pattern>
+                        <image
+                          id="image0_27_772"
+                          width="30"
+                          height="30"
+                          xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA7klEQVRIie3WMUpDQRAG4I+AWNkJgpWFB7DQ0iqVrTZ6B5NLGA9hpVfIARJsAgl4BkHBSuwkIBFj8RT2LSkE2XkJ5Ictl49dZmeHdZYsQ8x/1gRbUfBDAs/RRysC3sNrhvciYDjGRwJ/4SIK76ifeoqjKPwmw1+wGwFv4D7DR9iMwLfxmOF3ETAc4D3DO1H4qaq6f+FPnEThPfVTv2E/Am6pOlmKT/6yaWVzrYGrPlMvrhnapdFFz+myNLqD5wy9LY021jLzT+JJdQNF083QKQ5Lo21V1aaDwHlpdNHoc1UapcFhb5CgY4Hj7Tr/zjfcW2a3eoiKgwAAAABJRU5ErkJggg=="
+                        />
+                      </defs>
+                    </svg>
+                  </button>
+                  <button class="splide__arrow splide__arrow--next">
+                    <svg
+                      width="51"
+                      height="51"
+                      viewBox="0 0 51 51"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    >
+                      <circle cx="25.5" cy="25.5" r="25.5" fill="#FFAE00" />
+                      <rect
+                        x="16"
+                        y="15"
+                        width="20"
+                        height="20"
+                        fill="url(#pattern0)"
+                      />
+                      <defs>
+                        <pattern
+                          id="pattern0"
+                          patternContentUnits="objectBoundingBox"
+                          width="1"
+                          height="1"
+                        >
+                          <use
+                            xlink:href="#image0_27_772"
+                            transform="scale(0.0333333)"
+                          />
+                        </pattern>
+                        <image
+                          id="image0_27_772"
+                          width="30"
+                          height="30"
+                          xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABmJLR0QA/wD/AP+gvaeTAAAA7klEQVRIie3WMUpDQRAG4I+AWNkJgpWFB7DQ0iqVrTZ6B5NLGA9hpVfIARJsAgl4BkHBSuwkIBFj8RT2LSkE2XkJ5Ictl49dZmeHdZYsQ8x/1gRbUfBDAs/RRysC3sNrhvciYDjGRwJ/4SIK76ifeoqjKPwmw1+wGwFv4D7DR9iMwLfxmOF3ETAc4D3DO1H4qaq6f+FPnEThPfVTv2E/Am6pOlmKT/6yaWVzrYGrPlMvrhnapdFFz+myNLqD5wy9LY021jLzT+JJdQNF083QKQ5Lo21V1aaDwHlpdNHoc1UapcFhb5CgY4Hj7Tr/zjfcW2a3eoiKgwAAAABJRU5ErkJggg=="
+                        />
+                      </defs>
+                    </svg>
+                  </button>
+                </div>
+                <div class="splide__track">
+                  <ul class="splide__list">
+                    <li class="splide__slide">
+                      <div
+                        class="card"
+                        style="
+                                background-image: url('https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__480.jpg');"
+                      >
+                        <div class="card-title">ELECTRICITY & MAGNETISM</div>
+                      </div>
+                    </li>
+                    <li class="splide__slide">
+                      <div
+                        class="card"
+                        style="
+                                background-image: url('https://thumbs.dreamstime.com/b/imagination-girl-kiss-lion-love-nature-abstract-concept-young-steals-male-wildlife-children-like-to-imagine-play-129595579.jpg');"
+                      >
+                        <div class="card-title">ELECTRICITY & MAGNETISM</div>
+                      </div>
+                    </li>
+                    <li class="splide__slide">
+                      <div
+                        style="
+                                background-image: url('https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg');"
+                        class="card"
+                      >
+                        <div class="card-title">
+                          CHANGES IN NON-LIVING THINGS
+                        </div>
+                      </div>
+                    </li>
+                    <li class="splide__slide">
+                      <div
+                        style="
+                                background-image: url('https://media.istockphoto.com/photos/concept-of-an-open-magic-book-open-pages-with-water-and-land-and-picture-id1279460648?b=1&k=20&m=1279460648&s=170667a&w=0&h=uZa830sWo8hlFN0Y7FnQ14giNC0Z2EBNuTMuNJeJhQg=');"
+                        class="card"
+                      >
+                        <div class="card-title">
+                          CHANGES IN NON-LIVING THINGS
+                        </div>
+                      </div>
+                    </li>
+                    <li class="splide__slide">
+                      <div
+                        style="
+                                background-image: url('https://images.ctfassets.net/hrltx12pl8hq/3MbF54EhWUhsXunc5Keueb/60774fbbff86e6bf6776f1e17a8016b4/04-nature_721703848.jpg?fit=fill&w=480&h=270');"
+                        class="card"
+                      >
+                        <div class="card-title">
+                          CHANGES IN NON-LIVING THINGS
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="g-col-12  g-col-xxl-2">
+            <div class="mflex" style="margin-bottom: 20px;">
+              <span class="h2 float-left">Subjects</span>
+              <button class="see float-right btn">SEE ALL</button>
+            </div>
+            <div class="grid columns-12 gap-6 mt-8">
+              <div
+                style="background-color: #CC924D; "
+                class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
+              >
+                <div class="grid columns-2 gap-3">
+                  <div class="g-col-1">
+                    <img
+                      src="svg/geometry.svg"
+                      style="width:46px;height:46px"
+                      alt=""
+                      srcset=""
+                    />
+                  </div>
+                  <div class="g-col-1">
+                    <p class="note-text">Futher Mathematics</p>
+                  </div>
+                </div>
+              </div>
+              <div
+                style="background-color: #406529; "
+                class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
+              >
+                <div class="grid columns-2 gap-3">
+                  <div class="g-col-1">
+                    <img
+                      src="svg/agric.svg"
+                      style="width:46px;height:46px"
+                      alt=""
+                      srcset=""
+                    />
+                  </div>
+                  <div class="g-col-1">
+                    <p class="note-text">Agricultural Science</p>
+                  </div>
+                </div>
+              </div>
+              <div
+                style="background-color: #805DE4; "
+                class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
+              >
+                <div class="grid columns-2 gap-3">
+                  <div class="g-col-1">
+                    <img
+                      src="svg/computer.svg"
+                      style="width:46px;height:46px"
+                      alt=""
+                      srcset=""
+                    />
+                  </div>
+                  <div class="g-col-1">
+                    <p class="note-text">Data Processing</p>
+                  </div>
+                </div>
+              </div>
+              <div
+                style="background-color: #1984C0; "
+                class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
+              >
+                <div class="grid columns-2 gap-3">
+                  <div class="g-col-1">
+                    <img
+                      src="svg/english.svg"
+                      style="width:46px;height:46px"
+                      alt=""
+                      srcset=""
+                    />
+                  </div>
+                  <div class="g-col-1">
+                    <p class="note-text">English Language</p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                style="background-color:mediumslateblue; "
+                class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
+              >
+                <div class="grid columns-2 gap-3">
+                  <div class="g-col-1">
+                    <img
+                      src="svg/commerce.svg"
+                      style="width:46px;height:46px"
+                      alt=""
+                      srcset=""
+                    />
+                  </div>
+                  <div class="g-col-1">
+                    <p class="note-text">Business Studies</p>
+                  </div>
+                </div>
+              </div>
+              <div
                 style="background-color:lightpink; "
                 class="g-col-sm-6 g-col-12 g-col-lg-4 g-col-xxl-2  note"
-            >
+              >
                 <div class="grid columns-2 gap-3">
-                    <div class="g-col-1">
-                       <img src="svg/accounting.svg" style="width:46px;height:46px" alt="" srcset="">
-                    </div>
-                    <div class="g-col-1">
-                        <p class="note-text">Financial Accounting</p>
-                    </div>
+                  <div class="g-col-1">
+                    <img
+                      src="svg/accounting.svg"
+                      style="width:46px;height:46px"
+                      alt=""
+                      srcset=""
+                    />
+                  </div>
+                  <div class="g-col-1">
+                    <p class="note-text">Financial Accounting</p>
+                  </div>
                 </div>
+              </div>
             </div>
-                </div>
-            </div>
+          </div>
         </div>
-          {/if}
-        </div>
+      {/if}
     </div>
+  </div>
 </div>
 
 <style>
-    a{
-        text-decoration: underline green;
+  a {
+    text-decoration: underline green;
+  }
+  @media only screen and (max-width: 600px) {
+    #desktop {
+      display: none;
     }
-    @media only screen and (max-width: 600px) {
-        #desktop {
-            display: none;
-        }
-        #mobile {
-            display: block;
-        }
-        #tab {
-            display: none;
-        }
+    #mobile {
+      display: block;
     }
-    @media only screen and (min-width: 768px) {
-        #desktop {
-            display: none;
-        }
-        #mobile {
-            display: none;
-        }
-        #tab {
-            display: block;
-        }
+    #tab {
+      display: none;
     }
-    @media only screen and (min-width: 600px) {
-        #desktop {
-            display: none;
-        }
-        #mobile {
-            display: none;
-        }
-        #tab {
-            display: block;
-        }
+  }
+  @media only screen and (min-width: 768px) {
+    #desktop {
+      display: none;
     }
-    @media only screen and (min-width: 992px) {
-        #desktop {
-            display: block;
-        }
-        #mobile {
-            display: none;
-        }
-        #tab {
-            display: none;
-        }
+    #mobile {
+      display: none;
     }
+    #tab {
+      display: block;
+    }
+  }
+  @media only screen and (min-width: 600px) {
+    #desktop {
+      display: none;
+    }
+    #mobile {
+      display: none;
+    }
+    #tab {
+      display: block;
+    }
+  }
+  @media only screen and (min-width: 992px) {
+    #desktop {
+      display: block;
+    }
+    #mobile {
+      display: none;
+    }
+    #tab {
+      display: none;
+    }
+  }
 
-    .h2 {
-        font-family: "Itim", "roboto";
-        font-size: 1.5em;
-    }
-    h1 {
-        font-size: 2em;
-    }
-    .content {
-        height: 100%;
-        overflow: auto;
-        background-image: url(images/hand.svg), url(images/right.svg),
-            url(images/bottom.svg);
-        background-repeat: no-repeat, no-repeat, no-repeat;
-        background-position: 0 0, 100%, 0 100%;
-    }
+  .h2 {
+    font-family: "Itim", "roboto";
+    font-size: 1.5em;
+  }
+  h1 {
+    font-size: 2em;
+  }
+  .content {
+    height: 100%;
+    overflow: auto;
+    background-image: url(images/hand.svg), url(images/right.svg),
+      url(images/bottom.svg);
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-position: 0 0, 100%, 0 100%;
+  }
 
-    .card {
-        width: 271px;
-        height: 280px;
-        border-radius: 14px;
-    }
-    .card-title {
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: bold;
-        font-size: 18px;
-        line-height: 22px;
-        margin-right: 15px;
-        margin-left: 15px;
-        margin-top: 23px;
-        /* or 22px */
+  .card {
+    width: 271px;
+    height: 280px;
+    border-radius: 14px;
+  }
+  .card-title {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 22px;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-top: 23px;
+    /* or 22px */
 
-        display: flex;
-        align-items: center;
-        letter-spacing: 0.17em;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.17em;
 
-        color: #ffffff;
-    }
-    .see {
-        width: 115px;
-        height: 23px;
-        float: right;
-        font-family: Roboto;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        line-height: 19px;
-        text-align: center;
-        background: #ffae00;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 4px;
-        color: #ffffff;
-    }
-    .note {
-        height: 104px;
-        padding: 6px;
-        border-radius: 12px;
-    }
-    .note-text {
-        font-family: "Muli", "Helvetica Neue", "Roboto", sans-serif;
-        font-size: 16px;
-        font-weight: 600;
-        color: white;
-        margin-top: 40px;
-        text-transform: uppercase;
-        text-align: right;
-        letter-spacing: 0.6px;
-    }
+    color: #ffffff;
+  }
+  .see {
+    width: 115px;
+    height: 23px;
+    float: right;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+    background: #ffae00;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 4px;
+    color: #ffffff;
+  }
+  .note {
+    height: 104px;
+    padding: 6px;
+    border-radius: 12px;
+  }
+  .note-text {
+    font-family: "Muli", "Helvetica Neue", "Roboto", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    margin-top: 40px;
+    text-transform: uppercase;
+    text-align: right;
+    letter-spacing: 0.6px;
+  }
 </style>
